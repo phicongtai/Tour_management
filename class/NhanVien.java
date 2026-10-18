@@ -122,7 +122,6 @@ public class NhanVien {
                         " \nEmail: " + email + 
                         " \nChuc vu: " + chucVu);
     }
-
     public HoaDon lapHoaDon(HanhKhach hanhKhach) {
         System.out.println("Nhan vien " + this.hoTen + " dang lap hoa don cho hanh khach: " + hanhKhach.getHoTen());
         return new HoaDon(); 
