@@ -1,0 +1,208 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam packageStyle rectangle
+hide empty members
+
+package "Tour" {
+  abstract class Tour {
+    - maTour: int
+    - tenTour: String
+    - diemKhoiHanh: String
+    - diemDen: String
+    - soNgay: int
+    - donGiaCoBan: double
+    + {abstract} tinhGiaVe(): double
+  }
+
+  class TourTrongNuoc {
+    - vungMien: String
+    - phuPhi: double
+    + tinhGiaVe(): double
+  }
+  
+
+  class TourNuocNgoai {
+    - quocGia: String
+    - canVisa: boolean
+    - phiVisa: double
+    + tinhGiaVe(): double
+  }
+}
+
+package "Nguoi dung" {
+  class NhanVien {
+    - maNhanVien: int
+    - hoTen: String
+    - ngaySinh: LocalDate
+    - gioiTinh: int
+    - soDienThoai: String
+    + lapHoaDon(maHanhKhach: int, danhSachMaVe: List): int
+  }
+
+  class HanhKhach {
+    - maHanhKhach: int
+    - hoTen: String
+    - ngaySinh: LocalDate
+    - gioiTinh: int
+    - soDienThoai: String
+    + datVe(maKeHoachTour: int, soLuongVe: int): List
+    + huyVe(maVe: int): boolean
+  }
+}
+
+package "To chuc tour" {
+  class KeHoachTour {
+    - maKeHoachTour: int
+    - maTour: int
+    - maNhanVien: int
+    - ngayDi: LocalDate
+    - ngayVe: LocalDate
+    - soLuongVeToiDa: int
+    + soVeDaBan(): int
+    + soChoConLai(): int
+    + conCho(): boolean
+    + conDuCho(soVeCanDat: int): boolean
+    + tinhTongThu(): double
+    + tinhTongDaThu(): double
+    + tinhTongChi(): double
+    + tinhLoiNhuan(): double
+    + themChiTiet(chiTiet: ChiTietKeHoachTour): boolean
+    + xoaChiTiet(ngay: LocalDate): boolean
+    + timChiTietTheoNgay(ngay: LocalDate): ChiTietKeHoachTour
+    + layDanhSachLoiLichTrinh(): List
+    + kiemTraLichTrinhHopLe(): boolean
+  }
+
+  class ChiTietKeHoachTour {
+    - maKeHoachTour: int
+    - ngay: LocalDate
+    - maPhuongTien: int
+    - maKhachSan: int
+    + doiPhuongTien(maPhuongTien: int): boolean
+    + doiKhachSan(maKhachSan: int): boolean
+    + tinhChiPhiNgay(soKhach: int): double
+  }
+
+  class PhuongTien {
+    - maPhuongTien: int
+    - tenPhuongTien: String
+    - soChoToiDa: int
+    - giaMoiNguoiMoiNgay: double
+    + tinhTienDiChuyen(soKhach: int): double
+    + phuHopSoKhach(soKhach: int): boolean
+  }
+
+  class KhachSan {
+    - maKhachSan: int
+    - tenKhachSan: String
+    - giaOMoiNguoiMoiDem: double
+    - giaAnMoiNguoiMoiNgay: double
+    + tinhTienO(soKhach: int): double
+    + tinhTienAn(soKhach: int): double
+  }
+}
+
+package "Dat ve va thanh toan" {
+  class Ve {
+    + {static} DA_DAT: int = 0
+    + {static} DA_THANH_TOAN: int = 1
+    + {static} DA_HUY: int = 2
+    - maVe: int
+    - maKeHoachTour: int
+    - maHanhKhach: int
+    - maHoaDon: int
+    - ngayDat: LocalDate
+    - donGia: double
+    - trangThai: int
+    + duocHuy(): boolean
+    + capNhatTrangThai(trangThaiMoi: int): void
+  }
+
+  class HoaDon {
+    - maHoaDon: int
+    - maNhanVien: int
+    - maHanhKhach: int
+    - ngayLap: LocalDate
+    - soTienDaThanhToan: double
+    + themVe(maVe: int): boolean
+    + tinhTongTien(): double
+    + tinhSoTienConLai(): double
+    + ghiNhanThanhToan(soTien: double): boolean
+    + daThanhToanDu(): boolean
+  }
+}
+
+package "Nhap xuat file" {
+  interface CoTheNhapXuatTxt {
+    + chuyenThanhDong(): String
+    + taoTuDong(dong: String): boolean
+  }
+
+  class NhapXuatFile {
+    + nhapDanhMuc(loai: int, duongDan: String): int
+    + xuatDanhMuc(loai: int, duongDan: String): boolean
+    + taoNoiDungHoaDon(maHoaDon: int): List
+    + xuatHoaDon(maHoaDon: int, duongDan: String): boolean
+  }
+
+  class FileTxt {
+    + docCacDong(duongDan: String): List
+    + ghiCacDong(duongDan: String, cacDong: List): boolean
+  }
+}
+
+TourTrongNuoc --|> Tour
+TourNuocNgoai --|> Tour
+
+Tour "1" -- "0..*" KeHoachTour : mo dot khoi hanh
+NhanVien "1" -- "0..*" KeHoachTour : huong dan
+KeHoachTour "1" *-- "1..*" ChiTietKeHoachTour : gom
+PhuongTien "1" -- "0..*" ChiTietKeHoachTour : duoc su dung
+KhachSan "0..1" -- "0..*" ChiTietKeHoachTour : luu tru
+KeHoachTour "1" -- "0..*" Ve : phat hanh
+HanhKhach "1" -- "0..*" Ve : so huu
+HanhKhach "1" -- "0..*" HoaDon : thanh toan
+NhanVien "1" -- "0..*" HoaDon : lap
+HoaDon "0..1" -- "1..*" Ve : gom ve
+
+Tour ..|> CoTheNhapXuatTxt
+PhuongTien ..|> CoTheNhapXuatTxt
+KhachSan ..|> CoTheNhapXuatTxt
+NhanVien ..|> CoTheNhapXuatTxt
+HanhKhach ..|> CoTheNhapXuatTxt
+
+NhapXuatFile ..> CoTheNhapXuatTxt : dung
+NhapXuatFile ..> FileTxt : dung
+
+note bottom of CoTheNhapXuatTxt
+  Chi 5 loai danh muc nhap xuat duoc:
+  Tour, PhuongTien, KhachSan, NhanVien, HanhKhach.
+  loai: 1 Tour, 2 PhuongTien, 3 KhachSan, 4 NhanVien, 5 HanhKhach.
+  Moi doi tuong mot dong, cac truong cach nhau bang dau |
+  Ve va HoaDon khong nhap tu file le (chi khoi phuc qua LuuTru).
+end note
+
+note bottom of NhapXuatFile
+  nhapDanhMuc kiem tra het file truoc: co dong sai thi khong nhap dong nao.
+  taoNoiDungHoaDon dung chung cho man hinh va file hoa don.
+  Du lieu lien quan duoc tra cuu qua kho du lieu (lop quan ly).
+end note
+
+note bottom of Ve
+  trangThai chi nhan DA_DAT, DA_THANH_TOAN, DA_HUY.
+  maHoaDon = 0: ve chua thuoc hoa don nao.
+end note
+
+note bottom of ChiTietKeHoachTour
+  Moi ngay mot chi tiet: cap (maKeHoachTour, ngay) la duy nhat.
+  maKhachSan = 0: ngay do khong o khach san.
+end note
+
+note bottom of HoaDon
+  Chi HoaDon ghi nhan thanh toan, khong vuot so tien con lai.
+  Moi HoaDon chi gom Ve cua mot HanhKhach.
+end note
+
+@enduml

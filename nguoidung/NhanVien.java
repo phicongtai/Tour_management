@@ -1,6 +1,9 @@
+package nguoidung;
+
 import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import datvevathanhtoan.HoaDon;
 
 public class NhanVien {
     private String maNhanVien;

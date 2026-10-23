@@ -1,6 +1,10 @@
+package nguoidung;
+
 import java.util.Date;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
+import datvevathanhtoan.Ve;
+import tochuctour.KeHoachTour;
 
 public class HanhKhach {
     private String maHanhKhach;
