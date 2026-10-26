@@ -414,24 +414,16 @@ class BaoCaoThongKe {
 + tinhLoiNhuanDuKienTheoKeHoach(maKeHoachTour: int, dsKeHoach: DanhSachKeHoachTour, dsVe: DanhSachVe, dsPhuongTien: DanhSachPhuongTien, dsKhachSan: DanhSachKhachSan): double
 }
 
-interface CoTheNhapXuatTxt {
-    + chuyenThanhDong(): String
-    + docTuDong(dong: String): boolean
+package "danhsach" #F0F4F8 {
+interface DanhSach<T> {
+    + them(phanTu: T): boolean
+    + xoa(ma: int): boolean
 }
-
-interface CoTheNhapXuatDanhSach {
-    + layLoaiDuLieu(): String[]
-    + chuyenThanhCacDong(): String[]
-    + chuanBiNhap(toanBoCacDong: String[]): boolean
-    + xacNhanNhap(): int
-    + huyNhapTam(): void
 }
 
 class NhapXuatFile {
     - loiCuoiCung: String
     --
-    + nhapFile(duongDan: String, cacDanhSach: CoTheNhapXuatDanhSach[]): int
-    + xuatFile(duongDan: String, cacDanhSach: CoTheNhapXuatDanhSach[]): boolean
     + getLoiCuoiCung(): String
 }
 
@@ -441,7 +433,6 @@ class FileTxt {
 }
 
 NhapXuatFile ..> FileTxt : sử dụng đọc/ghi thô >
-NhapXuatFile ..> CoTheNhapXuatDanhSach : điều phối 2 pha >
 
 
 }
@@ -450,28 +441,16 @@ NhapXuatFile ..> CoTheNhapXuatDanhSach : điều phối 2 pha >
 ' QUAN HỆ LIÊN PACKAGE (CROSS-PACKAGE RELATIONSHIPS)
 ' ============================================================================
 
-' Thực thi CoTheNhapXuatTxt (11 lớp thực thể)
-CoTheNhapXuatTxt <|.. Tour
-CoTheNhapXuatTxt <|.. NhanVien
-CoTheNhapXuatTxt <|.. HanhKhach
-CoTheNhapXuatTxt <|.. KeHoachTour
-CoTheNhapXuatTxt <|.. ChiTietKeHoachTour
-CoTheNhapXuatTxt <|.. PhuongTien
-CoTheNhapXuatTxt <|.. KhachSan
-CoTheNhapXuatTxt <|.. DonDatTour
-CoTheNhapXuatTxt <|.. Ve
-CoTheNhapXuatTxt <|.. HoaDon
-
-' Thực thi CoTheNhapXuatDanhSach (9 lớp danh sách)
-CoTheNhapXuatDanhSach <|.. DanhSachTour
-CoTheNhapXuatDanhSach <|.. DanhSachNhanVien
-CoTheNhapXuatDanhSach <|.. DanhSachHanhKhach
-CoTheNhapXuatDanhSach <|.. DanhSachKeHoachTour
-CoTheNhapXuatDanhSach <|.. DanhSachPhuongTien
-CoTheNhapXuatDanhSach <|.. DanhSachKhachSan
-CoTheNhapXuatDanhSach <|.. DanhSachDonDatTour
-CoTheNhapXuatDanhSach <|.. DanhSachVe
-CoTheNhapXuatDanhSach <|.. DanhSachHoaDon
+' Thực thi DanhSach (9 lớp danh sách)
+DanhSach <|.. DanhSachTour
+DanhSach <|.. DanhSachNhanVien
+DanhSach <|.. DanhSachHanhKhach
+DanhSach <|.. DanhSachKeHoachTour
+DanhSach <|.. DanhSachPhuongTien
+DanhSach <|.. DanhSachKhachSan
+DanhSach <|.. DanhSachDonDatTour
+DanhSach <|.. DanhSachVe
+DanhSach <|.. DanhSachHoaDon
 
 ' Liên kết tham chiếu khóa ngoại & phụ thuộc nghiệp vụ giữa các Package
 KeHoachTour ..> Tour : mở bán cho (maTour) >

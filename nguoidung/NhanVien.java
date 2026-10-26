@@ -1,6 +1,5 @@
 package nguoidung;
 
-import nhapxuatfile.CoTheNhapXuatTxt;
 import java.util.Scanner;
 public class NhanVien {
     private int maNhanVien;

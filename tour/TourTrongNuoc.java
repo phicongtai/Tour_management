@@ -39,7 +39,6 @@ public class TourTrongNuoc extends Tour {
         return super.chuyenThanhDong() + "|" + vungMien + "|" + phuPhi;
     }
 
-    @Override
     public boolean taoTuDong(String dong) {
         String[] fields = tachDong(dong, 8);
         if (fields == null) return false;

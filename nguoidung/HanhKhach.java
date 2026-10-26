@@ -1,7 +1,60 @@
 package nguoidung;
 
-import nhapxuatfile.CoTheNhapXuatTxt;
-
 public class HanhKhach {
+    private int maHanhKhach;
+    private String hoTen;
+    private String ngaySinh;
+    private int gioiTinh;
+    private String soDienThoai;
 
+    public HanhKhach() {
+    }
+
+    public HanhKhach(int maHanhKhach, String hoTen, String ngaySinh, int gioiTinh, String soDienThoai) {
+        this.maHanhKhach = maHanhKhach;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+        this.soDienThoai = soDienThoai;
+    }
+
+    public int getMaHanhKhach() {
+        return maHanhKhach;
+    }
+
+    public void setMaHanhKhach(int maHanhKhach) {
+        this.maHanhKhach = maHanhKhach;
+    }
+
+    public String getHoTen() {
+        return hoTen;
+    }
+
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
+
+    public String getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(String ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
+    public int getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(int gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
 }

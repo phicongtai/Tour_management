@@ -1,17 +1,11 @@
 package tour;
 
-import nhapxuatfile.CoTheNhapXuatTxt;
-<<<<<<< HEAD
-
-public abstract class Tour {
-=======
->>>>>>> 8bf923a3d673aa960afb35a9265fc5f6573add8a
 
 /**
  * Lớp cơ sở trừu tượng cho các loại tour.
  * Định dạng TXT: maTour|tenTour|diemKhoiHanh|diemDen|soNgay|donGiaCoBan
  */
-public abstract class Tour implements CoTheNhapXuatTxt {
+public abstract class Tour {
     private int maTour;
     private String tenTour;
     private String diemKhoiHanh;
@@ -76,7 +70,6 @@ public abstract class Tour implements CoTheNhapXuatTxt {
         return fields.length == soTruong ? fields : null;
     }
 
-    @Override
     public String chuyenThanhDong() {
         return maTour + "|" + tenTour + "|" + diemKhoiHanh + "|" + diemDen
                 + "|" + soNgay + "|" + donGiaCoBan;
