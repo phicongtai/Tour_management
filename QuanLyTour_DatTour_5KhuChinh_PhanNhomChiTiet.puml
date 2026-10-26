@@ -1,650 +1,493 @@
-@startuml
-left to right direction
+@startuml QuanLyTour_V7
 skinparam classAttributeIconSize 0
-skinparam shadowing false
 skinparam packageStyle rectangle
+skinparam shadowing false
 skinparam linetype ortho
-skinparam nodesep 35
-skinparam ranksep 45
-skinparam package {
-  BorderColor #64748B
-  FontColor #0F172A
-  FontStyle bold
+skinparam roundcorner 8
+
+title Sơ đồ Lớp Hệ thống Quản lý Tour Du lịch V7 (5 Package - 26 Class/Interface - 179 Method Nghiệp vụ)
+
+' ============================================================================
+' PACKAGE 1: QUANLYTOUR.TOUR (4 class - 25 method)
+' ============================================================================
+package "quanlytour.tour" #E8F2F9 {
+abstract class Tour {
+- maTour: int
+- tenTour: String
+- diemKhoiHanh: String
+- diemDen: String
+- soNgay: int
+- donGiaCoBan: double
+--
++ capNhatThongTinChung(tenTour: String, diemKhoiHanh: String, diemDen: String, soNgay: int, donGiaCoBan: double): boolean
++ {abstract} tinhGiaVe(): double
++ {abstract} chuyenThanhDong(): String
++ {abstract} docTuDong(dong: String): boolean
 }
-hide empty members
-title HE THONG DAT TOUR DU LICH - 5 KHU CHINH, PHAN NHOM DANH MUC RO RANG
 
-package "1. Danh muc tour" #EAF2F8 {
-  abstract class Tour {
-      - maTour: int
-      - tenTour: String
-      - diemKhoiHanh: String
-      - diemDen: String
-      - soNgay: int
-      - donGiaCoBan: double
-      # Tour()
-      # Tour(maTour: int, tenTour: String, diemKhoiHanh: String, diemDen: String, soNgay: int, donGiaCoBan: double)
-      + getMaTour(): int
-      + getTenTour(): String
-      + getDiemKhoiHanh(): String
-      + getDiemDen(): String
-      + getSoNgay(): int
-      + getDonGiaCoBan(): double
-      + capNhatThongTinChung(tenTour: String, diemKhoiHanh: String, diemDen: String, soNgay: int, donGiaCoBan: double): boolean
-      + {abstract} tinhGiaVe(): double
-      + {abstract} chuyenThanhDong(): String
-      + {abstract} docTuDong(dong: String): boolean
-    }
+class TourTrongNuoc {
+    - vungMien: String
+    - phuPhi: double
+    --
+    + capNhatThongTinRieng(vungMien: String, phuPhi: double): boolean
+    + tinhGiaVe(): double
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  class TourTrongNuoc {
-      - vungMien: String
-      - phuPhi: double
-      + TourTrongNuoc()
-      + TourTrongNuoc(maTour: int, tenTour: String, diemKhoiHanh: String, diemDen: String, soNgay: int, donGiaCoBan: double, vungMien: String, phuPhi: double)
-      + getVungMien(): String
-      + getPhuPhi(): double
-      + capNhatThongTinRieng(vungMien: String, phuPhi: double): boolean
-      + tinhGiaVe(): double
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+class TourNuocNgoai {
+    - quocGia: String
+    - canVisa: boolean
+    - phiVisa: double
+    --
+    + capNhatThongTinRieng(quocGia: String, canVisa: boolean, phiVisa: double): boolean
+    + tinhGiaVe(): double
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  class TourNuocNgoai {
-      - quocGia: String
-      - canVisa: boolean
-      - phiVisa: double
-      + TourNuocNgoai()
-      + TourNuocNgoai(maTour: int, tenTour: String, diemKhoiHanh: String, diemDen: String, soNgay: int, donGiaCoBan: double, quocGia: String, canVisa: boolean, phiVisa: double)
-      + getQuocGia(): String
-      + getCanVisa(): boolean
-      + getPhiVisa(): double
-      + capNhatThongTinRieng(quocGia: String, canVisa: boolean, phiVisa: double): boolean
-      + tinhGiaVe(): double
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+class DanhSachTour {
+    - danhSach: Tour[]
+    - soLuong: int
+    - danhSachTam: Tour[]
+    - soLuongTam: int
+    --
+    + them(tour: Tour): boolean
+    + timTheoMa(maTour: int): Tour
+    + timTheoTuKhoa(tuKhoa: String): Tour[]
+    + timTheoDiemDen(diemDen: String): Tour[]
+    + timTheoKhoangGia(giaTu: double, giaDen: double): Tour[]
+    + timTheoSoNgay(soNgay: int): Tour[]
+    + xoaTheoMa(maTour: int): boolean
+    + layTatCa(): Tour[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
 
-  class DanhSachTour {
-      - danhSach: Tour[]
-      - soLuong: int
-      - danhSachTam: Tour[]
-      - soLuongTam: int
-      + them(tour: Tour): boolean
-      + timTheoMa(maTour: int): Tour
-      + timTheoTuKhoa(tuKhoa: String): Tour[]
-      + timTheoDiemDen(diemDen: String): Tour[]
-      + timTheoKhoangGia(giaTu: double, giaDen: double): Tour[]
-      + timTheoSoNgay(soNgay: int): Tour[]
-      + xoaTheoMa(maTour: int): boolean
-      + layTatCa(): Tour[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+Tour <|-- TourTrongNuoc
+Tour <|-- TourNuocNgoai
+DanhSachTour o--> "0..*" Tour : quản lý >
+
 
 }
 
-package "2. Nguoi dung" #E8F5E9 {
-  class NhanVien {
-      - maNhanVien: int
-      - hoTen: String
-      - ngaySinh: String
-      - gioiTinh: int
-      - soDienThoai: String
-      + NhanVien()
-      + NhanVien(maNhanVien: int, hoTen: String, ngaySinh: String, gioiTinh: int, soDienThoai: String)
-      + getMaNhanVien(): int
-      + getHoTen(): String
-      + getNgaySinh(): String
-      + getGioiTinh(): int
-      + getSoDienThoai(): String
-      + capNhatThongTin(hoTen: String, ngaySinh: String, gioiTinh: int, soDienThoai: String): boolean
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+' ============================================================================
+' PACKAGE 2: QUANLYTOUR.NGUOIDUNG (4 class - 28 method)
+' ============================================================================
+package "quanlytour.nguoidung" #E9F6EF {
+class NhanVien {
+- maNhanVien: int
+- hoTen: String
+- ngaySinh: String
+- gioiTinh: int
+- soDienThoai: String
+--
++ capNhatThongTin(hoTen: String, ngaySinh: String, gioiTinh: int, soDienThoai: String): boolean
++ chuyenThanhDong(): String
++ docTuDong(dong: String): boolean
+}
 
-  class HanhKhach {
-      - maHanhKhach: int
-      - hoTen: String
-      - ngaySinh: String
-      - gioiTinh: int
-      - soDienThoai: String
-      + HanhKhach()
-      + HanhKhach(maHanhKhach: int, hoTen: String, ngaySinh: String, gioiTinh: int, soDienThoai: String)
-      + getMaHanhKhach(): int
-      + getHoTen(): String
-      + getNgaySinh(): String
-      + getGioiTinh(): int
-      + getSoDienThoai(): String
-      + capNhatThongTin(hoTen: String, ngaySinh: String, gioiTinh: int, soDienThoai: String): boolean
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+class HanhKhach {
+    - maHanhKhach: int
+    - hoTen: String
+    - ngaySinh: String
+    - gioiTinh: int
+    - soDienThoai: String
+    --
+    + capNhatThongTin(hoTen: String, ngaySinh: String, gioiTinh: int, soDienThoai: String): boolean
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  class DanhSachNhanVien {
-      - danhSach: NhanVien[]
-      - soLuong: int
-      - danhSachTam: NhanVien[]
-      - soLuongTam: int
-      + them(nhanVien: NhanVien): boolean
-      + timTheoMa(maNhanVien: int): NhanVien
-      + timTheoTen(hoTen: String): NhanVien[]
-      + timTheoSoDienThoai(soDienThoai: String): NhanVien[]
-      + xoaTheoMa(maNhanVien: int): boolean
-      + layTatCa(): NhanVien[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+class DanhSachNhanVien {
+    - danhSach: NhanVien[]
+    - soLuong: int
+    - danhSachTam: NhanVien[]
+    - soLuongTam: int
+    --
+    + them(nhanVien: NhanVien): boolean
+    + timTheoMa(maNhanVien: int): NhanVien
+    + timTheoTen(hoTen: String): NhanVien[]
+    + timTheoSoDienThoai(soDienThoai: String): NhanVien[]
+    + xoaTheoMa(maNhanVien: int): boolean
+    + layTatCa(): NhanVien[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
 
-  class DanhSachHanhKhach {
-      - danhSach: HanhKhach[]
-      - soLuong: int
-      - danhSachTam: HanhKhach[]
-      - soLuongTam: int
-      + them(hanhKhach: HanhKhach): boolean
-      + timTheoMa(maHanhKhach: int): HanhKhach
-      + timTheoTen(hoTen: String): HanhKhach[]
-      + timTheoSoDienThoai(soDienThoai: String): HanhKhach[]
-      + xoaTheoMa(maHanhKhach: int): boolean
-      + layTatCa(): HanhKhach[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+class DanhSachHanhKhach {
+    - danhSach: HanhKhach[]
+    - soLuong: int
+    - danhSachTam: HanhKhach[]
+    - soLuongTam: int
+    --
+    + them(hanhKhach: HanhKhach): boolean
+    + timTheoMa(maHanhKhach: int): HanhKhach
+    + timTheoTen(hoTen: String): HanhKhach[]
+    + timTheoSoDienThoai(soDienThoai: String): HanhKhach[]
+    + xoaTheoMa(maHanhKhach: int): boolean
+    + layTatCa(): HanhKhach[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
+
+DanhSachNhanVien o--> "0..*" NhanVien : quản lý >
+DanhSachHanhKhach o--> "0..*" HanhKhach : quản lý >
+
 
 }
 
-package "3. To chuc tour & dich vu" #FFF3E0 {
-  class KeHoachTour {
-      - maKeHoachTour: int
-      - maTour: int
-      - maNhanVien: int
-      - ngayDi: String
-      - ngayVe: String
-      - soLuongVeToiDa: int
-      - danhSachChiTiet: ChiTietKeHoachTour[]
-      - soLuongChiTiet: int
-      + KeHoachTour()
-      + KeHoachTour(maKeHoachTour: int, maTour: int, maNhanVien: int, ngayDi: String, ngayVe: String, soLuongVeToiDa: int)
-      + getMaKeHoachTour(): int
-      + getMaTour(): int
-      + getMaNhanVien(): int
-      + getNgayDi(): String
-      + getNgayVe(): String
-      + getSoLuongVeToiDa(): int
-      + getSoLuongChiTiet(): int
-      + layDanhSachChiTiet(): ChiTietKeHoachTour[]
-      + capNhatThongTin(maNhanVien: int, ngayDi: String, ngayVe: String, soLuongVeToiDa: int): boolean
-      + soChoConLai(soVeDaBan: int): int
-      + conCho(soVeDaBan: int): boolean
-      + conDuCho(soVeDaBan: int, soVeCanDat: int): boolean
-      + themChiTiet(chiTiet: ChiTietKeHoachTour): boolean
-      + doiNgayChiTiet(ngayCu: String, ngayMoi: String): boolean
-      + xoaChiTiet(ngay: String): boolean
-      + timChiTietTheoNgay(ngay: String): ChiTietKeHoachTour
-      + layDanhSachLoiLichTrinh(tour: Tour): String[]
-      + kiemTraLichTrinhHopLe(tour: Tour): boolean
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+' ============================================================================
+' PACKAGE 3: QUANLYTOUR.KEHOACH (7 class - 60 method)
+' ============================================================================
+package "quanlytour.kehoach" #FDF2E6 {
+class KeHoachTour {
+- maKeHoachTour: int
+- maTour: int
+- maNhanVien: int
+- ngayDi: String
+- ngayVe: String
+- soLuongVeToiDa: int
+- danhSachChiTiet: ChiTietKeHoachTour[]
+- soLuongChiTiet: int
+--
++ layDanhSachChiTiet(): ChiTietKeHoachTour[]
++ capNhatThongTin(maNhanVien: int, ngayDi: String, ngayVe: String, soLuongVeToiDa: int): boolean
++ soChoConLai(soVeDaBan: int): int
++ conCho(soVeDaBan: int): boolean
++ conDuCho(soVeDaBan: int, soVeCanDat: int): boolean
++ themChiTiet(chiTiet: ChiTietKeHoachTour): boolean
++ doiNgayChiTiet(ngayCu: String, ngayMoi: String): boolean
++ xoaChiTiet(ngay: String): boolean
++ timChiTietTheoNgay(ngay: String): ChiTietKeHoachTour
++ layDanhSachLoiLichTrinh(tour: Tour): String[]
++ kiemTraLichTrinhHopLe(tour: Tour): boolean
++ chuyenThanhDong(): String
++ docTuDong(dong: String): boolean
+}
 
-  class ChiTietKeHoachTour {
-      - maKeHoachTour: int
-      - ngay: String
-      - maPhuongTien: int
-      - maKhachSan: int
-      + ChiTietKeHoachTour()
-      + ChiTietKeHoachTour(maKeHoachTour: int, ngay: String, maPhuongTien: int, maKhachSan: int)
-      + getMaKeHoachTour(): int
-      + getNgay(): String
-      + getMaPhuongTien(): int
-      + getMaKhachSan(): int
-      + doiPhuongTien(maPhuongTien: int): boolean
-      + doiKhachSan(maKhachSan: int): boolean
-      + tinhChiPhiNgay(soKhach: int, phuongTien: PhuongTien, khachSan: KhachSan): double
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+class ChiTietKeHoachTour {
+    - maKeHoachTour: int
+    - ngay: String
+    - maPhuongTien: int
+    - maKhachSan: int
+    --
+    + doiPhuongTien(maPhuongTien: int): boolean
+    + doiKhachSan(maKhachSan: int): boolean
+    + tinhChiPhiNgay(soKhach: int, phuongTien: PhuongTien, khachSan: KhachSan): double
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  class DanhSachKeHoachTour {
-      - danhSach: KeHoachTour[]
-      - soLuong: int
-      - danhSachTam: KeHoachTour[]
-      - soLuongTam: int
-      + them(keHoach: KeHoachTour): boolean
-      + timTheoMa(maKeHoachTour: int): KeHoachTour
-      + timTheoMaTour(maTour: int): KeHoachTour[]
-      + timTheoNgayDi(ngayDi: String): KeHoachTour[]
-      + timTheoKhoangNgayDi(ngayTu: String, ngayDen: String): KeHoachTour[]
-      + xoaTheoMa(maKeHoachTour: int): boolean
-      + layTatCa(): KeHoachTour[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+class DanhSachKeHoachTour {
+    - danhSach: KeHoachTour[]
+    - soLuong: int
+    - danhSachTam: KeHoachTour[]
+    - soLuongTam: int
+    --
+    + them(keHoach: KeHoachTour): boolean
+    + timTheoMa(maKeHoachTour: int): KeHoachTour
+    + timTheoMaTour(maTour: int): KeHoachTour[]
+    + timTheoNgayDi(ngayDi: String): KeHoachTour[]
+    + timTheoKhoangNgayDi(ngayTu: String, ngayDen: String): KeHoachTour[]
+    + xoaTheoMa(maKeHoachTour: int): boolean
+    + layTatCa(): KeHoachTour[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
 
-  class PhuongTien {
-      - maPhuongTien: int
-      - tenPhuongTien: String
-      - soChoToiDa: int
-      - giaMoiNguoiMoiNgay: double
-      + PhuongTien()
-      + PhuongTien(maPhuongTien: int, tenPhuongTien: String, soChoToiDa: int, giaMoiNguoiMoiNgay: double)
-      + getMaPhuongTien(): int
-      + getTenPhuongTien(): String
-      + getSoChoToiDa(): int
-      + getGiaMoiNguoiMoiNgay(): double
-      + capNhatThongTin(tenPhuongTien: String, soChoToiDa: int, giaMoiNguoiMoiNgay: double): boolean
-      + tinhTienDiChuyen(soKhach: int): double
-      + phuHopSoKhach(soKhach: int): boolean
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+class PhuongTien {
+    - maPhuongTien: int
+    - tenPhuongTien: String
+    - soChoToiDa: int
+    - giaMoiNguoiMoiNgay: double
+    --
+    + capNhatThongTin(tenPhuongTien: String, soChoToiDa: int, giaMoiNguoiMoiNgay: double): boolean
+    + tinhTienDiChuyen(soKhach: int): double
+    + phuHopSoKhach(soKhach: int): boolean
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  class KhachSan {
-      - maKhachSan: int
-      - tenKhachSan: String
-      - giaOMoiNguoiMoiDem: double
-      - giaAnMoiNguoiMoiNgay: double
-      + KhachSan()
-      + KhachSan(maKhachSan: int, tenKhachSan: String, giaOMoiNguoiMoiDem: double, giaAnMoiNguoiMoiNgay: double)
-      + getMaKhachSan(): int
-      + getTenKhachSan(): String
-      + getGiaOMoiNguoiMoiDem(): double
-      + getGiaAnMoiNguoiMoiNgay(): double
-      + capNhatThongTin(tenKhachSan: String, giaOMoiNguoiMoiDem: double, giaAnMoiNguoiMoiNgay: double): boolean
-      + tinhTienO(soKhach: int): double
-      + tinhTienAn(soKhach: int): double
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+class KhachSan {
+    - maKhachSan: int
+    - tenKhachSan: String
+    - giaOMoiNguoiMoiDem: double
+    - giaAnMoiNguoiMoiNgay: double
+    --
+    + capNhatThongTin(tenKhachSan: String, giaOMoiNguoiMoiDem: double, giaAnMoiNguoiMoiNgay: double): boolean
+    + tinhTienO(soKhach: int): double
+    + tinhTienAn(soKhach: int): double
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  class DanhSachPhuongTien {
-      - danhSach: PhuongTien[]
-      - soLuong: int
-      - danhSachTam: PhuongTien[]
-      - soLuongTam: int
-      + them(phuongTien: PhuongTien): boolean
-      + timTheoMa(maPhuongTien: int): PhuongTien
-      + timTheoTen(tenPhuongTien: String): PhuongTien[]
-      + xoaTheoMa(maPhuongTien: int): boolean
-      + layTatCa(): PhuongTien[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+class DanhSachPhuongTien {
+    - danhSach: PhuongTien[]
+    - soLuong: int
+    - danhSachTam: PhuongTien[]
+    - soLuongTam: int
+    --
+    + them(phuongTien: PhuongTien): boolean
+    + timTheoMa(maPhuongTien: int): PhuongTien
+    + timTheoTen(tenPhuongTien: String): PhuongTien[]
+    + xoaTheoMa(maPhuongTien: int): boolean
+    + layTatCa(): PhuongTien[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
 
-  class DanhSachKhachSan {
-      - danhSach: KhachSan[]
-      - soLuong: int
-      - danhSachTam: KhachSan[]
-      - soLuongTam: int
-      + them(khachSan: KhachSan): boolean
-      + timTheoMa(maKhachSan: int): KhachSan
-      + timTheoTen(tenKhachSan: String): KhachSan[]
-      + xoaTheoMa(maKhachSan: int): boolean
-      + layTatCa(): KhachSan[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+class DanhSachKhachSan {
+    - danhSach: KhachSan[]
+    - soLuong: int
+    - danhSachTam: KhachSan[]
+    - soLuongTam: int
+    --
+    + them(khachSan: KhachSan): boolean
+    + timTheoMa(maKhachSan: int): KhachSan
+    + timTheoTen(tenKhachSan: String): KhachSan[]
+    + xoaTheoMa(maKhachSan: int): boolean
+    + layTatCa(): KhachSan[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
+
+KeHoachTour *--> "0..*" ChiTietKeHoachTour : sở hữu (composition) >
+DanhSachKeHoachTour o--> "0..*" KeHoachTour : quản lý >
+DanhSachPhuongTien o--> "0..*" PhuongTien : quản lý >
+DanhSachKhachSan o--> "0..*" KhachSan : quản lý >
+ChiTietKeHoachTour ..> PhuongTien : tính chi phí (maPhuongTien) >
+ChiTietKeHoachTour ..> KhachSan : tính chi phí (maKhachSan) >
+
 
 }
 
-package "4. Dat tour & thanh toan" #F3E8FF {
-  class DonDatTour {
-      + {static} DA_DAT: int = 0
-      + {static} DA_HUY: int = 1
-      - maDonDatTour: int
-      - maNguoiDat: int
-      - maKeHoachTour: int
-      - ngayDat: String
-      - trangThai: int
-      - tongTien: double
-      + DonDatTour()
-      + DonDatTour(maDonDatTour: int, maNguoiDat: int, maKeHoachTour: int, ngayDat: String, trangThai: int, tongTien: double)
-      + getMaDonDatTour(): int
-      + getMaNguoiDat(): int
-      + getMaKeHoachTour(): int
-      + getNgayDat(): String
-      + getTrangThai(): int
-      + getTongTien(): double
-      + duocHuy(): boolean
-      + capNhatTrangThai(trangThaiMoi: int): boolean
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+' ============================================================================
+' PACKAGE 4: QUANLYTOUR.DATTOUR (6 class - 49 method)
+' ============================================================================
+package "quanlytour.dattour" #F3ECFB {
+class DonDatTour {
++ {static} DA_DAT: int = 0
++ {static} DA_HUY: int = 1
+- maDonDatTour: int
+- maNguoiDat: int
+- maKeHoachTour: int
+- ngayDat: String
+- trangThai: int
+- tongTien: double
+--
++ duocHuy(): boolean
++ capNhatTrangThai(trangThaiMoi: int): boolean
++ chuyenThanhDong(): String
++ docTuDong(dong: String): boolean
+}
 
-  class Ve {
-      + {static} DA_DAT: int = 0
-      + {static} DA_THANH_TOAN: int = 1
-      + {static} DA_HUY: int = 2
-      - maVe: int
-      - maKeHoachTour: int
-      - maHanhKhach: int
-      - maDonDatTour: int
-      - ngayDat: String
-      - donGia: double
-      - trangThai: int
-      + Ve()
-      + Ve(maVe: int, maKeHoachTour: int, maHanhKhach: int, maDonDatTour: int, ngayDat: String, donGia: double, trangThai: int)
-      + getMaVe(): int
-      + getMaKeHoachTour(): int
-      + getMaHanhKhach(): int
-      + getMaDonDatTour(): int
-      + getNgayDat(): String
-      + getDonGia(): double
-      + getTrangThai(): int
-      + duocHuy(): boolean
-      + capNhatTrangThai(trangThaiMoi: int): boolean
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+class Ve {
+    + {static} DA_DAT: int = 0
+    + {static} DA_THANH_TOAN: int = 1
+    + {static} DA_HUY: int = 2
+    - maVe: int
+    - maKeHoachTour: int
+    - maHanhKhach: int
+    - maDonDatTour: int
+    - ngayDat: String
+    - donGia: double
+    - trangThai: int
+    --
+    + duocHuy(): boolean
+    + capNhatTrangThai(trangThaiMoi: int): boolean
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  class DanhSachDonDatTour {
-      - danhSach: DonDatTour[]
-      - soLuong: int
-      - danhSachTam: DonDatTour[]
-      - soLuongTam: int
-      + them(don: DonDatTour): boolean
-      + timTheoMa(maDonDatTour: int): DonDatTour
-      + timTheoNguoiDat(maNguoiDat: int): DonDatTour[]
-      + timTheoKeHoach(maKeHoachTour: int): DonDatTour[]
-      + timTheoTrangThai(trangThai: int): DonDatTour[]
-      + layTatCa(): DonDatTour[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+class DanhSachDonDatTour {
+    - danhSach: DonDatTour[]
+    - soLuong: int
+    - danhSachTam: DonDatTour[]
+    - soLuongTam: int
+    --
+    + them(don: DonDatTour): boolean
+    + timTheoMa(maDonDatTour: int): DonDatTour
+    + timTheoNguoiDat(maNguoiDat: int): DonDatTour[]
+    + timTheoKeHoach(maKeHoachTour: int): DonDatTour[]
+    + timTheoTrangThai(trangThai: int): DonDatTour[]
+    + layTatCa(): DonDatTour[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
 
-  class DanhSachVe {
-      - danhSach: Ve[]
-      - soLuong: int
-      - danhSachTam: Ve[]
-      - soLuongTam: int
-      + them(ve: Ve): boolean
-      + timTheoMa(maVe: int): Ve
-      + timTheoDonDatTour(maDonDatTour: int): Ve[]
-      + timTheoHanhKhach(maHanhKhach: int): Ve[]
-      + timTheoKeHoach(maKeHoachTour: int): Ve[]
-      + timTheoTrangThai(trangThai: int): Ve[]
-      + demVeChiemChoTheoKeHoach(maKeHoachTour: int): int
-      + demVeTheoDonDatTour(maDonDatTour: int): int
-      + layTatCa(): Ve[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+class DanhSachVe {
+    - danhSach: Ve[]
+    - soLuong: int
+    - danhSachTam: Ve[]
+    - soLuongTam: int
+    --
+    + them(ve: Ve): boolean
+    + timTheoMa(maVe: int): Ve
+    + timTheoDonDatTour(maDonDatTour: int): Ve[]
+    + timTheoHanhKhach(maHanhKhach: int): Ve[]
+    + timTheoKeHoach(maKeHoachTour: int): Ve[]
+    + timTheoTrangThai(trangThai: int): Ve[]
+    + demVeChiemChoTheoKeHoach(maKeHoachTour: int): int
+    + demVeTheoDonDatTour(maDonDatTour: int): int
+    + layTatCa(): Ve[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
 
-  class HoaDon {
-      - maHoaDon: int
-      - maNhanVien: int
-      - maDonDatTour: int
-      - ngayLap: String
-      - tongTien: double
-      - soTienDaThanhToan: double
-      + HoaDon()
-      + HoaDon(maHoaDon: int, maNhanVien: int, maDonDatTour: int, ngayLap: String, tongTien: double, soTienDaThanhToan: double)
-      + getMaHoaDon(): int
-      + getMaNhanVien(): int
-      + getMaDonDatTour(): int
-      + getNgayLap(): String
-      + getTongTien(): double
-      + getSoTienDaThanhToan(): double
-      + tinhTongTien(): double
-      + tinhSoTienConLai(): double
-      + ghiNhanThanhToan(soTien: double): boolean
-      + daThanhToanDu(): boolean
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+class HoaDon {
+    - maHoaDon: int
+    - maNhanVien: int
+    - maDonDatTour: int
+    - ngayLap: String
+    - tongTien: double
+    - soTienDaThanhToan: double
+    --
+    + tinhTongTien(): double
+    + tinhSoTienConLai(): double
+    + ghiNhanThanhToan(soTien: double): boolean
+    + daThanhToanDu(): boolean
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  class DanhSachHoaDon {
-      - danhSach: HoaDon[]
-      - soLuong: int
-      - danhSachTam: HoaDon[]
-      - soLuongTam: int
-      + them(hoaDon: HoaDon): boolean
-      + timTheoMa(maHoaDon: int): HoaDon
-      + timTheoDonDatTour(maDonDatTour: int): HoaDon
-      + timChuaThanhToanDu(): HoaDon[]
-      + layTatCa(): HoaDon[]
-      + getSoLuong(): int
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+class DanhSachHoaDon {
+    - danhSach: HoaDon[]
+    - soLuong: int
+    - danhSachTam: HoaDon[]
+    - soLuongTam: int
+    --
+    + them(hoaDon: HoaDon): boolean
+    + timTheoMa(maHoaDon: int): HoaDon
+    + timTheoDonDatTour(maDonDatTour: int): HoaDon
+    + timChuaThanhToanDu(): HoaDon[]
+    + layTatCa(): HoaDon[]
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
+
+DanhSachDonDatTour o--> "0..*" DonDatTour : quản lý >
+DanhSachVe o--> "0..*" Ve : quản lý >
+DanhSachHoaDon o--> "0..*" HoaDon : quản lý >
+Ve ..> DonDatTour : thuộc đơn (maDonDatTour) >
+HoaDon ..> DonDatTour : thanh toán cho (maDonDatTour) >
+
 
 }
 
-package "5. Bao cao & nhap / xuat TXT" #FCE7F3 {
-  class BaoCaoThongKe {
-      + thongKeVeTheoTrangThai(dsVe: DanhSachVe, trangThai: int): int
-      + tinhDoanhThuVeTheoKeHoach(maKeHoachTour: int, dsVe: DanhSachVe): double
-      + tinhTienDaThuTheoKeHoach(maKeHoachTour: int, dsDonDatTour: DanhSachDonDatTour, dsHoaDon: DanhSachHoaDon): double
-      + tinhTongChiPhiTheoKeHoach(maKeHoachTour: int, dsKeHoach: DanhSachKeHoachTour, dsVe: DanhSachVe, dsPhuongTien: DanhSachPhuongTien, dsKhachSan: DanhSachKhachSan): double
-      + tinhLoiNhuanDuKienTheoKeHoach(maKeHoachTour: int, dsKeHoach: DanhSachKeHoachTour, dsVe: DanhSachVe, dsPhuongTien: DanhSachPhuongTien, dsKhachSan: DanhSachKhachSan): double
-    }
+' ============================================================================
+' PACKAGE 5: QUANLYTOUR.BAOCAO (5 class/interface - 17 method)
+' ============================================================================
+package "quanlytour.baocao" #FBEAF1 {
+class BaoCaoThongKe {
++ thongKeVeTheoTrangThai(dsVe: DanhSachVe, trangThai: int): int
++ tinhDoanhThuVeTheoKeHoach(maKeHoachTour: int, dsVe: DanhSachVe): double
++ tinhTienDaThuTheoKeHoach(maKeHoachTour: int, dsDonDatTour: DanhSachDonDatTour, dsHoaDon: DanhSachHoaDon): double
++ tinhTongChiPhiTheoKeHoach(maKeHoachTour: int, dsKeHoach: DanhSachKeHoachTour, dsVe: DanhSachVe, dsPhuongTien: DanhSachPhuongTien, dsKhachSan: DanhSachKhachSan): double
++ tinhLoiNhuanDuKienTheoKeHoach(maKeHoachTour: int, dsKeHoach: DanhSachKeHoachTour, dsVe: DanhSachVe, dsPhuongTien: DanhSachPhuongTien, dsKhachSan: DanhSachKhachSan): double
+}
 
-  interface CoTheNhapXuatTxt {
-      + chuyenThanhDong(): String
-      + docTuDong(dong: String): boolean
-    }
+interface CoTheNhapXuatTxt {
+    + chuyenThanhDong(): String
+    + docTuDong(dong: String): boolean
+}
 
-  interface CoTheNhapXuatDanhSach {
-      + layLoaiDuLieu(): String[]
-      + chuyenThanhCacDong(): String[]
-      + chuanBiNhap(toanBoCacDong: String[]): boolean
-      + xacNhanNhap(): int
-      + huyNhapTam(): void
-    }
+interface CoTheNhapXuatDanhSach {
+    + layLoaiDuLieu(): String[]
+    + chuyenThanhCacDong(): String[]
+    + chuanBiNhap(toanBoCacDong: String[]): boolean
+    + xacNhanNhap(): int
+    + huyNhapTam(): void
+}
 
-  class NhapXuatFile {
-      - loiCuoiCung: String
-      + nhapFile(duongDan: String, cacDanhSach: CoTheNhapXuatDanhSach[]): int
-      + xuatFile(duongDan: String, cacDanhSach: CoTheNhapXuatDanhSach[]): boolean
-      + getLoiCuoiCung(): String
-    }
+class NhapXuatFile {
+    - loiCuoiCung: String
+    --
+    + nhapFile(duongDan: String, cacDanhSach: CoTheNhapXuatDanhSach[]): int
+    + xuatFile(duongDan: String, cacDanhSach: CoTheNhapXuatDanhSach[]): boolean
+    + getLoiCuoiCung(): String
+}
 
-  class FileTxt {
-      + docCacDong(duongDan: String): String[]
-      + ghiCacDong(duongDan: String, cacDong: String[]): boolean
-    }
+class FileTxt {
+    + docCacDong(duongDan: String): String[]
+    + ghiCacDong(duongDan: String, cacDong: String[]): boolean
+}
+
+NhapXuatFile ..> FileTxt : sử dụng đọc/ghi thô >
+NhapXuatFile ..> CoTheNhapXuatDanhSach : điều phối 2 pha >
+
 
 }
 
-' Inheritance / serialization
-TourTrongNuoc --|> Tour
-TourNuocNgoai --|> Tour
-Tour ..|> CoTheNhapXuatTxt
-NhanVien ..|> CoTheNhapXuatTxt
-HanhKhach ..|> CoTheNhapXuatTxt
-KeHoachTour ..|> CoTheNhapXuatTxt
-ChiTietKeHoachTour ..|> CoTheNhapXuatTxt
-PhuongTien ..|> CoTheNhapXuatTxt
-KhachSan ..|> CoTheNhapXuatTxt
-DonDatTour ..|> CoTheNhapXuatTxt
-Ve ..|> CoTheNhapXuatTxt
-HoaDon ..|> CoTheNhapXuatTxt
+' ============================================================================
+' QUAN HỆ LIÊN PACKAGE (CROSS-PACKAGE RELATIONSHIPS)
+' ============================================================================
 
-' Core relationships
-Tour "1" -- "0..*" KeHoachTour : mo dot khoi hanh
-NhanVien "1" -- "0..*" KeHoachTour : phu trach
-KeHoachTour "1" *-- "0..*" ChiTietKeHoachTour : quan ly truc tiep
-PhuongTien "1" -- "0..*" ChiTietKeHoachTour : duoc su dung
-KhachSan "0..1" -- "0..*" ChiTietKeHoachTour : luu tru
-HanhKhach "1" -- "0..*" DonDatTour : nguoi dat
-KeHoachTour "1" -- "0..*" DonDatTour : duoc dat
-DonDatTour "1" -- "1..*" Ve : gom ve
-HanhKhach "1" -- "0..*" Ve : hanh khach
-KeHoachTour "1" -- "0..*" Ve : thuoc ke hoach
-DonDatTour "1" -- "0..1" HoaDon : duoc lap hoa don
-NhanVien "1" -- "0..*" HoaDon : lap
+' Thực thi CoTheNhapXuatTxt (11 lớp thực thể)
+CoTheNhapXuatTxt <|.. Tour
+CoTheNhapXuatTxt <|.. NhanVien
+CoTheNhapXuatTxt <|.. HanhKhach
+CoTheNhapXuatTxt <|.. KeHoachTour
+CoTheNhapXuatTxt <|.. ChiTietKeHoachTour
+CoTheNhapXuatTxt <|.. PhuongTien
+CoTheNhapXuatTxt <|.. KhachSan
+CoTheNhapXuatTxt <|.. DonDatTour
+CoTheNhapXuatTxt <|.. Ve
+CoTheNhapXuatTxt <|.. HoaDon
 
-' Cac lop danh sach quan ly cac doi tuong tuong ung
-DanhSachTour "1" o-- "0..*" Tour : quan ly
-DanhSachNhanVien "1" o-- "0..*" NhanVien : quan ly
-DanhSachHanhKhach "1" o-- "0..*" HanhKhach : quan ly
-DanhSachKeHoachTour "1" o-- "0..*" KeHoachTour : quan ly
-DanhSachPhuongTien "1" o-- "0..*" PhuongTien : quan ly
-DanhSachKhachSan "1" o-- "0..*" KhachSan : quan ly
-DanhSachVe "1" o-- "0..*" Ve : quan ly
-DanhSachHoaDon "1" o-- "0..*" HoaDon : quan ly
-DanhSachDonDatTour "1" o-- "0..*" DonDatTour : quan ly
+' Thực thi CoTheNhapXuatDanhSach (9 lớp danh sách)
+CoTheNhapXuatDanhSach <|.. DanhSachTour
+CoTheNhapXuatDanhSach <|.. DanhSachNhanVien
+CoTheNhapXuatDanhSach <|.. DanhSachHanhKhach
+CoTheNhapXuatDanhSach <|.. DanhSachKeHoachTour
+CoTheNhapXuatDanhSach <|.. DanhSachPhuongTien
+CoTheNhapXuatDanhSach <|.. DanhSachKhachSan
+CoTheNhapXuatDanhSach <|.. DanhSachDonDatTour
+CoTheNhapXuatDanhSach <|.. DanhSachVe
+CoTheNhapXuatDanhSach <|.. DanhSachHoaDon
 
-DanhSachTour ..|> CoTheNhapXuatDanhSach
-DanhSachNhanVien ..|> CoTheNhapXuatDanhSach
-DanhSachHanhKhach ..|> CoTheNhapXuatDanhSach
-DanhSachKeHoachTour ..|> CoTheNhapXuatDanhSach
-DanhSachPhuongTien ..|> CoTheNhapXuatDanhSach
-DanhSachKhachSan ..|> CoTheNhapXuatDanhSach
-DanhSachVe ..|> CoTheNhapXuatDanhSach
-DanhSachHoaDon ..|> CoTheNhapXuatDanhSach
-DanhSachDonDatTour ..|> CoTheNhapXuatDanhSach
+' Liên kết tham chiếu khóa ngoại & phụ thuộc nghiệp vụ giữa các Package
+KeHoachTour ..> Tour : mở bán cho (maTour) >
+KeHoachTour ..> NhanVien : phụ trách (maNhanVien) >
+DonDatTour ..> HanhKhach : người đặt (maNguoiDat) >
+DonDatTour ..> KeHoachTour : đặt đợt (maKeHoachTour) >
+Ve ..> HanhKhach : người đi (maHanhKhach) >
+Ve ..> KeHoachTour : thuộc đợt (maKeHoachTour) >
+HoaDon ..> NhanVien : người lập (maNhanVien) >
 
-NhapXuatFile ..> FileTxt : doc ghi mot file TXT
-NhapXuatFile ..> CoTheNhapXuatDanhSach : nhap xuat nhieu loai du lieu
-CoTheNhapXuatDanhSach ..> CoTheNhapXuatTxt : chuyen doi tung doi tuong
+' Phụ thuộc từ BaoCaoThongKe
 BaoCaoThongKe ..> DanhSachVe
 BaoCaoThongKe ..> DanhSachDonDatTour
 BaoCaoThongKe ..> DanhSachHoaDon
 BaoCaoThongKe ..> DanhSachKeHoachTour
 BaoCaoThongKe ..> DanhSachPhuongTien
 BaoCaoThongKe ..> DanhSachKhachSan
-
-note bottom of CoTheNhapXuatTxt
-  Moi doi tuong du lieu chuyen thanh mot dong TXT va doc lai tu mot dong.
-  Cac truong phan cach bang '|'; gia tri chua ky tu '|' phai duoc escape.
-  Cac truong ngay thang dung String theo dinh dang yyyy-MM-dd.
-end note
-
-note bottom of CoTheNhapXuatDanhSach
-  Moi lop danh sach chi xu ly cac loai ban ghi do layLoaiDuLieu() khai bao.
-  chuanBiNhap doc va kiem tra du lieu vao mang tam, khong sua du lieu hien tai.
-  Chi khi tat ca danh sach chuan bi thanh cong, NhapXuatFile moi goi xacNhanNhap().
-  Neu bat ky danh sach nao that bai, goi huyNhapTam() cho tat ca danh sach.
-  layTatCa() va layDanhSachChiTiet() tra ve mang chi chua cac phan tu dang su dung, khong de lo mang noi bo.
-  DanhSachKeHoachTour xu ly ca KEHOACH va CHITIET; chi tiet nam trong mang cua KeHoachTour.
-end note
-
-note bottom of DonDatTour
-  Moi don dat gan voi mot nguoi dat va mot ke hoach tour, co tu mot ve tro len.
-  tongTien la tong gia ve duoc chot tai thoi diem dat; khong tu dong thay doi khi gia tour thay doi.
-  Tong tien chi duoc xac dinh khi tao don; khong cho phep sua sau khi don da duoc tao.
-  Huy don bang cach cap nhat trangThai, khong xoa vat ly de giu lich su.
-  Chi huy don khi chua co HoaDon va tat ca ve thuoc don con o trang thai DA_DAT.
-  Neu da lap hoa don, khong huy don truc tiep; can quy trinh dieu chinh/hoan tien rieng.
-end note
-
-note bottom of Ve
-  trangThai chi nhan DA_DAT, DA_THANH_TOAN, DA_HUY.
-  Ve DA_DAT va DA_THANH_TOAN chiem cho; ve DA_HUY khong chiem cho.
-  maDonDatTour phai khop voi don; maKeHoachTour phai khop voi ke hoach cua don.
-  Khong sua donGia cua ve da tao; donGia la gia tai thoi diem dat.
-end note
-
-note bottom of HoaDon
-  Moi hoa don gan toi da mot don dat; moi don dat co toi da mot hoa don.
-  tongTien duoc sao chep tu DonDatTour luc lap hoa don.
-  ghiNhanThanhToan tu choi so tien <= 0 hoac vuot so tien con lai.
-  Don dat da co hoa don khong duoc huy truc tiep, ke ca hoa don chua thu tien; phai co quy trinh huy/dieu chinh hoa don rieng.
-  Ve chi chuyen sang DA_THANH_TOAN khi hoa don da thanh toan du.
-end note
-
-note bottom of KeHoachTour
-  KeHoachTour tu quan ly ChiTietKeHoachTour[]; khong can lop danh sach trung gian cho chi tiet.
-  Moi ngay chi co toi da mot chi tiet trong cung ke hoach.
-  Kiem tra noi tai cua KeHoachTour bao gom khoang ngay, ngay trung/thieu va do dai lich trinh so voi Tour.soNgay.
-  Truoc khi them/sua chi tiet, CLI phai tra cuu ma phuong tien/khach san qua danh sach, kiem tra suc chua
-  phuong tien so voi soLuongVeToiDa; maKhachSan = 0 nghia la khong luu tru.
-end note
-
-note bottom of NhapXuatFile
-  Chi co mot nhapFile() va mot xuatFile() dung chung cho mot file TXT.
-  Moi dong co tien to loai ban ghi, vi du TOUR_TRONG_NUOC|..., KEHOACH|..., CHITIET|...,
-  HANHKHACH|..., DON_DAT_TOUR|..., VE|..., HOADON|....
-  nhapFile doc toan bo file, cho cac danh sach chuan bi va xac nhan theo co che hai pha.
-  Gia tri tra ve: so ban ghi da nhap khi thanh cong; -1 khi that bai, ly do nam trong loiCuoiCung.
-end note
-
-note bottom of BaoCaoThongKe
-  Doanh thu ve = tong donGia cua ve khong bi huy.
-  Tien da thu = tong soTienDaThanhToan cua hoa don thuoc cac don dat cua ke hoach.
-  Chi phi du kien = tong chi phi tung ngay theo so ve dang chiem cho va dich vu da chon.
-  Neu maKhachSan = 0, tinhChiPhiNgay chi tinh di chuyen va khong tinh o/an cua khach san.
-  Loi nhuan du kien = doanh thu ve - chi phi du kien; khong dong nhat voi tien mat da thu.
-end note
-
-note bottom of DanhSachVe
-  demVeChiemChoTheoKeHoach chi dem ve DA_DAT va DA_THANH_TOAN; khong dem DA_HUY.
-  Khong xoa vat ly ve da phat sinh; dung trang thai de huy.
-end note
-
-note bottom of DanhSachTour
-  them() tu choi maTour trung; xoaTheoMa() chi duoc goi khi khong co ke hoach dang tham chieu tour.
-  timTheoTuKhoa tim khong phan biet hoa thuong tren ten tour, diem khoi hanh va diem den.
-end note
-
-
-note bottom of DanhSachNhanVien
-  Chi xoa nhan vien khi khong con duoc tham chieu boi KeHoachTour hoac HoaDon.
-  Cap nhat thong tin qua doi tuong tra ve tu timTheoMa(), khong sua ma dinh danh.
-end note
-
-note bottom of DanhSachHanhKhach
-  Khong xoa hanh khach da co DonDatTour hoac Ve; neu can vo hieu hoa, bo sung trangThai thay vi xoa lich su.
-  Cap nhat thong tin qua capNhatThongTin() tren doi tuong tim duoc.
-end note
-
-note bottom of DanhSachKeHoachTour
-  Chi xoa ke hoach khi khong co DonDatTour, Ve hoac HoaDon lien quan.
-  timTheoKhoangNgayDi so sanh ngay String theo dinh dang yyyy-MM-dd.
-end note
-
-note bottom of DanhSachPhuongTien
-  Chi xoa phuong tien khi khong duoc bat ky ChiTietKeHoachTour nao tham chieu.
-end note
-
-note bottom of DanhSachKhachSan
-  Chi xoa khach san khi khong duoc bat ky ChiTietKeHoachTour nao tham chieu.
-end note
-
-note bottom of DanhSachHoaDon
-  Khong xoa hoa don da phat sinh thanh toan; moi maDonDatTour chi duoc co mot hoa don.
-end note
-
-note bottom of DanhSachDonDatTour
-  them() tu choi maDonDatTour trung; khong xoa don da phat sinh ve.
-  Chi huy don neu timTheoDonDatTour() khong tim thay hoa don va tat ca ve con o DA_DAT.
-  Truoc khi cap nhat, kiem tra tat ca ve hop le; sau do cap nhat cac ve thanh DA_HUY va don thanh DA_HUY.
-end note
-
 
 @enduml
