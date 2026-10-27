@@ -7,7 +7,7 @@ public class KeHoachTour {
     private String ngayDi;
     private String ngayVe;
     private int soLuongVeToiDa;
-    private ChiTietKeHoachTour[] danhSachChiTiet;
+    private ChiTietKeHoachTour[] chiTietLichTrinh;
     private int soLuongChiTiet;
 
     public KeHoachTour() {
@@ -22,14 +22,14 @@ public class KeHoachTour {
         this.soLuongVeToiDa = soLuongVeToiDa;
     }
 
-    public KeHoachTour(int maKeHoachTour, int maTour, int maNhanVien, String ngayDi, String ngayVe, int soLuongVeToiDa, ChiTietKeHoachTour[] danhSachChiTiet, int soLuongChiTiet) {
+    public KeHoachTour(int maKeHoachTour, int maTour, int maNhanVien, String ngayDi, String ngayVe, int soLuongVeToiDa, ChiTietKeHoachTour[] chiTietLichTrinh, int soLuongChiTiet) {
         this.maKeHoachTour = maKeHoachTour;
         this.maTour = maTour;
         this.maNhanVien = maNhanVien;
         this.ngayDi = ngayDi;
         this.ngayVe = ngayVe;
         this.soLuongVeToiDa = soLuongVeToiDa;
-        this.danhSachChiTiet = danhSachChiTiet;
+        this.chiTietLichTrinh = chiTietLichTrinh;
         this.soLuongChiTiet = soLuongChiTiet;
     }
 
@@ -81,12 +81,12 @@ public class KeHoachTour {
         this.soLuongVeToiDa = soLuongVeToiDa;
     }
 
-    public ChiTietKeHoachTour[] getDanhSachChiTiet() {
-        return danhSachChiTiet;
+    public ChiTietKeHoachTour[] getChiTietLichTrinh() {
+        return chiTietLichTrinh;
     }
 
-    public void setDanhSachChiTiet(ChiTietKeHoachTour[] danhSachChiTiet) {
-        this.danhSachChiTiet = danhSachChiTiet;
+    public void setChiTietLichTrinh(ChiTietKeHoachTour[] chiTietLichTrinh) {
+        this.chiTietLichTrinh = chiTietLichTrinh;
     }
 
     public int getSoLuongChiTiet() {

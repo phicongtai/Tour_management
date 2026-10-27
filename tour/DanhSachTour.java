@@ -5,17 +5,13 @@ import danhsach.DanhSach;
 public class DanhSachTour implements DanhSach<Tour> {
     private Tour[] danhSach;
     private int soLuong;
-    private Tour[] danhSachTam;
-    private int soLuongTam;
 
     public DanhSachTour() {
     }
 
-    public DanhSachTour(Tour[] danhSach, int soLuong, Tour[] danhSachTam, int soLuongTam) {
+    public DanhSachTour(Tour[] danhSach, int soLuong) {
         this.danhSach = danhSach;
         this.soLuong = soLuong;
-        this.danhSachTam = danhSachTam;
-        this.soLuongTam = soLuongTam;
     }
 
     @Override
@@ -24,8 +20,8 @@ public class DanhSachTour implements DanhSach<Tour> {
     }
 
     @Override
-    public boolean xoa(int ma) {
-        return false;
+    public Tour[] layTatCa() {
+        return danhSach;
     }
 
     public Tour[] getDanhSach() {
@@ -42,21 +38,5 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public Tour[] getDanhSachTam() {
-        return danhSachTam;
-    }
-
-    public void setDanhSachTam(Tour[] danhSachTam) {
-        this.danhSachTam = danhSachTam;
-    }
-
-    public int getSoLuongTam() {
-        return soLuongTam;
-    }
-
-    public void setSoLuongTam(int soLuongTam) {
-        this.soLuongTam = soLuongTam;
     }
 }

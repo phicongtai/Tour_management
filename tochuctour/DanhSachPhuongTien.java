@@ -5,17 +5,13 @@ import danhsach.DanhSach;
 public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
     private PhuongTien[] danhSach;
     private int soLuong;
-    private PhuongTien[] danhSachTam;
-    private int soLuongTam;
 
     public DanhSachPhuongTien() {
     }
 
-    public DanhSachPhuongTien(PhuongTien[] danhSach, int soLuong, PhuongTien[] danhSachTam, int soLuongTam) {
+    public DanhSachPhuongTien(PhuongTien[] danhSach, int soLuong) {
         this.danhSach = danhSach;
         this.soLuong = soLuong;
-        this.danhSachTam = danhSachTam;
-        this.soLuongTam = soLuongTam;
     }
 
     @Override
@@ -24,8 +20,8 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
     }
 
     @Override
-    public boolean xoa(int ma) {
-        return false;
+    public PhuongTien[] layTatCa() {
+        return danhSach;
     }
 
     public PhuongTien[] getDanhSach() {
@@ -42,21 +38,5 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public PhuongTien[] getDanhSachTam() {
-        return danhSachTam;
-    }
-
-    public void setDanhSachTam(PhuongTien[] danhSachTam) {
-        this.danhSachTam = danhSachTam;
-    }
-
-    public int getSoLuongTam() {
-        return soLuongTam;
-    }
-
-    public void setSoLuongTam(int soLuongTam) {
-        this.soLuongTam = soLuongTam;
     }
 }

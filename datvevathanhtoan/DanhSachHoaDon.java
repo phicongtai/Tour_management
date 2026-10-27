@@ -5,17 +5,13 @@ import danhsach.DanhSach;
 public class DanhSachHoaDon implements DanhSach<HoaDon> {
     private HoaDon[] danhSach;
     private int soLuong;
-    private HoaDon[] danhSachTam;
-    private int soLuongTam;
 
     public DanhSachHoaDon() {
     }
 
-    public DanhSachHoaDon(HoaDon[] danhSach, int soLuong, HoaDon[] danhSachTam, int soLuongTam) {
+    public DanhSachHoaDon(HoaDon[] danhSach, int soLuong) {
         this.danhSach = danhSach;
         this.soLuong = soLuong;
-        this.danhSachTam = danhSachTam;
-        this.soLuongTam = soLuongTam;
     }
 
     @Override
@@ -24,8 +20,8 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     }
 
     @Override
-    public boolean xoa(int ma) {
-        return false;
+    public HoaDon[] layTatCa() {
+        return danhSach;
     }
 
     public HoaDon[] getDanhSach() {
@@ -42,21 +38,5 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public HoaDon[] getDanhSachTam() {
-        return danhSachTam;
-    }
-
-    public void setDanhSachTam(HoaDon[] danhSachTam) {
-        this.danhSachTam = danhSachTam;
-    }
-
-    public int getSoLuongTam() {
-        return soLuongTam;
-    }
-
-    public void setSoLuongTam(int soLuongTam) {
-        this.soLuongTam = soLuongTam;
     }
 }

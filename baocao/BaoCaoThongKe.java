@@ -1,6 +1,7 @@
-package nhapxuatfile;
+package baocao;
 
 public class BaoCaoThongKe {
     public BaoCaoThongKe() {
     }
 }
+

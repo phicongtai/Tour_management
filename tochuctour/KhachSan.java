@@ -3,13 +3,13 @@ package tochuctour;
 public class KhachSan {
     private int maKhachSan;
     private String tenKhachSan;
-    private double giaOMoiNguoiMoiDem;
-    private double giaAnMoiNguoiMoiNgay;
+    private long giaOMoiNguoiMoiDem;
+    private long giaAnMoiNguoiMoiNgay;
 
     public KhachSan() {
     }
 
-    public KhachSan(int maKhachSan, String tenKhachSan, double giaOMoiNguoiMoiDem, double giaAnMoiNguoiMoiNgay) {
+    public KhachSan(int maKhachSan, String tenKhachSan, long giaOMoiNguoiMoiDem, long giaAnMoiNguoiMoiNgay) {
         this.maKhachSan = maKhachSan;
         this.tenKhachSan = tenKhachSan;
         this.giaOMoiNguoiMoiDem = giaOMoiNguoiMoiDem;
@@ -32,19 +32,19 @@ public class KhachSan {
         this.tenKhachSan = tenKhachSan;
     }
 
-    public double getGiaOMoiNguoiMoiDem() {
+    public long getGiaOMoiNguoiMoiDem() {
         return giaOMoiNguoiMoiDem;
     }
 
-    public void setGiaOMoiNguoiMoiDem(double giaOMoiNguoiMoiDem) {
+    public void setGiaOMoiNguoiMoiDem(long giaOMoiNguoiMoiDem) {
         this.giaOMoiNguoiMoiDem = giaOMoiNguoiMoiDem;
     }
 
-    public double getGiaAnMoiNguoiMoiNgay() {
+    public long getGiaAnMoiNguoiMoiNgay() {
         return giaAnMoiNguoiMoiNgay;
     }
 
-    public void setGiaAnMoiNguoiMoiNgay(double giaAnMoiNguoiMoiNgay) {
+    public void setGiaAnMoiNguoiMoiNgay(long giaAnMoiNguoiMoiNgay) {
         this.giaAnMoiNguoiMoiNgay = giaAnMoiNguoiMoiNgay;
     }
 }

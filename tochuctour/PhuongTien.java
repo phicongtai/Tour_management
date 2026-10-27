@@ -4,12 +4,12 @@ public class PhuongTien {
     private int maPhuongTien;
     private String tenPhuongTien;
     private int soChoToiDa;
-    private double giaMoiNguoiMoiNgay;
+    private long giaMoiNguoiMoiNgay;
 
     public PhuongTien() {
     }
 
-    public PhuongTien(int maPhuongTien, String tenPhuongTien, int soChoToiDa, double giaMoiNguoiMoiNgay) {
+    public PhuongTien(int maPhuongTien, String tenPhuongTien, int soChoToiDa, long giaMoiNguoiMoiNgay) {
         this.maPhuongTien = maPhuongTien;
         this.tenPhuongTien = tenPhuongTien;
         this.soChoToiDa = soChoToiDa;
@@ -40,11 +40,11 @@ public class PhuongTien {
         this.soChoToiDa = soChoToiDa;
     }
 
-    public double getGiaMoiNguoiMoiNgay() {
+    public long getGiaMoiNguoiMoiNgay() {
         return giaMoiNguoiMoiNgay;
     }
 
-    public void setGiaMoiNguoiMoiNgay(double giaMoiNguoiMoiNgay) {
+    public void setGiaMoiNguoiMoiNgay(long giaMoiNguoiMoiNgay) {
         this.giaMoiNguoiMoiNgay = giaMoiNguoiMoiNgay;
     }
 }

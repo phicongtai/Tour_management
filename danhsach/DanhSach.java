@@ -3,14 +3,13 @@ package danhsach;
 public interface DanhSach<T> {
     boolean them(T phanTu);
 
-    boolean xoa(int ma);
+    T[] layTatCa();
 
-    default boolean xoa(T phanTu) {
+    default String[] xuatDuLieu() {
+        return new String[0];
+    }
+
+    default boolean nhapDuLieu(String[] dongDuLieu) {
         return false;
     }
-
-    default boolean xoaTheoMa(int ma) {
-        return xoa(ma);
-    }
 }
-

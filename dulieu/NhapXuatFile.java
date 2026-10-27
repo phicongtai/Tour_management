@@ -1,4 +1,4 @@
-package nhapxuatfile;
+package dulieu;
 
 public class NhapXuatFile {
     private String loiCuoiCung;
@@ -18,3 +18,4 @@ public class NhapXuatFile {
         this.loiCuoiCung = loiCuoiCung;
     }
 }
+

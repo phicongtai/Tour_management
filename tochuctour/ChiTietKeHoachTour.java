@@ -1,27 +1,23 @@
 package tochuctour;
 
 public class ChiTietKeHoachTour {
-    private int maKeHoachTour;
     private String ngay;
     private int maPhuongTien;
     private int maKhachSan;
+    private long tienAn;
+    private long tienO;
+    private long tienDiLai;
 
     public ChiTietKeHoachTour() {
     }
 
-    public ChiTietKeHoachTour(int maKeHoachTour, String ngay, int maPhuongTien, int maKhachSan) {
-        this.maKeHoachTour = maKeHoachTour;
+    public ChiTietKeHoachTour(String ngay, int maPhuongTien, int maKhachSan, long tienAn, long tienO, long tienDiLai) {
         this.ngay = ngay;
         this.maPhuongTien = maPhuongTien;
         this.maKhachSan = maKhachSan;
-    }
-
-    public int getMaKeHoachTour() {
-        return maKeHoachTour;
-    }
-
-    public void setMaKeHoachTour(int maKeHoachTour) {
-        this.maKeHoachTour = maKeHoachTour;
+        this.tienAn = tienAn;
+        this.tienO = tienO;
+        this.tienDiLai = tienDiLai;
     }
 
     public String getNgay() {
@@ -46,5 +42,29 @@ public class ChiTietKeHoachTour {
 
     public void setMaKhachSan(int maKhachSan) {
         this.maKhachSan = maKhachSan;
+    }
+
+    public long getTienAn() {
+        return tienAn;
+    }
+
+    public void setTienAn(long tienAn) {
+        this.tienAn = tienAn;
+    }
+
+    public long getTienO() {
+        return tienO;
+    }
+
+    public void setTienO(long tienO) {
+        this.tienO = tienO;
+    }
+
+    public long getTienDiLai() {
+        return tienDiLai;
+    }
+
+    public void setTienDiLai(long tienDiLai) {
+        this.tienDiLai = tienDiLai;
     }
 }
