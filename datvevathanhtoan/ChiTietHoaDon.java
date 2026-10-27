@@ -7,10 +7,12 @@ public class ChiTietHoaDon {
     private long tongTien;
 
     public ChiTietHoaDon() {
+        this.danhSachMaVe = new int[0];
     }
 
     public ChiTietHoaDon(int maHoaDon) {
         this.maHoaDon = maHoaDon;
+        this.danhSachMaVe = new int[0];
     }
 
     public ChiTietHoaDon(int maHoaDon, int[] danhSachMaVe, int soLuongVe, long tongTien) {
@@ -32,6 +34,10 @@ public class ChiTietHoaDon {
         return danhSachMaVe;
     }
 
+    public int[] layDanhSachMaVe() {
+        return danhSachMaVe;
+    }
+
     public void setDanhSachMaVe(int[] danhSachMaVe) {
         this.danhSachMaVe = danhSachMaVe;
     }
@@ -45,6 +51,10 @@ public class ChiTietHoaDon {
     }
 
     public long getTongTien() {
+        return tongTien;
+    }
+
+    public long layTongTien() {
         return tongTien;
     }
 

@@ -16,6 +16,7 @@ public class HoaDon {
         this.maDonDatTour = maDonDatTour;
         this.maNhanVien = maNhanVien;
         this.ngayLap = ngayLap;
+        this.chiTiet = new ChiTietHoaDon(maHoaDon);
     }
 
     public HoaDon(int maHoaDon, int maDonDatTour, int maNhanVien, String ngayLap, long soTienDaThanhToan, ChiTietHoaDon chiTiet) {

@@ -7,6 +7,11 @@ public class TourTrongNuoc extends Tour {
     public TourTrongNuoc() {
     }
 
+    public TourTrongNuoc(String vungMien, long phuPhi) {
+        this.vungMien = vungMien;
+        this.phuPhi = phuPhi;
+    }
+
     public TourTrongNuoc(int maTour, String tenTour, String diemKhoiHanh, String diemDen, int soNgay, long donGiaCoBan, String vungMien, long phuPhi) {
         super(maTour, tenTour, diemKhoiHanh, diemDen, soNgay, donGiaCoBan);
         this.vungMien = vungMien;

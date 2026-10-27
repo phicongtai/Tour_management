@@ -1,4 +1,4 @@
-@startuml QuanLyTour_V10_ChiTietHoaDon_QuanLyDanhSachVe
+@startuml QuanLyTour_V10_RutGon
 skinparam classAttributeIconSize 0
 skinparam packageStyle rectangle
 skinparam shadowing false
@@ -6,7 +6,7 @@ skinparam linetype ortho
 skinparam roundcorner 8
 skinparam defaultFontName Arial
 
-title HỆ THỐNG QUẢN LÝ TOUR DU LỊCH — V10 (CHI TIẾT HÓA ĐƠN QUẢN LÝ DANH SÁCH VÉ)
+title HỆ THỐNG QUẢN LÝ TOUR DU LỊCH — V10 (BẢN RÚT GỌN)
 
 ' ============================================================
 ' 1. TOUR
@@ -47,10 +47,7 @@ package "tour" #E8F2F9 {
     --
     + them(tour: Tour): boolean
     + timTheoMa(maTour: int): Tour
-    + timTheoTuKhoa(tuKhoa: String): Tour[]
-    + timTheoDiemDen(diemDen: String): Tour[]
-    + timTheoKhoangGia(giaTu: long, giaDen: long): Tour[]
-    + timTheoSoNgay(soNgay: int): Tour[]
+    + timTheoTen(tenTour: String): Tour[]
     + capNhat(tour: Tour): boolean
     + xoaTheoMa(maTour: int): boolean
     + layTatCa(): Tour[]
@@ -94,7 +91,6 @@ package "nguoidung" #E9F6EF {
     + them(nhanVien: NhanVien): boolean
     + timTheoMa(maNhanVien: int): NhanVien
     + timTheoTen(hoTen: String): NhanVien[]
-    + timTheoSoDienThoai(soDienThoai: String): NhanVien[]
     + capNhat(nhanVien: NhanVien): boolean
     + xoaTheoMa(maNhanVien: int): boolean
     + layTatCa(): NhanVien[]
@@ -109,7 +105,6 @@ package "nguoidung" #E9F6EF {
     + them(hanhKhach: HanhKhach): boolean
     + timTheoMa(maHanhKhach: int): HanhKhach
     + timTheoTen(hoTen: String): HanhKhach[]
-    + timTheoSoDienThoai(soDienThoai: String): HanhKhach[]
     + capNhat(hanhKhach: HanhKhach): boolean
     + xoaTheoMa(maHanhKhach: int): boolean
     + layTatCa(): HanhKhach[]
@@ -142,7 +137,6 @@ package "tochuctour" #FDF2E6 {
     + doiNgayChiTiet(ngayCu: String, ngayMoi: String): boolean
     + xoaChiTiet(ngay: String): boolean
     + timChiTietTheoNgay(ngay: String): ChiTietKeHoachTour
-    + kiemTraLichTrinhHopLe(dsPhuongTien: DanhSachPhuongTien): boolean
     + tinhTongChiPhi(soKhach: int): long
   }
 
@@ -154,9 +148,7 @@ package "tochuctour" #FDF2E6 {
     - tienO: long
     - tienDiLai: long
     --
-    + doiPhuongTien(maPhuongTien: int): boolean
-    + doiKhachSan(maKhachSan: int): boolean
-    + capNhatChiPhi(tienAn: long, tienO: long, tienDiLai: long): boolean
+    + capNhat(maPhuongTien: int, maKhachSan: int, tienAn: long, tienO: long, tienDiLai: long): boolean
     + tinhChiPhiNgay(soKhach: int): long
   }
 
@@ -167,10 +159,6 @@ package "tochuctour" #FDF2E6 {
     + them(keHoach: KeHoachTour): boolean
     + timTheoMa(maKeHoachTour: int): KeHoachTour
     + timTheoMaTour(maTour: int): KeHoachTour[]
-    + timTheoNgayDi(ngayDi: String): KeHoachTour[]
-    + timTheoKhoangNgayDi(ngayTu: String, ngayDen: String): KeHoachTour[]
-    + timTheoPhuongTien(maPhuongTien: int): KeHoachTour[]
-    + timTheoKhachSan(maKhachSan: int): KeHoachTour[]
     + capNhat(keHoach: KeHoachTour): boolean
     + xoaTheoMa(maKeHoachTour: int): boolean
     + layTatCa(): KeHoachTour[]
@@ -185,8 +173,6 @@ package "tochuctour" #FDF2E6 {
     - giaMoiNguoiMoiNgay: long
     --
     + capNhatThongTin(tenPhuongTien: String, soChoToiDa: int, giaMoiNguoiMoiNgay: long): boolean
-    + tinhTienDiChuyen(soKhach: int): long
-    + phuHopSoKhach(soKhach: int): boolean
   }
 
   class KhachSan {
@@ -196,8 +182,6 @@ package "tochuctour" #FDF2E6 {
     - giaAnMoiNguoiMoiNgay: long
     --
     + capNhatThongTin(tenKhachSan: String, giaOMoiNguoiMoiDem: long, giaAnMoiNguoiMoiNgay: long): boolean
-    + tinhTienO(soKhach: int): long
-    + tinhTienAn(soKhach: int): long
   }
 
   class DanhSachPhuongTien {
@@ -234,7 +218,6 @@ package "tochuctour" #FDF2E6 {
   DanhSachKhachSan o--> "0..*" KhachSan : quản lý
   ChiTietKeHoachTour ..> PhuongTien : tham chiếu bằng mã
   ChiTietKeHoachTour ..> KhachSan : tham chiếu bằng mã
-  KeHoachTour ..> DanhSachPhuongTien : kiểm tra sức chứa
 }
 
 ' ============================================================
@@ -277,14 +260,9 @@ package "datvevathanhtoan" #F3ECFB {
     + timTheoMa(maVe: int): Ve
     + timTheoMaDonDatTour(maDonDatTour: int): Ve[]
     + layDanhSachMaDonDatTour(): int[]
-    + demVeTheoMaDonDatTour(maDonDatTour: int): int
-    + timTheoNguoiDat(maNguoiDat: int): Ve[]
-    + timTheoHanhKhach(maHanhKhach: int): Ve[]
-    + timTheoKeHoach(maKeHoachTour: int): Ve[]
     + timTheoTrangThai(trangThai: int): Ve[]
     + demVeChiemChoTheoKeHoach(maKeHoachTour: int): int
     + daCoVeHopLe(maKeHoachTour: int, maHanhKhach: int): boolean
-    + capNhat(ve: Ve): boolean
     + layTatCa(): Ve[]
     + xuatDuLieu(): String[]
     + nhapDuLieu(dongDuLieu: String[]): boolean
@@ -300,9 +278,7 @@ package "datvevathanhtoan" #F3ECFB {
     + themVe(maVe: int): boolean
     + coChuaVe(maVe: int): boolean
     + layDanhSachMaVe(): int[]
-    + demSoVe(): int
     + capNhatTongTien(dsVe: DanhSachVe): boolean
-    + tinhTongTien(dsVe: DanhSachVe): long
     + layTongTien(): long
   }
 
@@ -317,12 +293,10 @@ package "datvevathanhtoan" #F3ECFB {
     + HoaDon(maHoaDon: int, maDonDatTour: int, maNhanVien: int, ngayLap: String)
     + themVeVaoChiTiet(maVe: int, dsVe: DanhSachVe): boolean
     + layDanhSachMaVe(): int[]
-    + demSoVe(): int
     + tinhTongTien(): long
     + tinhSoTienConLai(): long
-    + ghiNhanThanhToan(soTien: long): boolean
+    + ghiNhanThanhToan(soTien: long, dsVe: DanhSachVe): boolean
     + daThanhToanDu(): boolean
-    + coTheHuyHoanTien(): boolean
   }
 
   note right of ChiTietHoaDon
@@ -349,8 +323,8 @@ package "datvevathanhtoan" #F3ECFB {
     - Vé chưa được gán vào hóa đơn khác.
 
     Sau khi lập hóa đơn, không sửa/xóa mã vé để thay
-    đổi lịch sử. Hủy/hoàn tiền xử lý trạng thái vé và
-    nghiệp vụ hoàn tiền riêng; giữ nguyên tổng tiền gốc.
+    đổi lịch sử. Hủy chỉ cập nhật trạng thái vé,
+    giữ nguyên tổng tiền gốc.
   end note
 
   class DanhSachHoaDon {
@@ -360,8 +334,7 @@ package "datvevathanhtoan" #F3ECFB {
     + them(hoaDon: HoaDon): boolean
     + timTheoMa(maHoaDon: int): HoaDon
     + timTheoMaDonDatTour(maDonDatTour: int): HoaDon
-    + timChuaThanhToanDu(): HoaDon[]
-    + capNhat(hoaDon: HoaDon): boolean
+    + timChuaThanhToanDu(dsVe: DanhSachVe): HoaDon[]
     + layTatCa(): HoaDon[]
     + xuatDuLieu(): String[]
     + nhapDuLieu(dongDuLieu: String[]): boolean
@@ -384,7 +357,6 @@ package "baocao" #FBEAF1 {
     + tinhTienDaThuTheoKeHoach(maKeHoachTour: int): long
     + tinhChiPhiDuKienTheoKeHoach(maKeHoachTour: int): long
     + tinhLoiNhuanDuKienTheoKeHoach(maKeHoachTour: int): long
-    + timHoaDonChuaThanhToanDu(): HoaDon[]
   }
 }
 
@@ -432,19 +404,24 @@ package "kho" #FFF4D6 {
 ' ============================================================
 package "dulieu" #EAF0F7 {
   class NhapXuatFile {
-    - loiCuoiCung: String
-    --
-    + docTuFile(duongDan: String, danhSach: DanhSach<?>): boolean
-    + ghiRaFile(duongDan: String, danhSach: DanhSach<?>): boolean
+    - docTuFile(duongDan: String, danhSach: DanhSach<?>): boolean
+    - ghiRaFile(duongDan: String, danhSach: DanhSach<?>): boolean
     + docTatCa(): boolean
     + xuatTatCa(): boolean
-    + getLoiCuoiCung(): String
   }
 
   class FileTxt {
     + docCacDong(duongDan: String): String[]
     + ghiCacDong(duongDan: String, cacDong: String[]): boolean
   }
+
+  note right of NhapXuatFile
+    Tên file: tour.txt, nhan_vien.txt, hanh_khach.txt, phuong_tien.txt,
+    khach_san.txt, ke_hoach_tour.txt, ve.txt, hoa_don.txt.
+    Thứ tự nạp: danh mục → kế hoạch → vé → hóa đơn.
+    Mỗi dòng là một đối tượng; Tour có thêm cột loại (trong nước / nước ngoài);
+    HoaDon ghi kèm danhSachMaVe và tongTien của ChiTietHoaDon.
+  end note
 
   NhapXuatFile ..> FileTxt : đọc/ghi file thực tế
   NhapXuatFile ..> DanhSach : sử dụng giao diện chung
@@ -463,7 +440,6 @@ package "giaodien" #E7F4F5 {
     - xuLyQuanLy(): void
     - xuLyTimKiemTour(): void
     - xuLyChiTietVaKeHoach(): void
-    - xuLyHanhKhach(): void
     - xuLyDatNhomVe(): void
     - xuLyTraCuuNhomVe(): void
     - xuLyThanhToan(): void
@@ -523,6 +499,12 @@ CLI gom theo luồng sử dụng thay vì có một class cho từng màn hình:
    tuần tự hóa cùng HoaDon, gồm maHoaDon, danh sáchMaVe và tongTien.
 6) Hiển thị tất cả nhóm đặt bằng các maDonDatTour duy nhất lấy từ DanhSachVe;
    trạng thái nhóm chỉ là trạng thái suy ra, không phải thuộc tính của DonDatTour.
+7) Xóa phương tiện/khách sạn/nhân viên/hành khách/kế hoạch: CLI duyệt layTatCa()
+   của danh sách liên quan để chặn xóa khi còn được tham chiếu.
+8) Mã mới = mã lớn nhất hiện có + 1, lấy từ layTatCa() của danh sách tương ứng.
+9) Hủy nhóm vé: chỉ cho phép khi hóa đơn của nhóm chưa thu đồng nào.
+10) Thanh toán: HoaDon.ghiNhanThanhToan(soTien, dsVe) tự chuyển các vé chưa hủy
+    sang DA_THANH_TOAN khi trả đủ; timChuaThanhToanDu(dsVe) bỏ qua hóa đơn có mọi vé DA_HUY.
 end note
 
 @enduml

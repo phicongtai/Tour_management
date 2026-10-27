@@ -8,6 +8,12 @@ public class TourNuocNgoai extends Tour {
     public TourNuocNgoai() {
     }
 
+    public TourNuocNgoai(String quocGia, boolean canVisa, long phiVisa) {
+        this.quocGia = quocGia;
+        this.canVisa = canVisa;
+        this.phiVisa = phiVisa;
+    }
+
     public TourNuocNgoai(int maTour, String tenTour, String diemKhoiHanh, String diemDen, int soNgay, long donGiaCoBan, String quocGia, boolean canVisa, long phiVisa) {
         super(maTour, tenTour, diemKhoiHanh, diemDen, soNgay, donGiaCoBan);
         this.quocGia = quocGia;
@@ -24,6 +30,10 @@ public class TourNuocNgoai extends Tour {
     }
 
     public boolean isCanVisa() {
+        return canVisa;
+    }
+
+    public boolean getCanVisa() {
         return canVisa;
     }
 
