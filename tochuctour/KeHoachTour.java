@@ -154,26 +154,58 @@ public class KeHoachTour {
         return true;
     }
 
-    public boolean doiNgayChiTiet(String ngayCu, String ngayMoi) {
-        if (ngayCu == null || ngayMoi == null || ngayMoi.trim().isBlank()) {
+    public boolean doiNgayChiTiet(String ngayCu , String ngayMoi){
+        if(ngayCu == null || ngayMoi == null ){
             return false;
         }
-        ChiTietKeHoachTour chiTiet = null;
-        for (int i = 0; i < this.soLuongChiTiet; i++) {
-            if (this.chiTietLichTrinh[i] != null && ngayCu.equals(this.chiTietLichTrinh[i].getNgay())) {
-                chiTiet = this.chiTietLichTrinh[i];
-                break;
-            }
-        }
-        if (chiTiet == null) {
-            return false;
-        }
-        for (int i = 0; i < this.soLuongChiTiet; i++) {
-            if (this.chiTietLichTrinh[i] != null && ngayMoi.equals(this.chiTietLichTrinh[i].getNgay())) {
+                // Kiểm tra xem ngày mới đã bị trùng với chi tiết nào khác chưa
+        for (int i = 0 ; i < this.soLuongChiTiet ; i++){
+            if(this.chiTietLichTrinh[i].getNgay().equals(ngayMoi)){
                 return false;
             }
         }
-        chiTiet.setNgay(ngayMoi);
+        // Tìm ngày cũ để cập nhật sang ngày mới
+        for (int i = 0 ; i < this.soLuongChiTiet ; i++){
+            if(this.chiTietLichTrinh[i].getNgay().equals(ngayCu)){
+                this.chiTietLichTrinh[i].setNgay(ngayMoi);
+            }
+        }
         return true;
+    }
+
+    public boolean xoaChiTiet(String ngay){
+        if(ngay == null || this.chiTietLichTrinh == null){
+            return false;
+        }
+        int point = -1;
+        for(int i = 0 ; i < this.soLuongChiTiet ; i++){
+            if(this.chiTietLichTrinh[i].getNgay().equals(ngay)){
+                point = i;
+                break;
+            }
+        }
+        if(point == -1){
+            return false;
+        }
+        for(int i = point ; i < this.soLuongChiTiet - 1; i++){
+            this.chiTietLichTrinh[i] = this.chiTietLichTrinh[i+1];
+        }
+
+        this.chiTietLichTrinh=Arrays.copyOf(this.chiTietLichTrinh, this.soLuongChiTiet - 1);
+        this.soLuongChiTiet--;
+        return true;
+    }
+
+    public ChiTietKeHoachTour timChiTietTheoNgay(String ngay){
+        if(ngay == null || this.chiTietLichTrinh == null){
+            return null;
+        }
+
+        for(int i = 0 ; i < this.soLuongChiTiet ; i++){
+            if(this.chiTietLichTrinh[i].getNgay().equals(ngay)){
+                return this.chiTietLichTrinh[i];
+            }
+        }
+        return null;
     }
 }
