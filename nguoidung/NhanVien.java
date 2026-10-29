@@ -1,6 +1,5 @@
 package nguoidung;
 
-import java.util.Scanner;
 public class NhanVien {
     private int maNhanVien;
     private String hoTen;
@@ -71,36 +70,5 @@ public class NhanVien {
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai.trim();
         return true;
-    }
-    public String chuyenThanhDong(){
-        return "NHANVIEN|"+maNhanVien+"|"+hoTen+"|"+ngaySinh+
-        "|"+gioiTinh+"|"+soDienThoai;
-    }
-    public boolean docTuDong(String dong){
-        if(dong==null||!dong.startsWith("NHANVIEN|")){//kiểm tra xem dòng dữ liệu có đúng định dạng bắt đầu bằng tiền tố quy định hay không
-            return false;
-        }
-        String[] parts=dong.split("\\|");//Cắt chuỗi lớn thành nhiều chuỗi nhỏ hơn bởi biểu thức quy tắc(regex)
-        if(parts.length!=6){//lấy ra số lượng phần tử của mảng
-            return false;
-        }
-        try {
-            int ma = Integer.parseInt(parts[1]);
-            if (ma <= 0) return false;
-            int g = Integer.parseInt(parts[4]);
-            if (g < 0 || g > 2) return false;
-            if (parts[2].trim().isEmpty() || parts[5].trim().isEmpty()) {
-                return false;
-            }
-            this.maNhanVien=ma;
-            this.hoTen=parts[2].trim();
-            this.ngaySinh=parts[3].trim();
-            this.gioiTinh=g;
-            this.soDienThoai=parts[5].trim();
-            return true;
-        }
-        catch(NumberFormatException e){
-            return true;
-        }
     }
 }
