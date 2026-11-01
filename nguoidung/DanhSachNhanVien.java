@@ -1,5 +1,5 @@
 package nguoidung;
-
+import java.util.Arrays;
 import danhsach.DanhSach;
 
 public class DanhSachNhanVien implements DanhSach<NhanVien> {
@@ -14,7 +14,7 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     @Override
     public boolean them(NhanVien nhanVien) {
         if (nhanVien == null || soLuong >= danhSach.length) return false;
-        // Kiá»ƒm tra trÃ¹ng mÃ£
+        // Kiểm tra trùng mã
         if (timTheoMa(nhanVien.getMaNhanVien()) != null) return false;
         
         danhSach[soLuong++] = nhanVien;

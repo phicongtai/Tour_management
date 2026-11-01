@@ -1,25 +1,33 @@
 package nguoidung;
-
+import java.util.Arrays;
 import danhsach.DanhSach;
-
 public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
     private HanhKhach[] danhSach;
     private int soLuong;
     public DanhSachHanhKhach(){
-        this.danhSach=new HanhKhach[100];
-        this.soLuong=0;
+        danhSach=new HanhKhach[100];
+        soLuong=0;
     }
     @Override 
     public boolean them(HanhKhach hanhKhach){
-        if(hanhKhach==null||soLuong>=danhSach.length)return false;
-        if(timTheoMa(hanhKhach.getMaHanhKhach())!=null)return false;
-        danhSach[soLuong++]=hanhKhach;
+        if(hanhKhach==null)return false;
+        if(danhSach==null){
+            danhSach=new HanhKhach[0];
+            soLuong=0;
+        }
+        for(int i=0;i<soLuong;i++){
+            if(danhSach[i]!=null && danhSach[i].getMaHanhKhach()==hanhKhach.getMaHanhKhach())return false;
+        }
+        danhSach=Arrays.copyOf(danhSach,soLuong+1);
+        danhSach[soLuong]=hanhKhach;
+        soLuong++;
         return true;
     }
     @Override 
     public HanhKhach timTheoMa(int maHanhKhach){
         for(int i=0;i<soLuong;i++){
-            if(danhSach[i].getMaHanhKhach()==maHanhKhach)return danhSach[i];
+            if(danhSach[i].getMaHanhKhach()==maHanhKhach)
+                return danhSach[i];
         }
         return null;
     }
@@ -38,11 +46,11 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
     }
     @Override 
     public boolean capNhat(HanhKhach hanhKhach){
-        if(hanhKhach==null)return false;
+        if(hanhKhach == null)return false;
         for(int i=0;i<soLuong;i++){
             if(danhSach[i].getMaHanhKhach()==hanhKhach.getMaHanhKhach()){
                 danhSach[i]=hanhKhach;
-            return true;
+                return true;
             }
         }
         return false;
@@ -99,4 +107,3 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
         return true;
     }
 }
-
