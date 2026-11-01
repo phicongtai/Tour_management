@@ -14,7 +14,7 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     @Override
     public boolean them(NhanVien nhanVien) {
         if (nhanVien == null || soLuong >= danhSach.length) return false;
-        // Kiểm tra trùng mã
+        // Kiá»ƒm tra trÃ¹ng mÃ£
         if (timTheoMa(nhanVien.getMaNhanVien()) != null) return false;
         
         danhSach[soLuong++] = nhanVien;
@@ -30,10 +30,8 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         }
         return null;
     }
-
-    @Override
     public NhanVien[] timTheoTen(String hoTen) {
-        // Đếm số lượng tìm thấy trước
+        // Äáº¿m sá»‘ lÆ°á»£ng tÃ¬m tháº¥y trÆ°á»›c
         int dem = 0;
         for (int i = 0; i < soLuong; i++) {
             if (danhSach[i].getHoTen().equalsIgnoreCase(hoTen.trim())) {
@@ -67,7 +65,7 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     public boolean xoaTheoMa(int maNhanVien) {
         for (int i = 0; i < soLuong; i++) {
             if (danhSach[i].getMaNhanVien() == maNhanVien) {
-                // Dồn mảng
+                // Dá»“n máº£ng
                 for (int j = i; j < soLuong - 1; j++) {
                     danhSach[j] = danhSach[j + 1];
                 }
@@ -89,7 +87,7 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     public String[] xuatDuLieu() {
         String[] dongTXT = new String[soLuong];
         for (int i = 0; i < soLuong; i++) {
-            dongTXT[i] = danhSach[i].toString(); // Giả định lớp NhanVien có phương thức toString() định dạng chuỗi lưu file
+            dongTXT[i] = danhSach[i].toString(); // Giáº£ Ä‘á»‹nh lá»›p NhanVien cÃ³ phÆ°Æ¡ng thá»©c toString() Ä‘á»‹nh dáº¡ng chuá»—i lÆ°u file
         }
         return dongTXT;
     }
@@ -101,9 +99,9 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         int count = 0;
         
         for (String line : dongDuLieu) {
-            // Giả sử mỗi dòng trong file txt phân cách bằng dấu phẩy: ma,hoTen,ngaySinh,gioiTinh,soDienThoai
+            // Giáº£ sá»­ má»—i dÃ²ng trong file txt phÃ¢n cÃ¡ch báº±ng dáº¥u pháº©y: ma,hoTen,ngaySinh,gioiTinh,soDienThoai
             String[] parts = line.split(",");
-            if (parts.length < 5) return false; // Nếu thiếu dữ liệu thì xem như lỗi, dừng lại
+            if (parts.length < 5) return false; // Náº¿u thiáº¿u dá»¯ liá»‡u thÃ¬ xem nhÆ° lá»—i, dá»«ng láº¡i
             
             try {
                 int maNhanVien = Integer.parseInt(parts[0].trim());
@@ -112,17 +110,18 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
                 int gioiTinh = Integer.parseInt(parts[3].trim());
                 String soDienThoai = parts[4].trim();
                 
-                // Gọi thẳng constructor 5 tham số của lớp NhanVien
+                // Gá»i tháº³ng constructor 5 tham sá»‘ cá»§a lá»›p NhanVien
                 NhanVien nv = new NhanVien(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai);
                 temp[count++] = nv;
             } catch (Exception e) {
-                return false; // Dòng nào lỗi định dạng (ví dụ mã/giới tính không phải số) thì trả về false
+                return false; // DÃ²ng nÃ o lá»—i Ä‘á»‹nh dáº¡ng (vÃ­ dá»¥ mÃ£/giá»›i tÃ­nh khÃ´ng pháº£i sá»‘) thÃ¬ tráº£ vá» false
             }
         }
         
-        // Mọi dòng hợp lệ mới thay thế nội dung danh sách
+        // Má»i dÃ²ng há»£p lá»‡ má»›i thay tháº¿ ná»™i dung danh sÃ¡ch
         danhSach = temp;
         soLuong = count;
         return true;
     }
 }
+

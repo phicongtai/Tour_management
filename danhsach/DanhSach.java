@@ -7,9 +7,6 @@ public interface DanhSach<T> {
     // Tìm kiếm theo mã (dùng chung kiểu int cho mã nhân viên / hành khách)
     T timTheoMa(int ma);
 
-    // Lọc theo tên
-    T[] timTheoTen(String hoTen);
-
     // Cập nhật thông tin phần tử
     boolean capNhat(T phanTu);
 

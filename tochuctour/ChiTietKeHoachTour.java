@@ -67,4 +67,24 @@ public class ChiTietKeHoachTour {
     public void setTienDiLai(long tienDiLai) {
         this.tienDiLai = tienDiLai;
     }
+
+    public boolean capNhat(int maPhuongTien,int maKhachSan,long tienAn,long tienO,long tienDiLai){
+        if(maKhachSan <= 0 || maKhachSan <= 0 || tienAn <= 0 || tienO <= 0 || tienDiLai <= 0 ){
+            return false;
+        }
+
+        this.maPhuongTien = maKhachSan;
+        this.maKhachSan = maKhachSan;
+        this.tienAn = tienAn;
+        this.tienO = tienO;
+        this.tienDiLai = tienDiLai;
+    return true;
+    }
+
+    public long tinhChiPhiNgay(int soKhach){
+        if(soKhach <= 0){
+            return -1;
+        }
+        return soKhach * (this.tienAn + this.tienDiLai + this.tienO);
+    }
 }

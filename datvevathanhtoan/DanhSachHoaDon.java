@@ -39,4 +39,37 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
+
+    @Override
+    public HoaDon timTheoMa(int maHoaDon) {
+        return null;
+    }
+
+    public HoaDon timTheoMaDonDatTour(int maDonDatTour) {
+        return null;
+    }
+
+    public HoaDon[] timChuaThanhToanDu(DanhSachVe dsVe) {
+        return new HoaDon[0];
+    }
+
+    @Override
+    public boolean capNhat(HoaDon hoaDon) {
+        return false;
+    }
+
+    @Override
+    public boolean xoaTheoMa(int maHoaDon) {
+        return false;
+    }
+
+    @Override
+    public String[] xuatDuLieu() {
+        return new String[0];
+    }
+
+    @Override
+    public boolean nhapDuLieu(String[] dongDuLieu) {
+        return false;
+    }
 }

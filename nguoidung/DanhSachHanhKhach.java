@@ -23,7 +23,6 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
         }
         return null;
     }
-    @Override 
     public HanhKhach[] timTheoTen(String hoTen){
         int dem=0;
         for(int i=0;i<soLuong;i++){
@@ -100,3 +99,4 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
         return true;
     }
 }
+

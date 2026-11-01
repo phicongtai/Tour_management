@@ -146,7 +146,7 @@ public class KeHoachTour {
         }
 
         this.chiTietLichTrinh = Arrays.copyOf(this.chiTietLichTrinh, this.soLuongChiTiet + 1);
-
+        
         this.chiTietLichTrinh[this.soLuongChiTiet] = chiTiet;
 
         this.soLuongChiTiet++;
@@ -207,5 +207,19 @@ public class KeHoachTour {
             }
         }
         return null;
+    }
+
+    public long tinhTongChiPhi(int soKhach){
+        if(soKhach <= 0){
+            return -1;
+        }
+
+        long result = 0;
+
+    for(int i = 0 ; i < soLuongChiTiet ; i++){
+        result += soKhach * chiTietLichTrinh[i].tinhChiPhiNgay(soKhach);
+        }
+
+        return result;
     }
 }

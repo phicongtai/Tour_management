@@ -39,4 +39,33 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
+
+    @Override
+    public PhuongTien timTheoMa(int maPhuongTien) {
+        return null;
+    }
+
+    public PhuongTien[] timTheoTen(String tenPhuongTien) {
+        return new PhuongTien[0];
+    }
+
+    @Override
+    public boolean capNhat(PhuongTien phuongTien) {
+        return false;
+    }
+
+    @Override
+    public boolean xoaTheoMa(int maPhuongTien) {
+        return false;
+    }
+
+    @Override
+    public String[] xuatDuLieu() {
+        return new String[0];
+    }
+
+    @Override
+    public boolean nhapDuLieu(String[] dongDuLieu) {
+        return false;
+    }
 }

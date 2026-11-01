@@ -39,4 +39,33 @@ public class DanhSachTour implements DanhSach<Tour> {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
+
+    @Override
+    public Tour timTheoMa(int maTour) {
+        return null;
+    }
+
+    public Tour[] timTheoTen(String tenTour) {
+        return new Tour[0];
+    }
+
+    @Override
+    public boolean capNhat(Tour tour) {
+        return false;
+    }
+
+    @Override
+    public boolean xoaTheoMa(int maTour) {
+        return false;
+    }
+
+    @Override
+    public String[] xuatDuLieu() {
+        return new String[0];
+    }
+
+    @Override
+    public boolean nhapDuLieu(String[] dongDuLieu) {
+        return false;
+    }
 }
