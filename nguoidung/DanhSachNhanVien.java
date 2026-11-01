@@ -1,5 +1,5 @@
 package nguoidung;
-
+import java.util.Arrays;
 import danhsach.DanhSach;
 
 public class DanhSachNhanVien implements DanhSach<NhanVien> {
@@ -13,11 +13,19 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
 
     @Override
     public boolean them(NhanVien nhanVien) {
-        if (nhanVien == null || soLuong >= danhSach.length) return false;
-        // Kiểm tra trùng mã
-        if (timTheoMa(nhanVien.getMaNhanVien()) != null) return false;
-        
-        danhSach[soLuong++] = nhanVien;
+        if(nhanVien==null)return false;
+        if(danhSach==null){
+        danhSach=new NhanVien[0];
+        soLuong=0;
+        }
+        for(int i=0;i<soLuong;i++){
+            if(danhSach[i]!=null && danhSach[i].getMaNhanVien()==nhanVien.getMaNhanVien()){
+                return false;
+            }
+        }
+        danhSach=Arrays.copyOf(danhSach,soLuong+1);
+        danhSach[soLuong]=nhanVien;
+        soLuong++;
         return true;
     }
 
