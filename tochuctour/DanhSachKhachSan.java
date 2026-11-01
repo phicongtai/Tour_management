@@ -62,21 +62,77 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
 
     @Override
     public KhachSan timTheoMa(int maKhachSan) {
+        if(maKhachSan <= 0){
+            return null;
+        }
+
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getMaKhachSan() == maKhachSan){
+                return this.danhSach[i];
+            }
+        }
+
         return null;
     }
 
     public KhachSan[] timTheoTen(String tenKhachSan) {
-        return new KhachSan[0];
+        if(this.danhSach == null||tenKhachSan.isBlank()){
+            return new KhachSan[0];
+        }
+
+        int tempsize = 0;
+        KhachSan[] temp = new KhachSan[0];
+
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getTenKhachSan().equals(tenKhachSan)){
+            temp = Arrays.copyOf(temp, tempsize + 1);
+            temp[tempsize] = this.danhSach[i];
+            tempsize++;
+            }
     }
+    return temp;
+}
 
     @Override
     public boolean capNhat(KhachSan khachSan) {
+        if(this.danhSach == null || khachSan == null){
+            return false;
+        }
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getMaKhachSan() == khachSan.getMaKhachSan()){
+                this.danhSach[i] = khachSan;
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean xoaTheoMa(int maKhachSan) {
-        return false;
+        if(this.danhSach == null || maKhachSan <= 0){
+            return false;
+        }
+
+        boolean check = false;
+        int point = 0;
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getMaKhachSan() == maKhachSan){
+                point = i;
+                check = true;
+                break;
+            }
+        }
+
+        if(!check){
+            return  false;
+        }
+
+        for(int i = point ; i < this.soLuong - 1 ;i++){
+            this.danhSach[i] = this.danhSach[i+1];
+        }
+
+        this.soLuong--;
+        return true;
     }
 
     @Override

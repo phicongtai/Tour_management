@@ -32,8 +32,9 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
         }
 
         this.danhSach = Arrays.copyOf(this.danhSach, soLuong + 1);
+        this.danhSach[this.soLuong] = keHoach;
         this.soLuong++;
-        return false;
+        return true;
     }
 
     @Override
