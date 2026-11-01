@@ -1,88 +1,132 @@
 package datvevathanhtoan;
 
+import java.util.Arrays;
+
 import danhsach.DanhSach;
+import kho.KhoDuLieu;
+import nguoidung.DanhSachHanhKhach;
+import nguoidung.HanhKhach;
 
 public class DanhSachVe implements DanhSach<Ve> {
     private Ve[] danhSach;
     private int soLuong;
 
     public DanhSachVe() {
+        this.danhSach = new Ve[0];
     }
 
     public DanhSachVe(Ve[] danhSach, int soLuong) {
-        this.danhSach = danhSach;
-        this.soLuong = soLuong;
+        int gioiHan = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
+        this.danhSach = danhSach == null ? new Ve[0] : Arrays.copyOf(danhSach, gioiHan);
+        this.soLuong = gioiHan;
     }
 
     @Override
     public boolean them(Ve ve) {
-        // 1. Kiểm tra null
-        if (ve == null || danhSach == null) {
+        if (ve == null || ve.getMaVe() <= 0 || danhSach == null
+                || soLuong < 0 || soLuong > danhSach.length
+                || timTheoMa(ve.getMaVe()) != null) {
             return false;
         }
 
-        // 2. Duyệt mảng kiểm tra trùng mã vé
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getMaVe() == ve.getMaVe()) {
-                return false;
-            }
-        }
-
-        // 3. Kiểm tra còn chỗ trống
-        if (soLuong >= danhSach.length) {
-            return false;
-        }
-
-        // 4. Gán vào cuối mảng và tăng số lượng
-        danhSach[soLuong] = ve;
-        soLuong++;
-
-        // 5. Thêm thành công
+        danhSach = Arrays.copyOf(danhSach, soLuong + 1);
+        danhSach[soLuong++] = ve;
         return true;
     }
 
     @Override
     public Ve timTheoMa(int maVe) {
-        // Duyệt danhSach[0..soLuong-1] để tìm vé có mã trùng khớp
-        for (int i = 0; i < soLuong; i++) {
+        if (maVe <= 0 || danhSach == null || soLuong <= 0) {
+            return null;
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        for (int i = 0; i < gioiHan; i++) {
             if (danhSach[i] != null && danhSach[i].getMaVe() == maVe) {
                 return danhSach[i];
             }
         }
-        // Không tìm thấy thì trả null
         return null;
     }
 
-    public Ve[] timTheoMaDonDatTour(int maDonDatTour) {
-        // Danh sách chưa có dữ liệu thì trả mảng rỗng
-        if (danhSach == null) {
+    @Override
+    public Ve[] timTheoTen(String hoTen) {
+        if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
             return new Ve[0];
         }
 
-        // 1. Đếm số vé khớp để cấp phát mảng kết quả vừa đủ
+        DanhSachHanhKhach dsHanhKhach = KhoDuLieu.getDanhSachHanhKhach();
+        if (dsHanhKhach == null) {
+            return new Ve[0];
+        }
+        HanhKhach[] hanhKhachs = dsHanhKhach.timTheoTen(hoTen);
+        if (hanhKhachs == null || hanhKhachs.length == 0) {
+            return new Ve[0];
+        }
+
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        Ve[] ketQua = new Ve[gioiHan];
         int dem = 0;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getMaDonDatTour() == maDonDatTour) {
-                dem++;
+        for (int i = 0; i < gioiHan; i++) {
+            Ve ve = danhSach[i];
+            if (ve != null && thuocHanhKhach(ve, hanhKhachs)) {
+                ketQua[dem++] = ve;
             }
         }
+        return Arrays.copyOf(ketQua, dem);
+    }
 
-        // 2. Gom các vé khớp vào mảng kết quả mới
-        Ve[] ketQua = new Ve[dem];
-        int index = 0;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getMaDonDatTour() == maDonDatTour) {
-                ketQua[index++] = danhSach[i];
+    @Override
+    public boolean capNhat(Ve ve) {
+        if (ve == null || ve.getMaVe() <= 0 || danhSach == null) {
+            return false;
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        for (int i = 0; i < gioiHan; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaVe() == ve.getMaVe()) {
+                danhSach[i] = ve;
+                return true;
             }
         }
+        return false;
+    }
 
-        // 3. Trả mảng (rỗng nếu không khớp); danh sách gốc không đổi
-        return ketQua;
+    @Override
+    public boolean xoaTheoMa(int maVe) {
+        if (maVe <= 0 || danhSach == null) {
+            return false;
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        for (int i = 0; i < gioiHan; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaVe() == maVe) {
+                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan - i - 1);
+                danhSach[--soLuong] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Ve[] timTheoMaDonDatTour(int maDonDatTour) {
+        if (maDonDatTour <= 0 || danhSach == null) {
+            return new Ve[0];
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        Ve[] ketQua = new Ve[gioiHan];
+        int dem = 0;
+        for (int i = 0; i < gioiHan; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaDonDatTour() == maDonDatTour) {
+                ketQua[dem++] = danhSach[i];
+            }
+        }
+        return Arrays.copyOf(ketQua, dem);
     }
 
     @Override
     public Ve[] layTatCa() {
-        return danhSach;
+        if (danhSach == null || soLuong <= 0) {
+            return new Ve[0];
+        }
+        return Arrays.copyOf(danhSach, Math.min(soLuong, danhSach.length));
     }
 
     public Ve[] getDanhSach() {
@@ -91,6 +135,11 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     public void setDanhSach(Ve[] danhSach) {
         this.danhSach = danhSach;
+        if (danhSach == null) {
+            soLuong = 0;
+        } else {
+            soLuong = Math.min(soLuong, danhSach.length);
+        }
     }
 
     public int getSoLuong() {
@@ -98,7 +147,16 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
 
     public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+        this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
+    }
+
+    private boolean thuocHanhKhach(Ve ve, HanhKhach[] hanhKhachs) {
+        for (int i = 0; i < hanhKhachs.length; i++) {
+            if (hanhKhachs[i] != null && hanhKhachs[i].getMaHanhKhach() == ve.getMaHanhKhach()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
