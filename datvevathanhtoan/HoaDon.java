@@ -80,60 +80,60 @@ public class HoaDon {
     }
 
     public boolean themVeVaoChiTiet(int maVe, DanhSachVe dsVe) {
-        // 1. Kiểm tra tham số: dsVe khác null, maVe hợp lệ
-        if (dsVe == null || maVe <= 0) {
-            return false;
-        }
-
-        // 2. Tra vé theo mã, không tìm thấy thì từ chối
-        Ve ve = dsVe.timTheoMa(maVe);
-        if (ve == null) {
-            return false;
-        }
-
-        // 3. Vé phải thuộc đúng đơn đặt tour của hóa đơn
-        if (ve.getMaDonDatTour() != maDonDatTour) {
-            return false;
-        }
-
-        // 4. Vé chưa có trong chi tiết và chưa được gán vào hóa đơn khác
-        if (chiTiet != null && chiTiet.coChuaVe(maVe)) {
-            return false;
-        }
-        if (daThuocHoaDonKhac(maVe)) {
-            return false;
-        }
-
-        // 5. Thêm vé vào chi tiết rồi cập nhật tổng tiền
-        if (chiTiet == null) {
-            chiTiet = new ChiTietHoaDon(maHoaDon);
-        }
-        if (!chiTiet.themVe(maVe)) {
-            return false;
-        }
-        if (!chiTiet.capNhatTongTien(dsVe)) {
-            return false;
-        }
-
-        // 6. Thêm thành công khi mọi bước đều hợp lệ
-        return true;
+    // 1. Kiểm tra tham số: dsVe khác null, maVe hợp lệ
+    if (dsVe == null || maVe <= 0) {
+        return false;
     }
 
-    public int[] layDanhSachMaVe() {
+    // 2. Tra vé theo mã, không tìm thấy thì từ chối
+    Ve ve = dsVe.timTheoMa(maVe);
+    if (ve == null) {
+        return false;
+    }
+
+    // 3. Vé phải thuộc đúng đơn đặt tour của hóa đơn
+    if (ve.getMaDonDatTour() != maDonDatTour) {
+        return false;
+    }
+
+    // 4. Vé chưa có trong chi tiết và chưa được gán vào hóa đơn khác
+    if (chiTiet != null && chiTiet.coChuaVe(maVe)) {
+        return false;
+    }
+    if (daThuocHoaDonKhac(maVe)) {
+        return false;
+    }
+
+    // 5. Thêm vé vào chi tiết rồi cập nhật tổng tiền
+    if (chiTiet == null) {
+        chiTiet = new ChiTietHoaDon(maHoaDon);
+    }
+    if (!chiTiet.themVe(maVe)) {
+        return false;
+    }
+    if (!chiTiet.capNhatTongTien(dsVe)) {
+        return false;
+    }
+
+    // 6. Thêm thành công khi mọi bước đều hợp lệ
+    return true;
+}
+
+public int[] layDanhSachMaVe() {
         // Chưa có chi tiết thì trả mảng rỗng
-        if (chiTiet == null) {
-            return new int[0];
-        }
+    if (chiTiet == null) {
+        return new int[0];
+    }
 
         // ChiTietHoaDon.layDanhSachMaVe() đã trả bản sao các mã vé đang dùng
-        int[] danhSachMaVe = chiTiet.layDanhSachMaVe();
-        if (danhSachMaVe == null) {
-            return new int[0];
-        }
-        return danhSachMaVe;
+    int[] danhSachMaVe = chiTiet.layDanhSachMaVe();
+    if (danhSachMaVe == null) {
+        return new int[0];
     }
+        return danhSachMaVe;
+}
 
-    public long tinhTongTien() {
+public long tinhTongTien() {
         // Tổng tiền là dữ liệu lịch sử đã chốt trong chi tiết; không tính lại theo giá vé hiện tại
         if (chiTiet == null) {
             return 0;
@@ -141,26 +141,26 @@ public class HoaDon {
         return chiTiet.layTongTien();
     }
 
-    public long tinhSoTienConLai() {
-        // 1. Kiểm tra điều kiện: số tiền đã thanh toán không được âm
-        if (soTienDaThanhToan < 0) {
-            return 0;
-        }
-
-        // 2. Lấy tổng tiền của hóa đơn, tổng tiền không hợp lệ thì từ chối
-        long tongTien = tinhTongTien();
-        if (tongTien <= 0) {
-            return 0;
-        }
-
-        // 3. Đã thanh toán vượt tổng tiền thì số còn lại sẽ âm, từ chối
-        if (soTienDaThanhToan > tongTien) {
-            return 0;
-        }
-
-        // 4. Chỉ đọc dữ liệu, trả về số tiền còn phải thanh toán
-        return tongTien - soTienDaThanhToan;
+public long tinhSoTienConLai() {
+    // 1. Kiểm tra điều kiện: số tiền đã thanh toán không được âm
+    if (soTienDaThanhToan < 0) {
+        return 0;
     }
+
+    // 2. Lấy tổng tiền của hóa đơn, tổng tiền không hợp lệ thì từ chối
+    long tongTien = tinhTongTien();
+        if (tongTien <= 0) {
+        return 0;
+    }
+
+    // 3. Đã thanh toán vượt tổng tiền thì số còn lại sẽ âm, từ chối
+    if (soTienDaThanhToan > tongTien) {
+        return 0;
+    }
+
+    // 4. Chỉ đọc dữ liệu, trả về số tiền còn phải thanh toán
+    return tongTien - soTienDaThanhToan;
+}
 
     public boolean ghiNhanThanhToan(long soTien, DanhSachVe dsVe) {
         // 1. Kiểm tra tham số: số tiền dương, có danh sách vé và có chi tiết hóa đơn
