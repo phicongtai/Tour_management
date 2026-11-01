@@ -16,7 +16,68 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public boolean them(Ve ve) {
-        return false;
+        // 1. Kiểm tra null
+        if (ve == null || danhSach == null) {
+            return false;
+        }
+
+        // 2. Duyệt mảng kiểm tra trùng mã vé
+        for (int i = 0; i < soLuong; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaVe() == ve.getMaVe()) {
+                return false;
+            }
+        }
+
+        // 3. Kiểm tra còn chỗ trống
+        if (soLuong >= danhSach.length) {
+            return false;
+        }
+
+        // 4. Gán vào cuối mảng và tăng số lượng
+        danhSach[soLuong] = ve;
+        soLuong++;
+
+        // 5. Thêm thành công
+        return true;
+    }
+
+    @Override
+    public Ve timTheoMa(int maVe) {
+        // Duyệt danhSach[0..soLuong-1] để tìm vé có mã trùng khớp
+        for (int i = 0; i < soLuong; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaVe() == maVe) {
+                return danhSach[i];
+            }
+        }
+        // Không tìm thấy thì trả null
+        return null;
+    }
+
+    public Ve[] timTheoMaDonDatTour(int maDonDatTour) {
+        // Danh sách chưa có dữ liệu thì trả mảng rỗng
+        if (danhSach == null) {
+            return new Ve[0];
+        }
+
+        // 1. Đếm số vé khớp để cấp phát mảng kết quả vừa đủ
+        int dem = 0;
+        for (int i = 0; i < soLuong; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaDonDatTour() == maDonDatTour) {
+                dem++;
+            }
+        }
+
+        // 2. Gom các vé khớp vào mảng kết quả mới
+        Ve[] ketQua = new Ve[dem];
+        int index = 0;
+        for (int i = 0; i < soLuong; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaDonDatTour() == maDonDatTour) {
+                ketQua[index++] = danhSach[i];
+            }
+        }
+
+        // 3. Trả mảng (rỗng nếu không khớp); danh sách gốc không đổi
+        return ketQua;
     }
 
     @Override
