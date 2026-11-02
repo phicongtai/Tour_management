@@ -86,5 +86,7 @@ public abstract class Tour {
     return true;
 }
 
-public abstract long tinhGiaVe();
+public long tinhGiaVe(){
+    return donGiaCoBan;
+};
 }
