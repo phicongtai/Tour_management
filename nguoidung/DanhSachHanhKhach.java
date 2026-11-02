@@ -25,30 +25,32 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
     }
     @Override 
     public HanhKhach timTheoMa(int maHanhKhach){
+        if (danhSach==null || soLuong <= 0 || maHanhKhach <= 0) {
+            return null;
+        }
         for(int i=0;i<soLuong;i++){
-            if(danhSach[i].getMaHanhKhach()==maHanhKhach)
-                return danhSach[i];
+            if(danhSach[i]!=null && danhSach[i].getMaHanhKhach()==maHanhKhach)return danhSach[i];
         }
         return null;
     }
     public HanhKhach[] timTheoTen(String hoTen){
-        int dem=0;
-        for(int i=0;i<soLuong;i++){
-            if(danhSach[i].getHoTen().equalsIgnoreCase(hoTen.trim()))dem++;
-        }
-        HanhKhach[] ketQua=new HanhKhach[dem];
+        if(danhSach==null || soLuong <= 0 || hoTen.isBlank())return new HanhKhach[0];
+        HanhKhach[] ketQua=new HanhKhach[0];
         int index=0;
         for(int i=0;i<soLuong;i++){
-            if(danhSach[i].getHoTen().equalsIgnoreCase(hoTen.trim()))
-                ketQua[index++]=danhSach[i];
+            if(danhSach[i]!=null && danhSach[i].getHoTen().equalsIgnoreCase(hoTen)){
+                ketQua = Arrays.copyOf(ketQua, index + 1);
+                ketQua[index] = danhSach[i];
+                index++;
+            }
         }
         return ketQua;
     }
     @Override 
     public boolean capNhat(HanhKhach hanhKhach){
-        if(hanhKhach == null)return false;
+        if(danhSach==null || soLuong <= 0 || hanhKhach==null || hanhKhach.getMaHanhKhach() <= 0)return false;
         for(int i=0;i<soLuong;i++){
-            if(danhSach[i].getMaHanhKhach()==hanhKhach.getMaHanhKhach()){
+            if(danhSach[i]!=null && danhSach[i].getMaHanhKhach()==hanhKhach.getMaHanhKhach()){
                 danhSach[i]=hanhKhach;
                 return true;
             }
@@ -57,8 +59,9 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
     }
     @Override 
     public boolean xoaTheoMa(int maHanhKhach){
+        if(danhSach==null || soLuong <= 0 || maHanhKhach <= 0)return false;
         for(int i=0;i<soLuong;i++){
-            if(danhSach[i].getMaHanhKhach()==maHanhKhach){
+            if(danhSach[i]!=null && danhSach[i].getMaHanhKhach()==maHanhKhach){
                 for(int j=i;j<soLuong-1;j++){
                     danhSach[j]=danhSach[j+1];
                 }
@@ -78,25 +81,27 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
     public String[] xuatDuLieu(){
         String[] dongTXT=new String[soLuong];
         for(int i=0;i<soLuong;i++){
-            dongTXT[i]=danhSach[i].toString();
+            if(danhSach[i]!=null){
+                dongTXT[i]=danhSach[i].toString();
+            }
         }
         return dongTXT;
     }
     @Override 
-    public boolean nhapDuLieu(String[] dongDuLieu) {
+    public boolean nhapDuLieu(String[] dongDuLieu ){
         if(dongDuLieu==null)return false;
         HanhKhach[] temp=new HanhKhach[dongDuLieu.length];
         int count=0;
         for(String line : dongDuLieu){
             String[] parts=line.split(",");
-        if(parts.length<5)return false;
-        try{
-            int maHanhKhach=Integer.parseInt(parts[0].trim());
-            String hoTen=parts[1].trim();
-            String ngaySinh=parts[2].trim();
-            int gioiTinh=Integer.parseInt(parts[3].trim());
-            String soDienThoai=parts[4].trim();
-            HanhKhach hk= new HanhKhach(maHanhKhach,hoTen,ngaySinh,gioiTinh,soDienThoai);
+            if(parts.length<5)return false;
+            try{
+                int maHanhKhach=Integer.parseInt(parts[0].trim());
+                String hoTen=parts[1].trim();
+                String ngaySinh=parts[2].trim();
+                int gioiTinh=Integer.parseInt(parts[3].trim());
+                String soDienThoai=parts[4].trim();
+                HanhKhach hk=new HanhKhach(maHanhKhach,hoTen,ngaySinh,gioiTinh,soDienThoai);
                 temp[count++]=hk;
             }catch(Exception e){
                 return false;
