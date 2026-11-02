@@ -33,4 +33,19 @@ public class TourTrongNuoc extends Tour {
     public void setPhuPhi(long phuPhi) {
         this.phuPhi = phuPhi;
     }
+    public boolean capNhatThongTinRieng(String vungMien, long phuPhi) {
+    if (vungMien == null || vungMien.trim().isEmpty() || phuPhi < 0) {
+        return false;
+    }
+
+    this.vungMien = vungMien;
+    this.phuPhi = phuPhi;
+
+    return true;
+}
+
+@Override
+public long tinhGiaVe() {
+    return getDonGiaCoBan() + phuPhi;
+}
 }

@@ -48,4 +48,24 @@ public class TourNuocNgoai extends Tour {
     public void setPhiVisa(long phiVisa) {
         this.phiVisa = phiVisa;
     }
+    public boolean capNhatThongTinRieng(String quocGia, boolean canVisa, long phiVisa) {
+    if (quocGia == null || quocGia.trim().isEmpty() || phiVisa < 0) {
+        return false;
+    }
+
+    this.quocGia = quocGia;
+    this.canVisa = canVisa;
+    this.phiVisa = phiVisa;
+
+    return true;
+}
+
+@Override
+public long tinhGiaVe() {
+    if (canVisa) {
+        return getDonGiaCoBan() + phiVisa;
+    }
+
+    return getDonGiaCoBan();
+}
 }
