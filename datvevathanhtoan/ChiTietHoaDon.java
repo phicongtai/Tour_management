@@ -9,18 +9,20 @@ public class ChiTietHoaDon {
     private long tongTien;
 
     public ChiTietHoaDon() {
-        this.danhSachMaVe = new int[0];
+        this(0);
     }
 
     public ChiTietHoaDon(int maHoaDon) {
-        this.maHoaDon = maHoaDon;
-        this.danhSachMaVe = new int[0];
+        this(maHoaDon, null, 0, 0);
     }
 
     public ChiTietHoaDon(int maHoaDon, int[] danhSachMaVe, int soLuongVe, long tongTien) {
         this.maHoaDon = maHoaDon;
-        this.danhSachMaVe = danhSachMaVe == null ? new int[0] : Arrays.copyOf(danhSachMaVe,
-                Math.min(Math.max(soLuongVe, 0), danhSachMaVe.length));
+        if (danhSachMaVe == null) {
+            danhSachMaVe = new int[0];
+        }
+        int soLuongHopLe = Math.min(Math.max(soLuongVe, 0), danhSachMaVe.length);
+        this.danhSachMaVe = Arrays.copyOf(danhSachMaVe, soLuongHopLe);
         this.soLuongVe = this.danhSachMaVe.length;
         this.tongTien = tongTien;
     }

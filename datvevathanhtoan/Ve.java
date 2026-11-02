@@ -95,28 +95,19 @@ public class Ve {
         this.trangThai = trangThai;
     }
 
-    // Vé đã đặt hoặc đã thanh toán thì đang chiếm một chỗ của kế hoạch tour
     public boolean chiemCho() {
         return trangThai == DA_DAT || trangThai == DA_THANH_TOAN;
     }
 
-    // Chỉ vé vừa đặt, chưa thanh toán và chưa hủy mới được hủy
     public boolean duocHuy() {
         return trangThai == DA_DAT;
     }
 
     public boolean capNhatTrangThai(int trangThaiMoi) {
-        // 1. Trạng thái mới phải nằm trong miền giá trị
-        if (trangThaiMoi != DA_DAT && trangThaiMoi != DA_THANH_TOAN && trangThaiMoi != DA_HUY) {
+        if (trangThai != DA_DAT || (trangThaiMoi != DA_THANH_TOAN && trangThaiMoi != DA_HUY)) {
             return false;
         }
 
-        // 2. Chỉ chuyển từ DA_DAT sang trạng thái khác; trạng thái cũ phải hợp lệ
-        if (trangThai != DA_DAT || trangThaiMoi == DA_DAT) {
-            return false;
-        }
-
-        // 3. Ghi trạng thái mới
         this.trangThai = trangThaiMoi;
         return true;
     }

@@ -12,7 +12,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     private int soLuong;
 
     public DanhSachHoaDon() {
-        this.danhSach = new HoaDon[0];
+        this(new HoaDon[0], 0);
     }
 
     public DanhSachHoaDon(HoaDon[] danhSach, int soLuong) {
@@ -179,13 +179,4 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         return Arrays.copyOf(ketQua, dem);
     }
 
-    @Override
-    public String[] xuatDuLieu() {
-        return new String[0];
-    }
-
-    @Override
-    public boolean nhapDuLieu(String[] dongDuLieu) {
-        return false;
-    }
 }

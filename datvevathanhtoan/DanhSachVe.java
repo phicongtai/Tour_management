@@ -12,7 +12,7 @@ public class DanhSachVe implements DanhSach<Ve> {
     private int soLuong;
 
     public DanhSachVe() {
-        this.danhSach = new Ve[0];
+        this(new Ve[0], 0);
     }
 
     public DanhSachVe(Ve[] danhSach, int soLuong) {
@@ -226,13 +226,4 @@ public class DanhSachVe implements DanhSach<Ve> {
         return false;
     }
 
-    @Override
-    public String[] xuatDuLieu() {
-        return new String[0];
-    }
-
-    @Override
-    public boolean nhapDuLieu(String[] dongDuLieu) {
-        return false;
-    }
 }
