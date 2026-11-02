@@ -16,19 +16,17 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     }
 
     public DanhSachHoaDon(HoaDon[] danhSach, int soLuong) {
-        int gioiHan = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
-        this.danhSach = danhSach == null ? new HoaDon[0] : Arrays.copyOf(danhSach, gioiHan);
-        this.soLuong = gioiHan;
+        this.danhSach = danhSach == null ? new HoaDon[0]
+                : Arrays.copyOf(danhSach, Math.min(Math.max(soLuong, 0), danhSach.length));
+        this.soLuong = this.danhSach.length;
     }
 
     @Override
     public boolean them(HoaDon hoaDon) {
-        if (hoaDon == null || hoaDon.getMaHoaDon() <= 0 || danhSach == null
-                || soLuong < 0 || soLuong > danhSach.length
-                || timTheoMa(hoaDon.getMaHoaDon()) != null) {
+        if (hoaDon == null || hoaDon.getMaHoaDon() <= 0 || danhSach == null || soLuong < 0
+                || soLuong > danhSach.length || timTheoMa(hoaDon.getMaHoaDon()) != null) {
             return false;
         }
-
         danhSach = Arrays.copyOf(danhSach, soLuong + 1);
         danhSach[soLuong++] = hoaDon;
         return true;
@@ -36,11 +34,10 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public HoaDon timTheoMa(int maHoaDon) {
-        if (maHoaDon <= 0 || danhSach == null || soLuong <= 0) {
+        if (maHoaDon <= 0 || danhSach == null) {
             return null;
         }
-        int gioiHan = Math.min(soLuong, danhSach.length);
-        for (int i = 0; i < gioiHan; i++) {
+        for (int i = 0; i < gioiHan(); i++) {
             if (danhSach[i] != null && danhSach[i].getMaHoaDon() == maHoaDon) {
                 return danhSach[i];
             }
@@ -52,7 +49,6 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
             return new HoaDon[0];
         }
-
         DanhSachNhanVien dsNhanVien = KhoDuLieu.getDanhSachNhanVien();
         if (dsNhanVien == null) {
             return new HoaDon[0];
@@ -62,10 +58,9 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
             return new HoaDon[0];
         }
 
-        int gioiHan = Math.min(soLuong, danhSach.length);
-        HoaDon[] ketQua = new HoaDon[gioiHan];
+        HoaDon[] ketQua = new HoaDon[gioiHan()];
         int dem = 0;
-        for (int i = 0; i < gioiHan; i++) {
+        for (int i = 0; i < gioiHan(); i++) {
             HoaDon hoaDon = danhSach[i];
             if (hoaDon != null && thuocNhanVien(hoaDon, nhanViens)) {
                 ketQua[dem++] = hoaDon;
@@ -79,8 +74,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         if (hoaDon == null || hoaDon.getMaHoaDon() <= 0 || danhSach == null) {
             return false;
         }
-        int gioiHan = Math.min(soLuong, danhSach.length);
-        for (int i = 0; i < gioiHan; i++) {
+        for (int i = 0; i < gioiHan(); i++) {
             if (danhSach[i] != null && danhSach[i].getMaHoaDon() == hoaDon.getMaHoaDon()) {
                 danhSach[i] = hoaDon;
                 return true;
@@ -94,10 +88,9 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         if (maHoaDon <= 0 || danhSach == null) {
             return false;
         }
-        int gioiHan = Math.min(soLuong, danhSach.length);
-        for (int i = 0; i < gioiHan; i++) {
+        for (int i = 0; i < gioiHan(); i++) {
             if (danhSach[i] != null && danhSach[i].getMaHoaDon() == maHoaDon) {
-                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan - i - 1);
+                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan() - i - 1);
                 danhSach[--soLuong] = null;
                 return true;
             }
@@ -109,10 +102,9 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         if (maDonDatTour <= 0 || danhSach == null) {
             return new HoaDon[0];
         }
-        int gioiHan = Math.min(soLuong, danhSach.length);
-        HoaDon[] ketQua = new HoaDon[gioiHan];
+        HoaDon[] ketQua = new HoaDon[gioiHan()];
         int dem = 0;
-        for (int i = 0; i < gioiHan; i++) {
+        for (int i = 0; i < gioiHan(); i++) {
             if (danhSach[i] != null && danhSach[i].getMaDonDatTour() == maDonDatTour) {
                 ketQua[dem++] = danhSach[i];
             }
@@ -122,10 +114,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public HoaDon[] layTatCa() {
-        if (danhSach == null || soLuong <= 0) {
-            return new HoaDon[0];
-        }
-        return Arrays.copyOf(danhSach, Math.min(soLuong, danhSach.length));
+        return danhSach == null ? new HoaDon[0] : Arrays.copyOf(danhSach, gioiHan());
     }
 
     public HoaDon[] getDanhSach() {
@@ -134,11 +123,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     public void setDanhSach(HoaDon[] danhSach) {
         this.danhSach = danhSach;
-        if (danhSach == null) {
-            soLuong = 0;
-        } else {
-            soLuong = Math.min(soLuong, danhSach.length);
-        }
+        soLuong = danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
     }
 
     public int getSoLuong() {
@@ -149,9 +134,13 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
     }
 
+    private int gioiHan() {
+        return danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
+    }
+
     private boolean thuocNhanVien(HoaDon hoaDon, NhanVien[] nhanViens) {
-        for (int i = 0; i < nhanViens.length; i++) {
-            if (nhanViens[i] != null && nhanViens[i].getMaNhanVien() == hoaDon.getMaNhanVien()) {
+        for (NhanVien nhanVien : nhanViens) {
+            if (nhanVien != null && nhanVien.getMaNhanVien() == hoaDon.getMaNhanVien()) {
                 return true;
             }
         }
@@ -159,24 +148,20 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     }
 
     public HoaDon[] timChuaThanhToanDu(DanhSachVe dsVe) {
-        if (danhSach == null || soLuong <= 0) {
-            return new HoaDon[0];
-        }
-        int gioiHan = Math.min(soLuong, danhSach.length);
-        HoaDon[] ketQua = new HoaDon[gioiHan];
+        HoaDon[] ketQua = new HoaDon[gioiHan()];
         int dem = 0;
-        for (int i = 0; i < gioiHan; i++) {
+        for (int i = 0; i < gioiHan(); i++) {
             HoaDon hoaDon = danhSach[i];
-            if (hoaDon != null) {
-                if (dsVe != null && hoaDon.getChiTiet() != null && hoaDon.tinhTongTien() == 0) {
-                    hoaDon.getChiTiet().capNhatTongTien(dsVe);
-                }
-                if (!hoaDon.daThanhToanDu()) {
-                    ketQua[dem++] = hoaDon;
-                }
+            if (hoaDon == null) {
+                continue;
+            }
+            if (dsVe != null && hoaDon.getChiTiet() != null && hoaDon.tinhTongTien() == 0) {
+                hoaDon.getChiTiet().capNhatTongTien(dsVe);
+            }
+            if (!hoaDon.daThanhToanDu()) {
+                ketQua[dem++] = hoaDon;
             }
         }
         return Arrays.copyOf(ketQua, dem);
     }
-
 }
