@@ -47,4 +47,17 @@ public class PhuongTien {
     public void setGiaMoiNguoiMoiNgay(long giaMoiNguoiMoiNgay) {
         this.giaMoiNguoiMoiNgay = giaMoiNguoiMoiNgay;
     }
+
+    public boolean capNhatThongTin(String tenPhuongTien, int soChoToiDa, long giaMoiNguoiMoiNgay) {
+    // 1. Kiểm tra điều kiện đầu vào
+    if (tenPhuongTien == null || tenPhuongTien.trim().isBlank() 
+            || soChoToiDa <= 0 || giaMoiNguoiMoiNgay < 0) {
+        return false;
+    }
+    // 2. Gán dữ liệu mới (giữ nguyên maPhuongTien)
+    this.tenPhuongTien = tenPhuongTien.trim();
+    this.soChoToiDa = soChoToiDa;
+    this.giaMoiNguoiMoiNgay = giaMoiNguoiMoiNgay;
+    return true;
+}
 }
