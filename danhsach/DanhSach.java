@@ -13,6 +13,8 @@ public interface DanhSach<T> {
     // Xóa phần tử theo mã
     boolean xoaTheoMa(int ma);
 
+    
+
     // Lấy tất cả phần tử đang dùng
     T[] layTatCa();
 

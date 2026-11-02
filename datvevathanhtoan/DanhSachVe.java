@@ -48,7 +48,6 @@ public class DanhSachVe implements DanhSach<Ve> {
         return null;
     }
 
-    @Override
     public Ve[] timTheoTen(String hoTen) {
         if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
             return new Ve[0];
@@ -159,38 +158,71 @@ public class DanhSachVe implements DanhSach<Ve> {
         return false;
     }
 
-    @Override
-    public Ve timTheoMa(int maVe) {
-        return null;
-    }
-
-    public Ve[] timTheoMaDonDatTour(int maDonDatTour) {
-        return new Ve[0];
-    }
-
     public int[] layDanhSachMaDonDatTour() {
-        return new int[0];
+        if (danhSach == null || soLuong <= 0) {
+            return new int[0];
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        int[] temp = new int[gioiHan];
+        int dem = 0;
+        for (int i = 0; i < gioiHan; i++) {
+            if (danhSach[i] != null) {
+                int maDon = danhSach[i].getMaDonDatTour();
+                boolean exists = false;
+                for (int j = 0; j < dem; j++) {
+                    if (temp[j] == maDon) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    temp[dem++] = maDon;
+                }
+            }
+        }
+        return Arrays.copyOf(temp, dem);
     }
 
     public Ve[] timTheoTrangThai(int trangThai) {
-        return new Ve[0];
+        if (danhSach == null || soLuong <= 0) {
+            return new Ve[0];
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        Ve[] ketQua = new Ve[gioiHan];
+        int dem = 0;
+        for (int i = 0; i < gioiHan; i++) {
+            if (danhSach[i] != null && danhSach[i].getTrangThai() == trangThai) {
+                ketQua[dem++] = danhSach[i];
+            }
+        }
+        return Arrays.copyOf(ketQua, dem);
     }
 
     public int demVeChiemChoTheoKeHoach(int maKeHoachTour) {
-        return 0;
+        if (maKeHoachTour <= 0 || danhSach == null || soLuong <= 0) {
+            return 0;
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        int dem = 0;
+        for (int i = 0; i < gioiHan; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaKeHoachTour() == maKeHoachTour && danhSach[i].chiemCho()) {
+                dem++;
+            }
+        }
+        return dem;
     }
 
     public boolean daCoVeHopLe(int maKeHoachTour, int maHanhKhach) {
-        return false;
-    }
-
-    @Override
-    public boolean capNhat(Ve ve) {
-        return false;
-    }
-
-    @Override
-    public boolean xoaTheoMa(int maVe) {
+        if (maKeHoachTour <= 0 || maHanhKhach <= 0 || danhSach == null || soLuong <= 0) {
+            return false;
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        for (int i = 0; i < gioiHan; i++) {
+            if (danhSach[i] != null && danhSach[i].getMaKeHoachTour() == maKeHoachTour
+                    && danhSach[i].getMaHanhKhach() == maHanhKhach && danhSach[i].chiemCho()) {
+                return true;
+            }
+        }
         return false;
     }
 

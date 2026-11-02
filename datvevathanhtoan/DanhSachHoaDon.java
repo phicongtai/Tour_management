@@ -48,7 +48,6 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         return null;
     }
 
-    @Override
     public HoaDon[] timTheoTen(String hoTen) {
         if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
             return new HoaDon[0];
@@ -159,27 +158,25 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         return false;
     }
 
-    @Override
-    public HoaDon timTheoMa(int maHoaDon) {
-        return null;
-    }
-
-    public HoaDon timTheoMaDonDatTour(int maDonDatTour) {
-        return null;
-    }
-
     public HoaDon[] timChuaThanhToanDu(DanhSachVe dsVe) {
-        return new HoaDon[0];
-    }
-
-    @Override
-    public boolean capNhat(HoaDon hoaDon) {
-        return false;
-    }
-
-    @Override
-    public boolean xoaTheoMa(int maHoaDon) {
-        return false;
+        if (danhSach == null || soLuong <= 0) {
+            return new HoaDon[0];
+        }
+        int gioiHan = Math.min(soLuong, danhSach.length);
+        HoaDon[] ketQua = new HoaDon[gioiHan];
+        int dem = 0;
+        for (int i = 0; i < gioiHan; i++) {
+            HoaDon hoaDon = danhSach[i];
+            if (hoaDon != null) {
+                if (dsVe != null && hoaDon.getChiTiet() != null && hoaDon.tinhTongTien() == 0) {
+                    hoaDon.getChiTiet().capNhatTongTien(dsVe);
+                }
+                if (!hoaDon.daThanhToanDu()) {
+                    ketQua[dem++] = hoaDon;
+                }
+            }
+        }
+        return Arrays.copyOf(ketQua, dem);
     }
 
     @Override
