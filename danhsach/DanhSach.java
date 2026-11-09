@@ -1,5 +1,7 @@
 package danhsach;
 
+import java.nio.file.Path;
+
 public interface DanhSach<T> {
     // Thêm phần tử mới
     boolean them(T phanTu);
@@ -18,13 +20,11 @@ public interface DanhSach<T> {
     // Lấy tất cả phần tử đang dùng
     T[] layTatCa();
 
-    // Xuất dữ liệu ra các dòng TXT
-    default String[] xuatDuLieu() {
-        return new String[0];
+    default boolean docFile(Path path) {
+        return false;
     }
 
-    // Nhập dữ liệu từ các dòng TXT
-    default boolean nhapDuLieu(String[] dongDuLieu) {
+    default boolean ghiFile(Path path) {
         return false;
     }
 }

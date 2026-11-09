@@ -80,41 +80,68 @@ public class HoaDon {
     }
 
     public boolean themVeVaoChiTiet(int maVe, DanhSachVe dsVe) {
-        if (dsVe == null || maVe <= 0) {
-            return false;
-        }
+    if (dsVe == null || maVe <= 0) {
+        return false;
+    }
+    Ve ve = dsVe.timTheoMa(maVe);
+    if (ve == null) {
+        return false;
+    }
+    if (ve.getMaDonDatTour() != maDonDatTour){
+        return false;
+    }
+    if (chiTiet != null && chiTiet.coChuaVe(maVe)) {
+        return false;
+    }
+    if (chiTiet == null) {
+        chiTiet = new ChiTietHoaDon(maHoaDon);
+    }
+    if (!chiTiet.themVe(maVe)) {
+        return false;
+    }
+    if (!chiTiet.capNhatTongTien(dsVe)) {
+        return false;
+    }
+    return true;
+}
 
-        Ve ve = dsVe.timTheoMa(maVe);
-        if (ve == null || ve.getMaDonDatTour() != maDonDatTour
-                || (chiTiet != null && chiTiet.coChuaVe(maVe))
-                || daThuocHoaDonKhac(maVe)) {
-            return false;
-        }
+public int[] layDanhSachMaVe() {
+    if (chiTiet == null) {
+        return new int[0];
+    }
+    int[] danhSachMaVe = chiTiet.layDanhSachMaVe();
+    if (danhSachMaVe == null) {
+        return new int[0];
+    }
+        return danhSachMaVe;
+}
 
+public long tinhTongTien() {
         if (chiTiet == null) {
-            chiTiet = new ChiTietHoaDon(maHoaDon);
-        }
-        return chiTiet.themVe(maVe) && chiTiet.capNhatTongTien(dsVe);
-    }
-
-    public int[] layDanhSachMaVe() {
-        return chiTiet == null ? new int[0] : chiTiet.layDanhSachMaVe();
-    }
-
-    public long tinhTongTien() {
-        return chiTiet == null ? 0 : chiTiet.layTongTien();
-    }
-
-    public long tinhSoTienConLai() {
-        long tongTien = tinhTongTien();
-        if (soTienDaThanhToan < 0 || tongTien <= 0 || soTienDaThanhToan > tongTien) {
             return 0;
         }
-        return tongTien - soTienDaThanhToan;
+        return chiTiet.layTongTien();
     }
 
+public long tinhSoTienConLai() {
+    if (soTienDaThanhToan < 0) {
+        return 0;
+    }
+    long tongTien = tinhTongTien();
+        if (tongTien <= 0) {
+        return 0;
+    }
+    if (soTienDaThanhToan > tongTien) {
+        return 0;
+    }
+    return tongTien - soTienDaThanhToan;
+}
+
     public boolean ghiNhanThanhToan(long soTien, DanhSachVe dsVe) {
-        if (soTien <= 0 || dsVe == null || chiTiet == null || soTienDaThanhToan < 0) {
+        if (soTien <= 0 || dsVe == null || chiTiet == null) {
+            return false;
+        }
+        if (soTienDaThanhToan < 0) {
             return false;
         }
         long tongTien = chiTiet.layTongTien();
@@ -124,7 +151,6 @@ public class HoaDon {
         if (soTienDaThanhToan > tongTien || soTien > tongTien - soTienDaThanhToan) {
             return false;
         }
-
         int[] danhSachMaVe = chiTiet.layDanhSachMaVe();
         Ve[] cacVe = new Ve[danhSachMaVe.length];
         for (int i = 0; i < danhSachMaVe.length; i++) {
@@ -133,42 +159,25 @@ public class HoaDon {
                 return false;
             }
         }
-
         this.soTienDaThanhToan += soTien;
         if (this.soTienDaThanhToan >= tongTien) {
-            for (Ve veTrongHoaDon : cacVe) {
-                if (veTrongHoaDon.getTrangThai() == Ve.DA_DAT) {
-                    veTrongHoaDon.capNhatTrangThai(Ve.DA_THANH_TOAN);
+            for (int i = 0; i < cacVe.length; i++) {
+                if (cacVe[i].getTrangThai() == Ve.DA_DAT) {
+                    cacVe[i].capNhatTrangThai(Ve.DA_THANH_TOAN);
                 }
             }
         }
         return true;
     }
-
     public boolean daThanhToanDu() {
+        if (soTienDaThanhToan < 0) {
+            return false;
+        }
         long tongTien = tinhTongTien();
-        return soTienDaThanhToan >= 0 && tongTien > 0 && soTienDaThanhToan >= tongTien;
-    }
-
-    private boolean daThuocHoaDonKhac(int maVe) {
-        DanhSachHoaDon danhSachHoaDon = KhoDuLieu.getDanhSachHoaDon();
-        if (danhSachHoaDon == null) {
+        if (tongTien <= 0) {
             return false;
         }
-
-        HoaDon[] tatCa = danhSachHoaDon.layTatCa();
-        if (tatCa == null) {
-            return false;
-        }
-        for (HoaDon hoaDonKhac : tatCa) {
-            if (hoaDonKhac == null || hoaDonKhac == this) {
-                continue;
-            }
-            ChiTietHoaDon chiTietKhac = hoaDonKhac.getChiTiet();
-            if (chiTietKhac != null && chiTietKhac.coChuaVe(maVe)) {
-                return true;
-            }
-        }
-        return false;
+        return soTienDaThanhToan >= tongTien;
     }
+
 }

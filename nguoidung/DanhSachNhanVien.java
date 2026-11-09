@@ -1,4 +1,5 @@
 package nguoidung;
+import java.nio.file.Path;
 import java.util.Arrays;
 import danhsach.DanhSach;
 
@@ -82,39 +83,13 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         System.arraycopy(danhSach, 0, kq, 0, soLuong);
         return kq;
     }
-    @Override 
-    public String[] xuatDuLieu() {
-        String[] dongTXT = new String[soLuong];
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i]!=null) {
-                dongTXT[i] = danhSach[i].toString(); // Giả định lớp NhanVien có phương thức toString() định dạng chuỗi lưu file
-            }
-        }
-        return dongTXT;
-    }
     @Override
-    public boolean nhapDuLieu(String[] dongDuLieu) {
-        if (dongDuLieu == null) return false;
-        NhanVien[] temp = new NhanVien[dongDuLieu.length];
-        int count = 0;
-        for (String line : dongDuLieu) {
-            // Giả sử mỗi dòng trong file txt phân cách bằng dấu phẩy: ma,hoTen,ngaySinh,gioiTinh,soDienThoai
-            String[] parts = line.split(",");
-            if (parts.length < 5) return false; // Nếu thiếu dữ liệu thì xem như lỗi, dừng lại
-            try {
-                int maNhanVien = Integer.parseInt(parts[0].trim());
-                String hoTen = parts[1].trim();
-                String ngaySinh = parts[2].trim();
-                int gioiTinh = Integer.parseInt(parts[3].trim());
-                String soDienThoai = parts[4].trim();
-                NhanVien nv = new NhanVien(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai);
-                temp[count++] = nv;
-            } catch (Exception e) {
-                return false; // Dòng nào lỗi định dạng (ví dụ mã/giới tính không phải số) thì trả về false
-            }
-        }
-        danhSach = temp;
-        soLuong = count;
-        return true;
+    public boolean docFile(Path path) {
+        return false;
+    }
+
+    @Override
+    public boolean ghiFile(Path path) {
+        return false;
     }
 }

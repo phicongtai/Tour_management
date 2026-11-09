@@ -1,4 +1,5 @@
 package nguoidung;
+import java.nio.file.Path;
 import java.util.Arrays;
 import danhsach.DanhSach;
 public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
@@ -77,38 +78,13 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
         System.arraycopy(danhSach,0,kq,0,soLuong);
         return kq;
     }
-    @Override 
-    public String[] xuatDuLieu(){
-        String[] dongTXT=new String[soLuong];
-        for(int i=0;i<soLuong;i++){
-            if(danhSach[i]!=null){
-                dongTXT[i]=danhSach[i].toString();
-            }
-        }
-        return dongTXT;
+    @Override
+    public boolean docFile(Path path) {
+        return false;
     }
-    @Override 
-    public boolean nhapDuLieu(String[] dongDuLieu ){
-        if(dongDuLieu==null)return false;
-        HanhKhach[] temp=new HanhKhach[dongDuLieu.length];
-        int count=0;
-        for(String line : dongDuLieu){
-            String[] parts=line.split(",");
-            if(parts.length<5)return false;
-            try{
-                int maHanhKhach=Integer.parseInt(parts[0].trim());
-                String hoTen=parts[1].trim();
-                String ngaySinh=parts[2].trim();
-                int gioiTinh=Integer.parseInt(parts[3].trim());
-                String soDienThoai=parts[4].trim();
-                HanhKhach hk=new HanhKhach(maHanhKhach,hoTen,ngaySinh,gioiTinh,soDienThoai);
-                temp[count++]=hk;
-            }catch(Exception e){
-                return false;
-            }
-        }
-        danhSach=temp;
-        soLuong=count;
-        return true;
+
+    @Override
+    public boolean ghiFile(Path path) {
+        return false;
     }
 }
