@@ -1,7 +1,6 @@
-
 package tour;
-import java.nio.file.Path;
 
+import java.nio.file.Path;
 import java.util.Arrays;
 import danhsach.DanhSach;
 
@@ -9,6 +8,7 @@ public class DanhSachTour implements DanhSach<Tour> {
     private Tour[] danhSach;
     private int soLuong;
 
+    // Constructors
     public DanhSachTour() {
     }
 
@@ -17,26 +17,7 @@ public class DanhSachTour implements DanhSach<Tour> {
         this.soLuong = soLuong;
     }
 
-    @Override
-    public boolean them(Tour tour) {
-        if (tour == null || timTheoMa(tour.getMaTour()) != null)
-            return false;
-
-        if (danhSach == null) danhSach = new Tour[10];
-        if (soLuong >= danhSach.length)
-            danhSach = Arrays.copyOf(danhSach,
-                    danhSach.length == 0 ? 10 : danhSach.length * 2);
-
-        danhSach[soLuong++] = tour;
-        return true;
-    }
-
-    @Override
-    public Tour[] layTatCa() {
-        return danhSach == null ? new Tour[0]
-                : Arrays.copyOf(danhSach, soLuong);
-    }
-
+    // Getters / Setters
     public Tour[] getDanhSach() {
         return danhSach;
     }
@@ -53,46 +34,32 @@ public class DanhSachTour implements DanhSach<Tour> {
         this.soLuong = soLuong;
     }
 
+    // Methods @Override
     @Override
-    public Tour timTheoMa(int maTour) {
-        if (danhSach == null) return null;
+    public boolean them(Tour tour) {
+        if (tour == null || timTheoMa(tour.getMaTour()) != null)
+            return false;
 
-        for (int i = 0; i < soLuong; i++)
-            if (danhSach[i] != null
-                    && danhSach[i].getMaTour() == maTour)
-                return danhSach[i];
+        if (danhSach == null) danhSach = new Tour[10];
+        if (soLuong >= danhSach.length)
+            danhSach = Arrays.copyOf(danhSach,
+                    danhSach.length == 0 ? 10 : danhSach.length * 2);
 
-        return null;
-    }
-
-    public Tour[] timTheoTen(String tenTour) {
-        if (danhSach == null || tenTour == null)
-            return new Tour[0];
-
-        Tour[] kq = new Tour[soLuong];
-        int dem = 0;
-
-        for (int i = 0; i < soLuong; i++) {
-            Tour t = danhSach[i];
-            if (t != null && t.getTenTour() != null
-                    && t.getTenTour().toLowerCase()
-                    .contains(tenTour.toLowerCase()))
-                kq[dem++] = t;
-        }
-        return Arrays.copyOf(kq, dem);
+        danhSach[soLuong++] = tour;
+        return true;
     }
 
     @Override
-    public boolean capNhat(Tour tour) {
-        if (tour == null || danhSach == null) return false;
-
-        for (int i = 0; i < soLuong; i++)
-            if (danhSach[i] != null
-                    && danhSach[i].getMaTour() == tour.getMaTour()) {
-                danhSach[i] = tour;
-                return true;
-            }
+    public boolean them() {
         return false;
+    }
+
+    @Override
+    public void xuat() {
+    }
+
+    @Override
+    public void nhap() {
     }
 
     @Override
@@ -113,6 +80,42 @@ public class DanhSachTour implements DanhSach<Tour> {
     }
 
     @Override
+    public boolean capNhat(Tour tour) {
+        if (tour == null || danhSach == null) return false;
+
+        for (int i = 0; i < soLuong; i++)
+            if (danhSach[i] != null
+                    && danhSach[i].getMaTour() == tour.getMaTour()) {
+                danhSach[i] = tour;
+                return true;
+            }
+        return false;
+    }
+
+    @Override
+    public boolean suaTheoMa(int ma) {
+        return false;
+    }
+
+    @Override
+    public Tour timTheoMa(int maTour) {
+        if (danhSach == null) return null;
+
+        for (int i = 0; i < soLuong; i++)
+            if (danhSach[i] != null
+                    && danhSach[i].getMaTour() == maTour)
+                return danhSach[i];
+
+        return null;
+    }
+
+    @Override
+    public Tour[] layTatCa() {
+        return danhSach == null ? new Tour[0]
+                : Arrays.copyOf(danhSach, soLuong);
+    }
+
+    @Override
     public boolean docFile(Path path) {
         return false;
     }
@@ -120,5 +123,23 @@ public class DanhSachTour implements DanhSach<Tour> {
     @Override
     public boolean ghiFile(Path path) {
         return false;
+    }
+
+    // Methods còn lại
+    public Tour[] timTheoTen(String tenTour) {
+        if (danhSach == null || tenTour == null)
+            return new Tour[0];
+
+        Tour[] kq = new Tour[soLuong];
+        int dem = 0;
+
+        for (int i = 0; i < soLuong; i++) {
+            Tour t = danhSach[i];
+            if (t != null && t.getTenTour() != null
+                    && t.getTenTour().toLowerCase()
+                    .contains(tenTour.toLowerCase()))
+                kq[dem++] = t;
+        }
+        return Arrays.copyOf(kq, dem);
     }
 }

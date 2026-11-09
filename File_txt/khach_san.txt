@@ -1,0 +1,4 @@
+1|Khach san Muong Thanh 4 sao|350000|200000
+2|Resort Vinpearl 5 sao|800000|450000
+3|Khach san Anh Dao 3 sao|200000|120000
+4|Khach san Novotel 4 sao|500000|250000

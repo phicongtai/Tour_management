@@ -5,6 +5,7 @@ public class TourNuocNgoai extends Tour {
     private boolean canVisa;
     private long phiVisa;
 
+    // Constructors
     public TourNuocNgoai() {
     }
 
@@ -21,6 +22,7 @@ public class TourNuocNgoai extends Tour {
         this.phiVisa = phiVisa;
     }
 
+    // Getters / Setters
     public String getQuocGia() {
         return quocGia;
     }
@@ -48,24 +50,27 @@ public class TourNuocNgoai extends Tour {
     public void setPhiVisa(long phiVisa) {
         this.phiVisa = phiVisa;
     }
+
+    // Methods @Override
+    @Override
+    public long tinhGiaVe() {
+        if (canVisa) {
+            return getDonGiaCoBan() + phiVisa;
+        }
+
+        return getDonGiaCoBan();
+    }
+
+    // Methods còn lại
     public boolean capNhatThongTinRieng(String quocGia, boolean canVisa, long phiVisa) {
-    if (quocGia == null || quocGia.trim().isEmpty() || phiVisa < 0) {
-        return false;
+        if (quocGia == null || quocGia.trim().isEmpty() || phiVisa < 0) {
+            return false;
+        }
+
+        this.quocGia = quocGia;
+        this.canVisa = canVisa;
+        this.phiVisa = phiVisa;
+
+        return true;
     }
-
-    this.quocGia = quocGia;
-    this.canVisa = canVisa;
-    this.phiVisa = phiVisa;
-
-    return true;
-}
-
-@Override
-public long tinhGiaVe() {
-    if (canVisa) {
-        return getDonGiaCoBan() + phiVisa;
-    }
-
-    return getDonGiaCoBan();
-}
 }

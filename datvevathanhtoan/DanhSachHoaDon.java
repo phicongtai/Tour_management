@@ -1,7 +1,7 @@
 package datvevathanhtoan;
 
+import java.nio.file.Path;
 import java.util.Arrays;
-
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
 import nguoidung.DanhSachNhanVien;
@@ -11,6 +11,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     private HoaDon[] danhSach;
     private int soLuong;
 
+    // Constructors
     public DanhSachHoaDon() {
         this(new HoaDon[0], 0);
     }
@@ -21,6 +22,25 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         this.soLuong = this.danhSach.length;
     }
 
+    // Getters / Setters
+    public HoaDon[] getDanhSach() {
+        return danhSach;
+    }
+
+    public void setDanhSach(HoaDon[] danhSach) {
+        this.danhSach = danhSach;
+        soLuong = danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
+    }
+
+    // Methods @Override
     @Override
     public boolean them(HoaDon hoaDon) {
         if (hoaDon == null || hoaDon.getMaHoaDon() <= 0 || danhSach == null || soLuong < 0
@@ -30,6 +50,53 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         danhSach = Arrays.copyOf(danhSach, soLuong + 1);
         danhSach[soLuong++] = hoaDon;
         return true;
+    }
+
+    @Override
+    public boolean them() {
+        return false;
+    }
+
+    @Override
+    public void xuat() {
+    }
+
+    @Override
+    public void nhap() {
+    }
+
+    @Override
+    public boolean xoaTheoMa(int maHoaDon) {
+        if (maHoaDon <= 0 || danhSach == null) {
+            return false;
+        }
+        for (int i = 0; i < gioiHan(); i++) {
+            if (danhSach[i] != null && danhSach[i].getMaHoaDon() == maHoaDon) {
+                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan() - i - 1);
+                danhSach[--soLuong] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean capNhat(HoaDon hoaDon) {
+        if (hoaDon == null || hoaDon.getMaHoaDon() <= 0 || danhSach == null) {
+            return false;
+        }
+        for (int i = 0; i < gioiHan(); i++) {
+            if (danhSach[i] != null && danhSach[i].getMaHoaDon() == hoaDon.getMaHoaDon()) {
+                danhSach[i] = hoaDon;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean suaTheoMa(int ma) {
+        return false;
     }
 
     @Override
@@ -45,6 +112,22 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         return null;
     }
 
+    @Override
+    public HoaDon[] layTatCa() {
+        return danhSach == null ? new HoaDon[0] : Arrays.copyOf(danhSach, gioiHan());
+    }
+
+    @Override
+    public boolean docFile(Path path) {
+        return false;
+    }
+
+    @Override
+    public boolean ghiFile(Path path) {
+        return false;
+    }
+
+    // Methods còn lại
     public HoaDon[] timTheoTen(String hoTen) {
         if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
             return new HoaDon[0];
@@ -69,35 +152,6 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         return Arrays.copyOf(ketQua, dem);
     }
 
-    @Override
-    public boolean capNhat(HoaDon hoaDon) {
-        if (hoaDon == null || hoaDon.getMaHoaDon() <= 0 || danhSach == null) {
-            return false;
-        }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaHoaDon() == hoaDon.getMaHoaDon()) {
-                danhSach[i] = hoaDon;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean xoaTheoMa(int maHoaDon) {
-        if (maHoaDon <= 0 || danhSach == null) {
-            return false;
-        }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaHoaDon() == maHoaDon) {
-                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan() - i - 1);
-                danhSach[--soLuong] = null;
-                return true;
-            }
-        }
-        return false;
-    }
-
     public HoaDon[] timTheoMaDonDatTour(int maDonDatTour) {
         if (maDonDatTour <= 0 || danhSach == null) {
             return new HoaDon[0];
@@ -110,41 +164,6 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
             }
         }
         return Arrays.copyOf(ketQua, dem);
-    }
-
-    @Override
-    public HoaDon[] layTatCa() {
-        return danhSach == null ? new HoaDon[0] : Arrays.copyOf(danhSach, gioiHan());
-    }
-
-    public HoaDon[] getDanhSach() {
-        return danhSach;
-    }
-
-    public void setDanhSach(HoaDon[] danhSach) {
-        this.danhSach = danhSach;
-        soLuong = danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
-    }
-
-    private int gioiHan() {
-        return danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
-    }
-
-    private boolean thuocNhanVien(HoaDon hoaDon, NhanVien[] nhanViens) {
-        for (NhanVien nhanVien : nhanViens) {
-            if (nhanVien != null && nhanVien.getMaNhanVien() == hoaDon.getMaNhanVien()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public HoaDon[] timChuaThanhToanDu(DanhSachVe dsVe) {
@@ -163,5 +182,19 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
             }
         }
         return Arrays.copyOf(ketQua, dem);
+    }
+
+    // Helper methods
+    private int gioiHan() {
+        return danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
+    }
+
+    private boolean thuocNhanVien(HoaDon hoaDon, NhanVien[] nhanViens) {
+        for (NhanVien nhanVien : nhanViens) {
+            if (nhanVien != null && nhanVien.getMaNhanVien() == hoaDon.getMaNhanVien()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

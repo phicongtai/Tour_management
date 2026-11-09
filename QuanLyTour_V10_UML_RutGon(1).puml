@@ -46,13 +46,17 @@ package "tour" #E8F2F9 {
     - soLuong: int
     --
     + them(tour: Tour): boolean
+    + them(): boolean
     + timTheoMa(maTour: int): Tour
     + timTheoTen(tenTour: String): Tour[]
     + capNhat(tour: Tour): boolean
+    + suaTheoMa(ma: int): boolean
     + xoaTheoMa(maTour: int): boolean
+    + xuat(): void
+    + nhap(): void
     + layTatCa(): Tour[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 
   Tour <|-- TourTrongNuoc
@@ -89,13 +93,17 @@ package "nguoidung" #E9F6EF {
     - soLuong: int
     --
     + them(nhanVien: NhanVien): boolean
+    + them(): boolean
     + timTheoMa(maNhanVien: int): NhanVien
     + timTheoTen(hoTen: String): NhanVien[]
     + capNhat(nhanVien: NhanVien): boolean
+    + suaTheoMa(ma: int): boolean
     + xoaTheoMa(maNhanVien: int): boolean
+    + xuat(): void
+    + nhap(): void
     + layTatCa(): NhanVien[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 
   class DanhSachHanhKhach {
@@ -103,13 +111,17 @@ package "nguoidung" #E9F6EF {
     - soLuong: int
     --
     + them(hanhKhach: HanhKhach): boolean
+    + them(): boolean
     + timTheoMa(maHanhKhach: int): HanhKhach
     + timTheoTen(hoTen: String): HanhKhach[]
     + capNhat(hanhKhach: HanhKhach): boolean
+    + suaTheoMa(ma: int): boolean
     + xoaTheoMa(maHanhKhach: int): boolean
+    + xuat(): void
+    + nhap(): void
     + layTatCa(): HanhKhach[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 
   DanhSachNhanVien o--> "0..*" NhanVien : quản lý
@@ -157,13 +169,17 @@ package "tochuctour" #FDF2E6 {
     - soLuong: int
     --
     + them(keHoach: KeHoachTour): boolean
+    + them(): boolean
     + timTheoMa(maKeHoachTour: int): KeHoachTour
     + timTheoMaTour(maTour: int): KeHoachTour[]
     + capNhat(keHoach: KeHoachTour): boolean
+    + suaTheoMa(ma: int): boolean
     + xoaTheoMa(maKeHoachTour: int): boolean
+    + xuat(): void
+    + nhap(): void
     + layTatCa(): KeHoachTour[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 
   class PhuongTien {
@@ -189,13 +205,17 @@ package "tochuctour" #FDF2E6 {
     - soLuong: int
     --
     + them(phuongTien: PhuongTien): boolean
+    + them(): boolean
     + timTheoMa(maPhuongTien: int): PhuongTien
     + timTheoTen(tenPhuongTien: String): PhuongTien[]
     + capNhat(phuongTien: PhuongTien): boolean
+    + suaTheoMa(ma: int): boolean
     + xoaTheoMa(maPhuongTien: int): boolean
+    + xuat(): void
+    + nhap(): void
     + layTatCa(): PhuongTien[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 
   class DanhSachKhachSan {
@@ -203,13 +223,17 @@ package "tochuctour" #FDF2E6 {
     - soLuong: int
     --
     + them(khachSan: KhachSan): boolean
+    + them(): boolean
     + timTheoMa(maKhachSan: int): KhachSan
     + timTheoTen(tenKhachSan: String): KhachSan[]
     + capNhat(khachSan: KhachSan): boolean
+    + suaTheoMa(ma: int): boolean
     + xoaTheoMa(maKhachSan: int): boolean
+    + xuat(): void
+    + nhap(): void
     + layTatCa(): KhachSan[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 
   KeHoachTour *--> "0..*" ChiTietKeHoachTour : chứa lịch trình ngày
@@ -257,15 +281,21 @@ package "datvevathanhtoan" #F3ECFB {
     - soLuong: int
     --
     + them(ve: Ve): boolean
+    + them(): boolean
     + timTheoMa(maVe: int): Ve
     + timTheoMaDonDatTour(maDonDatTour: int): Ve[]
     + layDanhSachMaDonDatTour(): int[]
     + timTheoTrangThai(trangThai: int): Ve[]
     + demVeChiemChoTheoKeHoach(maKeHoachTour: int): int
     + daCoVeHopLe(maKeHoachTour: int, maHanhKhach: int): boolean
+    + capNhat(ve: Ve): boolean
+    + suaTheoMa(ma: int): boolean
+    + xoaTheoMa(maVe: int): boolean
+    + xuat(): void
+    + nhap(): void
     + layTatCa(): Ve[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 
   class ChiTietHoaDon {
@@ -332,12 +362,18 @@ package "datvevathanhtoan" #F3ECFB {
     - soLuong: int
     --
     + them(hoaDon: HoaDon): boolean
+    + them(): boolean
     + timTheoMa(maHoaDon: int): HoaDon
     + timTheoMaDonDatTour(maDonDatTour: int): HoaDon
     + timChuaThanhToanDu(dsVe: DanhSachVe): HoaDon[]
+    + capNhat(hoaDon: HoaDon): boolean
+    + suaTheoMa(ma: int): boolean
+    + xoaTheoMa(maHoaDon: int): boolean
+    + xuat(): void
+    + nhap(): void
     + layTatCa(): HoaDon[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 
   DanhSachVe o--> "0..*" Ve : quản lý vé
@@ -366,41 +402,21 @@ package "baocao" #FBEAF1 {
 package "danhsach" #F0F4F8 {
   interface DanhSach<T> {
     + them(phanTu: T): boolean
+    + them(): boolean
+    + xuat(): void
+    + nhap(): void
+    + xoaTheoMa(ma: int): boolean
+    + capNhat(phanTu: T): boolean
+    + suaTheoMa(ma: int): boolean
+    + timTheoMa(ma: int): T
     + layTatCa(): T[]
-    + xuatDuLieu(): String[]
-    + nhapDuLieu(dongDuLieu: String[]): boolean
+    + docFile(path: Path): boolean
+    + ghiFile(path: Path): boolean
   }
 }
 
 ' ============================================================
-' 7. KHO DỮ LIỆU DÙNG CHUNG
-' ============================================================
-package "kho" #FFF4D6 {
-  class KhoDuLieu <<final>> {
-    - {static} danhSachTour: DanhSachTour
-    - {static} danhSachNhanVien: DanhSachNhanVien
-    - {static} danhSachHanhKhach: DanhSachHanhKhach
-    - {static} danhSachKeHoachTour: DanhSachKeHoachTour
-    - {static} danhSachPhuongTien: DanhSachPhuongTien
-    - {static} danhSachKhachSan: DanhSachKhachSan
-    - {static} danhSachVe: DanhSachVe
-    - {static} danhSachHoaDon: DanhSachHoaDon
-    --
-    - {static} KhoDuLieu()
-    + {static} getDanhSachTour(): DanhSachTour
-    + {static} getDanhSachNhanVien(): DanhSachNhanVien
-    + {static} getDanhSachHanhKhach(): DanhSachHanhKhach
-    + {static} getDanhSachKeHoachTour(): DanhSachKeHoachTour
-    + {static} getDanhSachPhuongTien(): DanhSachPhuongTien
-    + {static} getDanhSachKhachSan(): DanhSachKhachSan
-    + {static} getDanhSachVe(): DanhSachVe
-    + {static} getDanhSachHoaDon(): DanhSachHoaDon
-    + {static} layTatCaDanhSach(): DanhSach<?>[]
-  }
-}
-
-' ============================================================
-' 8. NHẬP/XUẤT TXT
+' 7. NHẬP/XUẤT TXT
 ' ============================================================
 package "dulieu" #EAF0F7 {
   class NhapXuatFile {
@@ -425,7 +441,6 @@ package "dulieu" #EAF0F7 {
 
   NhapXuatFile ..> FileTxt : đọc/ghi file thực tế
   NhapXuatFile ..> DanhSach : sử dụng giao diện chung
-  NhapXuatFile ..> KhoDuLieu : duyệt các danh sách dùng chung
 }
 
 ' ============================================================
@@ -475,15 +490,6 @@ HoaDon ..> NhanVien : maNhanVien
 BaoCaoThongKe ..> DanhSachVe
 BaoCaoThongKe ..> DanhSachHoaDon
 BaoCaoThongKe ..> DanhSachKeHoachTour
-KhoDuLieu o-- DanhSachTour
-KhoDuLieu o-- DanhSachNhanVien
-KhoDuLieu o-- DanhSachHanhKhach
-KhoDuLieu o-- DanhSachKeHoachTour
-KhoDuLieu o-- DanhSachPhuongTien
-KhoDuLieu o-- DanhSachKhachSan
-KhoDuLieu o-- DanhSachVe
-KhoDuLieu o-- DanhSachHoaDon
-MenuCLI ..> KhoDuLieu : truy cập dữ liệu dùng chung
 MenuCLI ..> NhapXuatFile : nhập/xuất TXT
 MenuCLI ..> BaoCaoThongKe : yêu cầu báo cáo
 
@@ -495,7 +501,7 @@ CLI gom theo luồng sử dụng thay vì có một class cho từng màn hình:
 3) Thanh toán: lập/tìm hóa đơn theo maDonDatTour → ghi nhận thanh toán →
    cập nhật trạng thái các vé thuộc hóa đơn khi thanh toán đủ.
 4) Quản lý: danh mục → kế hoạch/lịch trình → nhóm vé → hóa đơn → báo cáo.
-5) Nhập/xuất: đọc/ghi các danh sách qua KhoDuLieu; ChiTietHoaDon được
+5) Nhập/xuất: đọc/ghi các danh sách qua file; ChiTietHoaDon được
    tuần tự hóa cùng HoaDon, gồm maHoaDon, danh sáchMaVe và tongTien.
 6) Hiển thị tất cả nhóm đặt bằng các maDonDatTour duy nhất lấy từ DanhSachVe;
    trạng thái nhóm chỉ là trạng thái suy ra, không phải thuộc tính của DonDatTour.

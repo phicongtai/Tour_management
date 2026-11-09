@@ -4,6 +4,7 @@ public class TourTrongNuoc extends Tour {
     private String vungMien;
     private long phuPhi;
 
+    // Constructors
     public TourTrongNuoc() {
     }
 
@@ -18,6 +19,7 @@ public class TourTrongNuoc extends Tour {
         this.phuPhi = phuPhi;
     }
 
+    // Getters / Setters
     public String getVungMien() {
         return vungMien;
     }
@@ -33,19 +35,22 @@ public class TourTrongNuoc extends Tour {
     public void setPhuPhi(long phuPhi) {
         this.phuPhi = phuPhi;
     }
-    public boolean capNhatThongTinRieng(String vungMien, long phuPhi) {
-    if (vungMien == null || vungMien.trim().isEmpty() || phuPhi < 0) {
-        return false;
+
+    // Methods @Override
+    @Override
+    public long tinhGiaVe() {
+        return getDonGiaCoBan() + phuPhi;
     }
 
-    this.vungMien = vungMien;
-    this.phuPhi = phuPhi;
+    // Methods còn lại
+    public boolean capNhatThongTinRieng(String vungMien, long phuPhi) {
+        if (vungMien == null || vungMien.trim().isEmpty() || phuPhi < 0) {
+            return false;
+        }
 
-    return true;
-}
+        this.vungMien = vungMien;
+        this.phuPhi = phuPhi;
 
-@Override
-public long tinhGiaVe() {
-    return getDonGiaCoBan() + phuPhi;
-}
+        return true;
+    }
 }

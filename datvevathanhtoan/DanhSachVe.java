@@ -1,7 +1,7 @@
 package datvevathanhtoan;
 
+import java.nio.file.Path;
 import java.util.Arrays;
-
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
 import nguoidung.DanhSachHanhKhach;
@@ -11,6 +11,7 @@ public class DanhSachVe implements DanhSach<Ve> {
     private Ve[] danhSach;
     private int soLuong;
 
+    // Constructors
     public DanhSachVe() {
         this(new Ve[0], 0);
     }
@@ -21,6 +22,25 @@ public class DanhSachVe implements DanhSach<Ve> {
         this.soLuong = this.danhSach.length;
     }
 
+    // Getters / Setters
+    public Ve[] getDanhSach() {
+        return danhSach;
+    }
+
+    public void setDanhSach(Ve[] danhSach) {
+        this.danhSach = danhSach;
+        soLuong = danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
+    }
+
+    // Methods @Override
     @Override
     public boolean them(Ve ve) {
         if (ve == null || ve.getMaVe() <= 0 || danhSach == null || soLuong < 0
@@ -30,6 +50,53 @@ public class DanhSachVe implements DanhSach<Ve> {
         danhSach = Arrays.copyOf(danhSach, soLuong + 1);
         danhSach[soLuong++] = ve;
         return true;
+    }
+
+    @Override
+    public boolean them() {
+        return false;
+    }
+
+    @Override
+    public void xuat() {
+    }
+
+    @Override
+    public void nhap() {
+    }
+
+    @Override
+    public boolean xoaTheoMa(int maVe) {
+        if (maVe <= 0 || danhSach == null) {
+            return false;
+        }
+        for (int i = 0; i < gioiHan(); i++) {
+            if (danhSach[i] != null && danhSach[i].getMaVe() == maVe) {
+                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan() - i - 1);
+                danhSach[--soLuong] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean capNhat(Ve ve) {
+        if (ve == null || ve.getMaVe() <= 0 || danhSach == null) {
+            return false;
+        }
+        for (int i = 0; i < gioiHan(); i++) {
+            if (danhSach[i] != null && danhSach[i].getMaVe() == ve.getMaVe()) {
+                danhSach[i] = ve;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean suaTheoMa(int ma) {
+        return false;
     }
 
     @Override
@@ -45,6 +112,22 @@ public class DanhSachVe implements DanhSach<Ve> {
         return null;
     }
 
+    @Override
+    public Ve[] layTatCa() {
+        return danhSach == null ? new Ve[0] : Arrays.copyOf(danhSach, gioiHan());
+    }
+
+    @Override
+    public boolean docFile(Path path) {
+        return false;
+    }
+
+    @Override
+    public boolean ghiFile(Path path) {
+        return false;
+    }
+
+    // Methods còn lại
     public Ve[] timTheoTen(String hoTen) {
         if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
             return new Ve[0];
@@ -69,35 +152,6 @@ public class DanhSachVe implements DanhSach<Ve> {
         return Arrays.copyOf(ketQua, dem);
     }
 
-    @Override
-    public boolean capNhat(Ve ve) {
-        if (ve == null || ve.getMaVe() <= 0 || danhSach == null) {
-            return false;
-        }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaVe() == ve.getMaVe()) {
-                danhSach[i] = ve;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean xoaTheoMa(int maVe) {
-        if (maVe <= 0 || danhSach == null) {
-            return false;
-        }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaVe() == maVe) {
-                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan() - i - 1);
-                danhSach[--soLuong] = null;
-                return true;
-            }
-        }
-        return false;
-    }
-
     public Ve[] timTheoMaDonDatTour(int maDonDatTour) {
         if (maDonDatTour <= 0 || danhSach == null) {
             return new Ve[0];
@@ -110,41 +164,6 @@ public class DanhSachVe implements DanhSach<Ve> {
             }
         }
         return Arrays.copyOf(ketQua, dem);
-    }
-
-    @Override
-    public Ve[] layTatCa() {
-        return danhSach == null ? new Ve[0] : Arrays.copyOf(danhSach, gioiHan());
-    }
-
-    public Ve[] getDanhSach() {
-        return danhSach;
-    }
-
-    public void setDanhSach(Ve[] danhSach) {
-        this.danhSach = danhSach;
-        soLuong = danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
-    }
-
-    private int gioiHan() {
-        return danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
-    }
-
-    private boolean thuocHanhKhach(Ve ve, HanhKhach[] hanhKhachs) {
-        for (HanhKhach hanhKhach : hanhKhachs) {
-            if (hanhKhach != null && hanhKhach.getMaHanhKhach() == ve.getMaHanhKhach()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public int[] layDanhSachMaDonDatTour() {
@@ -207,6 +226,20 @@ public class DanhSachVe implements DanhSach<Ve> {
         for (int i = 0; i < gioiHan(); i++) {
             if (danhSach[i] != null && danhSach[i].getMaKeHoachTour() == maKeHoachTour
                     && danhSach[i].getMaHanhKhach() == maHanhKhach && danhSach[i].chiemCho()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Helper methods
+    private int gioiHan() {
+        return danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
+    }
+
+    private boolean thuocHanhKhach(Ve ve, HanhKhach[] hanhKhachs) {
+        for (HanhKhach hanhKhach : hanhKhachs) {
+            if (hanhKhach != null && hanhKhach.getMaHanhKhach() == ve.getMaHanhKhach()) {
                 return true;
             }
         }

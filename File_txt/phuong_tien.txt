@@ -1,0 +1,4 @@
+1|Xe Universe 45 cho|45|150000
+2|Xe Limousine 16 cho|16|250000
+3|Xe Ford Transit 16 cho|16|180000
+4|Xe Thaco 29 cho|29|200000
