@@ -1,5 +1,7 @@
 package tochuctour;
 
+import java.nio.file.Path;
+
 import java.util.Arrays;
 
 import danhsach.DanhSach;
@@ -133,12 +135,12 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
     }
 
     @Override
-    public String[] xuatDuLieu() {
-        return new String[0];
+    public boolean docFile(Path path) {
+        return false;
     }
 
     @Override
-    public boolean nhapDuLieu(String[] dongDuLieu) {
+    public boolean ghiFile(Path path) {
         return false;
     }
 }

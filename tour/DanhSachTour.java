@@ -1,5 +1,6 @@
 
 package tour;
+import java.nio.file.Path;
 
 import java.util.Arrays;
 import danhsach.DanhSach;
@@ -112,86 +113,12 @@ public class DanhSachTour implements DanhSach<Tour> {
     }
 
     @Override
-    public String[] xuatDuLieu() {
-        String[] kq = new String[soLuong];
-
-        for (int i = 0; i < soLuong; i++) {
-            Tour t = danhSach[i];
-            String chung = t.getMaTour() + "|" + t.getTenTour()
-                    + "|" + t.getDiemKhoiHanh() + "|" + t.getDiemDen()
-                    + "|" + t.getSoNgay() + "|" + t.getDonGiaCoBan();
-
-            if (t instanceof TourTrongNuoc) {
-                TourTrongNuoc tn = (TourTrongNuoc) t;
-                kq[i] = "TRONG_NUOC|" + chung + "|"
-                        + tn.getVungMien() + "|" + tn.getPhuPhi();
-            } else if (t instanceof TourNuocNgoai) {
-                TourNuocNgoai tnn = (TourNuocNgoai) t;
-                kq[i] = "NUOC_NGOAI|" + chung + "|"
-                        + tnn.getQuocGia() + "|" + tnn.isCanVisa()
-                        + "|" + tnn.getPhiVisa();
-            }
-        }
-        return kq;
+    public boolean docFile(Path path) {
+        return false;
     }
 
     @Override
-    public boolean nhapDuLieu(String[] dongDuLieu) {
-        if (dongDuLieu == null) return false;
-
-        Tour[] tam = new Tour[dongDuLieu.length];
-        int dem = 0;
-
-        try {
-            for (String dong : dongDuLieu) {
-                if (dong == null) return false;
-                String[] p = dong.split("\\|", -1);
-                Tour t;
-
-                if (p[0].equals("TRONG_NUOC") && p.length == 9)
-                    t = new TourTrongNuoc(
-                            Integer.parseInt(p[1]), p[2], p[3], p[4],
-                            Integer.parseInt(p[5]), Long.parseLong(p[6]),
-                            p[7], Long.parseLong(p[8]));
-
-                else if (p[0].equals("NUOC_NGOAI") && p.length == 10) {
-                    if (!p[8].equalsIgnoreCase("true")
-                            && !p[8].equalsIgnoreCase("false"))
-                        return false;
-
-                    t = new TourNuocNgoai(
-                            Integer.parseInt(p[1]), p[2], p[3], p[4],
-                            Integer.parseInt(p[5]), Long.parseLong(p[6]),
-                            p[7], Boolean.parseBoolean(p[8]),
-                            Long.parseLong(p[9]));
-                } else return false;
-
-                if (t.getMaTour() <= 0 || t.getTenTour().trim().isEmpty()
-                        || t.getDiemKhoiHanh().trim().isEmpty()
-                        || t.getDiemDen().trim().isEmpty()
-                        || t.getSoNgay() <= 0 || t.getDonGiaCoBan() < 0)
-                    return false;
-
-                for (int i = 0; i < dem; i++)
-                    if (tam[i].getMaTour() == t.getMaTour())
-                        return false;
-
-                if (t instanceof TourTrongNuoc
-                        && ((TourTrongNuoc) t).getPhuPhi() < 0)
-                    return false;
-
-                if (t instanceof TourNuocNgoai
-                        && ((TourNuocNgoai) t).getPhiVisa() < 0)
-                    return false;
-
-                tam[dem++] = t;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-
-        danhSach = tam;
-        soLuong = dem;
-        return true;
+    public boolean ghiFile(Path path) {
+        return false;
     }
 }
