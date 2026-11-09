@@ -45,8 +45,28 @@ public class DanhSachTour implements DanhSach<Tour> {
             danhSach = Arrays.copyOf(danhSach,
                     danhSach.length == 0 ? 10 : danhSach.length * 2);
 
+<<<<<<< HEAD
         danhSach[soLuong++] = tour;
         return true;
+=======
+        return null;
+    }
+
+    public Tour[] timTheoTen(String tenTour) {
+        if (danhSach == null || tenTour == null)
+            return new Tour[0];
+
+        Tour[] ketQua = new Tour[soLuong];
+        int index = 0;
+        for(int i=0;i<soLuong;i++){
+            if(danhSach[i]!=null && danhSach[i].getTenTour().equalsIgnoreCase(tenTour)){
+                ketQua=Arrays.copyOf(ketQua,index+1);
+                ketQua[index]=danhSach[i];
+                index++;
+            }
+        }
+        return ketQua;
+>>>>>>> 091b37de4cc1ebc463597b33e03bfb5f65d7957a
     }
 
     @Override
