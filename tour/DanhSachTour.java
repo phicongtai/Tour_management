@@ -68,17 +68,16 @@ public class DanhSachTour implements DanhSach<Tour> {
         if (danhSach == null || tenTour == null)
             return new Tour[0];
 
-        Tour[] kq = new Tour[soLuong];
-        int dem = 0;
-
-        for (int i = 0; i < soLuong; i++) {
-            Tour t = danhSach[i];
-            if (t != null && t.getTenTour() != null
-                    && t.getTenTour().toLowerCase()
-                    .contains(tenTour.toLowerCase()))
-                kq[dem++] = t;
+        Tour[] ketQua = new Tour[soLuong];
+        int index = 0;
+        for(int i=0;i<soLuong;i++){
+            if(danhSach[i]!=null && danhSach[i].getTenTour().equalsIgnoreCase(tenTour)){
+                ketQua=Arrays.copyOf(ketQua,index+1);
+                ketQua[index]=danhSach[i];
+                index++;
+            }
         }
-        return Arrays.copyOf(kq, dem);
+        return ketQua;
     }
 
     @Override
