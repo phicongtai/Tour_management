@@ -1,5 +1,7 @@
 package tochuctour;
 
+import java.util.Scanner;
+
 public class KhachSan {
     private int maKhachSan;
     private String tenKhachSan;
@@ -46,5 +48,24 @@ public class KhachSan {
 
     public void setGiaAnMoiNguoiMoiNgay(long giaAnMoiNguoiMoiNgay) {
         this.giaAnMoiNguoiMoiNgay = giaAnMoiNguoiMoiNgay;
+    }
+
+    public void xuat() {
+        System.out.println(this.maKhachSan + "|" + this.tenKhachSan + "|" + this.giaOMoiNguoiMoiDem + "|" + this.giaAnMoiNguoiMoiNgay);
+    }
+
+    public void nhap() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Nhập mã khách sạn: ");
+        this.maKhachSan = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập tên khách sạn: ");
+        this.tenKhachSan = in.nextLine();
+        System.out.print("Nhập giá ở mỗi người mỗi đêm: ");
+        this.giaOMoiNguoiMoiDem = in.nextLong();
+        in.nextLine();
+        System.out.print("Nhập giá ăn mỗi người mỗi ngày: ");
+        this.giaAnMoiNguoiMoiNgay = in.nextLong();
+        in.nextLine();
     }
 }

@@ -80,20 +80,6 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
 
     @Override
-    public boolean capNhat(Ve ve) {
-        if (ve == null || ve.getMaVe() <= 0 || danhSach == null) {
-            return false;
-        }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaVe() == ve.getMaVe()) {
-                danhSach[i] = ve;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public boolean suaTheoMa(int ma) {
         return false;
     }

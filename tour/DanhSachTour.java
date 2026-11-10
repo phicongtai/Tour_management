@@ -79,19 +79,6 @@ public class DanhSachTour implements DanhSach<Tour> {
     }
 
     @Override
-    public boolean capNhat(Tour tour) {
-        if (tour == null || danhSach == null) return false;
-
-        for (int i = 0; i < soLuong; i++)
-            if (danhSach[i] != null
-                    && danhSach[i].getMaTour() == tour.getMaTour()) {
-                danhSach[i] = tour;
-                return true;
-            }
-        return false;
-    }
-
-    @Override
     public boolean suaTheoMa(int ma) {
         return false;
     }

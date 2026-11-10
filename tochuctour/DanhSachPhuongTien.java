@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.Scanner;
+
 import danhsach.DanhSach;
 
 public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
@@ -59,20 +61,46 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
         this.danhSach[this.soLuong] = phuongTien;
         this.soLuong++;
 
-        return false;
+        return true;
     }
 
     @Override
     public boolean them() {
-        return false;
+        if(this.danhSach == null){
+            this.danhSach = new PhuongTien[0];
+            this.soLuong = 0;
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = new PhuongTien();
+        this.danhSach[this.soLuong].nhap();
+        this.soLuong++;
+        return true;
     }
 
     @Override
     public void xuat() {
+        if(this.danhSach == null ){
+            return;
+        }
+        System.out.println("Danh sách phương tiện");
+        for(int i = 0 ; i < this.soLuong ; i++){
+            this.danhSach[i].xuat();
+        }
     }
 
     @Override
     public void nhap() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Nhập vào số lượng: ");
+        this.soLuong = in.nextInt();
+        in.nextLine();
+        this.danhSach = new PhuongTien[this.soLuong];
+        for(int i = 0 ; i < this.soLuong ; i++){
+            System.out.println("Nhập phương tiện thứ " + (i + 1));
+            this.danhSach[i] = new PhuongTien();
+            this.danhSach[i].nhap();
+        }
     }
 
     @Override
@@ -97,22 +125,38 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
     }
 
     @Override
-    public boolean capNhat(PhuongTien phuongTien) {
-        if(this.danhSach == null || phuongTien == null){
+    public boolean suaTheoMa(int ma) {
+        Scanner in = new Scanner(System.in);
+        if(this.danhSach == null){
             return false;
         }
-        for(int i = 0; i < this.soLuong ; i++){
-            if(this.danhSach[i].getMaPhuongTien() == phuongTien.getMaPhuongTien()){
-                this.danhSach[i] = phuongTien;
-                return true;
-            }
-        }
-        return false;
-    }
 
-    @Override
-    public boolean suaTheoMa(int ma) {
-        return false;
+        PhuongTien temp = timTheoMa(ma);
+        if(temp == null){
+            return false;
+        }
+
+        System.out.println("Thông tin phương tiện gốc là:");
+        temp.xuat();
+
+        System.out.print("Chỉnh sữa tên phương tiện: ");
+        String tenphuongtien = in.nextLine();
+        if(!tenphuongtien.isBlank()){
+        temp.setTenPhuongTien(tenphuongtien);
+        }
+
+        System.out.print("chỉnh sửa số chỗ: ");
+        int socho = in.nextInt();
+        if(socho > 0){
+        temp.setSoChoToiDa(socho);
+        }
+
+        System.out.print("chỉnh sửa giá mỗi người mỗi ngày: ");
+        long gia = in.nextLong();
+        if(gia > 0){
+        temp.setGiaMoiNguoiMoiNgay(gia);
+        }
+        return true;
     }
 
     @Override

@@ -65,15 +65,41 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
 
     @Override
     public boolean them() {
-        return false;
+        if(this.danhSach == null){
+            this.danhSach = new KhachSan[0];
+            this.soLuong = 0;
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = new KhachSan();
+        this.danhSach[this.soLuong].nhap();
+        this.soLuong++;
+        return true;
     }
 
     @Override
     public void xuat() {
+        if(this.danhSach == null){
+            return;
+        }
+        System.out.println("Danh sách khách sạn");
+        for(int i = 0 ; i < this.soLuong ; i++){
+            this.danhSach[i].xuat();
+        }
     }
 
     @Override
     public void nhap() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Nhập vào số lượng: ");
+        this.soLuong = in.nextInt();
+        in.nextLine();
+        this.danhSach = new KhachSan[this.soLuong];
+        for(int i = 0 ; i < this.soLuong ; i++){
+            System.out.println("Nhập khách sạn thứ " + (i + 1));
+            this.danhSach[i] = new KhachSan();
+            this.danhSach[i].nhap();
+        }
     }
 
     @Override
@@ -105,20 +131,6 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
     }
 
     @Override
-    public boolean capNhat(KhachSan khachSan) {
-        if(this.danhSach == null || khachSan == null){
-            return false;
-        }
-        for(int i = 0 ; i < this.soLuong ; i++){
-            if(this.danhSach[i].getMaKhachSan() == khachSan.getMaKhachSan()){
-                this.danhSach[i] = khachSan;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public boolean suaTheoMa(int ma) {
         Scanner in = new Scanner(System.in);
         if(this.danhSach == null){
@@ -130,7 +142,7 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
         }
 
         System.out.println("Thông tin khách sạn gốc là:");
-        System.out.println("Tên: " + temp.getTenKhachSan() + " | Giá ở/đêm: " + temp.getGiaOMoiNguoiMoiDem() + " | Giá ăn/ngày: " + temp.getGiaAnMoiNguoiMoiNgay());
+        temp.xuat();
 
         System.out.println("Chỉnh sửa thông tin");
 

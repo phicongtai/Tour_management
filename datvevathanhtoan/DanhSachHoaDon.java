@@ -80,20 +80,6 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     }
 
     @Override
-    public boolean capNhat(HoaDon hoaDon) {
-        if (hoaDon == null || hoaDon.getMaHoaDon() <= 0 || danhSach == null) {
-            return false;
-        }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaHoaDon() == hoaDon.getMaHoaDon()) {
-                danhSach[i] = hoaDon;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public boolean suaTheoMa(int ma) {
         return false;
     }

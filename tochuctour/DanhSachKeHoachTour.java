@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -64,15 +65,41 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
 
     @Override
     public boolean them() {
-        return false;
+        if(this.danhSach == null){
+            this.danhSach = new KeHoachTour[0];
+            this.soLuong = 0;
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = new KeHoachTour();
+        this.danhSach[this.soLuong].nhap();
+        this.soLuong++;
+        return true;
     }
 
     @Override
     public void xuat() {
+        if(this.danhSach == null){
+            return;
+        }
+        System.out.println("Danh sách kế hoạch tour");
+        for(int i = 0 ; i < this.soLuong ; i++){
+            this.danhSach[i].xuat();
+        }
     }
 
     @Override
     public void nhap() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Nhập vào số lượng: ");
+        this.soLuong = in.nextInt();
+        in.nextLine();
+        this.danhSach = new KeHoachTour[this.soLuong];
+        for(int i = 0 ; i < this.soLuong ; i++){
+            System.out.println("Nhập kế hoạch tour thứ " + (i + 1));
+            this.danhSach[i] = new KeHoachTour();
+            this.danhSach[i].nhap();
+        }
     }
 
     @Override
@@ -101,23 +128,36 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
     }
 
     @Override
-    public boolean capNhat(KeHoachTour keHoach) {
-        if(keHoach == null){
+    public boolean suaTheoMa(int ma) {
+        Scanner in = new Scanner(System.in);
+        if(this.danhSach == null){
             return false;
         }
 
-        for(int  i = 0 ; i < this.soLuong ; i++){
-            if(this.danhSach[i].getMaKeHoachTour() == keHoach.getMaKeHoachTour()){
-                this.danhSach[i] = keHoach;
-                return true;
-            }
+        KeHoachTour temp = timTheoMa(ma);
+        if(temp == null ){
+            return false;
+        }
+        System.out.println("Thông tin gốc kế hoạch tour là");
+        temp.xuat();
+        
+        System.out.print("Sữa ngày đi: ");
+        String ngaydi = in.nextLine();
+        if(!ngaydi.isBlank()){
+        temp.setNgayDi(ngaydi);
         }
 
-        return false;
-    }
+        System.out.print("Sữa này về: ");
+        String ngayve = in.nextLine();
+        if(!ngayve.isBlank()){
+        temp.setNgayVe(ngaydi);
+        }
 
-    @Override
-    public boolean suaTheoMa(int ma) {
+        System.out.print("Sua so lượng vé tối đa: ");
+        int soluong = in.nextInt();
+        if(soluong > 0){
+        temp.setSoLuongVeToiDa(soluong);
+        }
         return false;
     }
 

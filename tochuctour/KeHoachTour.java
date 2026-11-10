@@ -1,6 +1,7 @@
 package tochuctour;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class KeHoachTour {
     private int maKeHoachTour;
@@ -208,5 +209,29 @@ public class KeHoachTour {
         }
 
         return result;
+    }
+
+    public void xuat(){
+        System.out.println(this.maKeHoachTour + "|" + this.maTour + "|" + this.maNhanVien + "|" + this.ngayDi + "|" + this.ngayVe + "|" + this.soLuongVeToiDa);
+    }
+
+    public void nhap(){
+        Scanner in = new Scanner(System.in);
+        System.out.print("Nhập mã kế hoạch tour: ");
+        this.maKeHoachTour = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập mã tour: ");
+        this.maTour = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập mã nhân viên: ");
+        this.maNhanVien = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập Ngày đi (trình bày như sau 2026-11-23): ");
+        this.ngayDi = in.nextLine();
+        System.out.print("Nhập Ngày về (trình bày như sau 2026-11-23): ");
+        this.ngayVe = in.nextLine();
+        System.out.print("Nhập số lượng vé tối đa: ");
+        this.soLuongVeToiDa = in.nextInt();
+        in.nextLine();
     }
 }

@@ -1,5 +1,7 @@
 package tochuctour;
 
+import java.util.Scanner;
+
 public class PhuongTien {
     private int maPhuongTien;
     private String tenPhuongTien;
@@ -46,5 +48,24 @@ public class PhuongTien {
 
     public void setGiaMoiNguoiMoiNgay(long giaMoiNguoiMoiNgay) {
         this.giaMoiNguoiMoiNgay = giaMoiNguoiMoiNgay;
+    }
+
+    public void xuat() {
+        System.out.println(this.maPhuongTien + "|" + this.tenPhuongTien + "|" + this.soChoToiDa + "|" + this.giaMoiNguoiMoiNgay);
+    }
+
+    public void nhap() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Nhập mã phương tiện: ");
+        this.maPhuongTien = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập tên phương tiện: ");
+        this.tenPhuongTien = in.nextLine();
+        System.out.print("Nhập số chỗ tối đa: ");
+        this.soChoToiDa = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập giá mỗi người mỗi ngày: ");
+        this.giaMoiNguoiMoiNgay = in.nextLong();
+        in.nextLine();
     }
 }

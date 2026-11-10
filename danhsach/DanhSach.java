@@ -13,7 +13,6 @@ public interface DanhSach<T> {
     boolean xoaTheoMa(int ma);
 
     // Sửa / Cập nhật phần tử
-    boolean capNhat(T phanTu);
     boolean suaTheoMa(int ma);
 
     // Tìm kiếm và lấy danh sách
