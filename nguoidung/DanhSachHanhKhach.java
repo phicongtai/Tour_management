@@ -1,21 +1,21 @@
 package nguoidung;
-
-import java.util.Arrays;
 import danhsach.DanhSach;
-
-public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
+import java.util.Arrays;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
     private HanhKhach[] danhSach;
     private int soLuong;
-
-    // Constructors
-    public DanhSachHanhKhach() {
-        danhSach = new HanhKhach[100];
-        soLuong = 0;
+    private Scanner sc = new Scanner(System.in);
+    public DanhSachHanhKhach(){
+        danhSach=new HanhKhach[0];
+        soLuong=0;
     }
-
-    // Methods @Override
     @Override 
-    public boolean them(HanhKhach hanhKhach) {
+    public boolean them(HanhKhach hanhKhach){
         if(hanhKhach==null)return false;
         if(danhSach==null){
             danhSach=new HanhKhach[0];
@@ -29,92 +29,20 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
         soLuong++;
         return true;
     }
-
-    @Override
-    public boolean them() {
-        return false;
-    }
-
-    @Override
-    public void xuat() {
-    }
-
-    @Override
-    public void nhap() {
-    }
-
     @Override 
-    public boolean xoaTheoMa(int maHanhKhach) {
-        if(danhSach==null || soLuong <= 0 || maHanhKhach <= 0)return false;
-        for(int i=0;i<soLuong;i++){
-            if(danhSach[i]!=null && danhSach[i].getMaHanhKhach()==maHanhKhach){
-                for(int j=i;j<soLuong-1;j++){
-                    danhSach[j]=danhSach[j+1];
-                }
-                danhSach[--soLuong]=null;
-                return true;
-            }
-        }
-        return false;
+    public boolean them(){
+        System.out.print("Nhap ma hanh khach: ");
+        int maHanhKhach=Integer.parseInt(sc.nextLine().trim());
+        System.out.print("Nhap ho va ten: ");
+        String hoTen=sc.nextLine().trim();
+        System.out.print("Nhap ngay sinh (vd:2001-08-25): ");
+        String ngaySinh=sc.nextLine().trim();
+        System.out.print("Nhap gioi tinh (0: Nu, 1: Nam): ");
+        int gioiTinh=Integer.parseInt(sc.nextLine().trim());
+        System.out.print("Nhap so dien thoai: ");
+        String soDienThoai=sc.nextLine().trim();
+        HanhKhach hk=new HanhKhach(maHanhKhach,hoTen,ngaySinh,gioiTinh,soDienThoai);
+        return them(hk);
     }
-
-    @Override 
-    public boolean capNhat(HanhKhach hanhKhach) {
-        if(danhSach==null || soLuong <= 0 || hanhKhach==null || hanhKhach.getMaHanhKhach() <= 0)return false;
-        for(int i=0;i<soLuong;i++){
-            if(danhSach[i]!=null && danhSach[i].getMaHanhKhach()==hanhKhach.getMaHanhKhach()){
-                danhSach[i]=hanhKhach;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean suaTheoMa(int ma) {
-        return false;
-    }
-
-    @Override 
-    public HanhKhach timTheoMa(int maHanhKhach) {
-        if (danhSach==null || soLuong <= 0 || maHanhKhach <= 0) {
-            return null;
-        }
-        for(int i=0;i<soLuong;i++){
-            if(danhSach[i]!=null && danhSach[i].getMaHanhKhach()==maHanhKhach)return danhSach[i];
-        }
-        return null;
-    }
-
-    @Override 
-    public HanhKhach[] layTatCa() {
-        HanhKhach[] kq=new HanhKhach[soLuong];
-        System.arraycopy(danhSach,0,kq,0,soLuong);
-        return kq;
-    }
-
-    @Override
-    public boolean docFile(String duongDan) {
-        return false;
-    }
-
-    @Override
-    public boolean ghiFile(String duongDan) {
-        return false;
-    }
-
-    // Methods còn lại
-    public HanhKhach[] timTheoTen(String hoTen) {
-        if(danhSach==null || soLuong <= 0 || hoTen.isBlank())return new HanhKhach[0];
-        HanhKhach[] ketQua=new HanhKhach[0];
-        int index=0;
-        for(int i=0;i<soLuong;i++){
-            if(danhSach[i]!=null && danhSach[i].getHoTen().equalsIgnoreCase(hoTen)){
-                ketQua = Arrays.copyOf(ketQua, index + 1);
-                ketQua[index] = danhSach[i];
-                index++;
-            }
-        }
-        return ketQua;
-    }
+    
 }

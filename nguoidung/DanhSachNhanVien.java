@@ -1,25 +1,37 @@
 package nguoidung;
 
-<<<<<<< HEAD
-import java.util.Arrays;
-=======
->>>>>>> 5b7e99c03316bb4bacd537cc560f8d202e0490e9
 import danhsach.DanhSach;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.io.IOException;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class DanhSachNhanVien implements DanhSach<NhanVien> {
     private NhanVien[] danhSach;
     private int soLuong;
     private Scanner sc = new Scanner(System.in);
-
+    
     public DanhSachNhanVien() {
         danhSach = new NhanVien[0];
         soLuong = 0;
+    }
+
+    public NhanVien[] getDanhSach() {
+        return danhSach;
+    }
+
+    public void setDanhSach(NhanVien[] danhSach) {
+        this.danhSach = danhSach;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
 
     @Override 
@@ -41,53 +53,32 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
 
     @Override
     public boolean them() {
-        try {
-            System.out.print("Nhap ma nhan vien: ");
-            int ma = Integer.parseInt(sc.nextLine().trim());
-            System.out.print("Nhap ho va ten: ");
-            String hoTen = sc.nextLine().trim();
-            System.out.print("Nhap ngay sinh: ");
-            String ngaySinh = sc.nextLine().trim();
-            System.out.print("Nhap gioi tinh (1: Nu, 2: Nam, 0: Gioi tinh khac): ");
-            int gioiTinh = Integer.parseInt(sc.nextLine().trim());
-            System.out.print("Nhap so dien thoại: ");
-            String soDienThoai = sc.nextLine().trim();
-            NhanVien nv = new NhanVien(ma, hoTen, ngaySinh, gioiTinh, soDienThoai);
-            return them(nv);
-        } catch (Exception e) {
-            System.out.println("Loi nhap thong tin nhan vien: " + e.getMessage());
-            return false;
-        }
+        NhanVien nv = new NhanVien();
+        nv.nhap(); 
+        return them(nv);
     }
 
-    @Override
     public void nhap() {
         System.out.print("Nhap so luong nhan vien can them: ");
-        try {
-            int n = Integer.parseInt(sc.nextLine().trim());
-            for (int i = 0; i < n; i++) {
-                System.out.println("Nhap thong tin cho nhan vien thu " + (i + 1) + ":");
-                boolean thanhCong = them();
-                if (!thanhCong) {
-                    System.out.println("Them that bai (trung ma hoac du lieu khong hop le). Vui long nhap lai.");
-                    i--;
-                }
+        int n = Integer.parseInt(sc.nextLine().trim());
+        for (int i = 0; i < n; i++) {
+            System.out.println("Nhap thong tin cho nhan vien thu " + (i + 1) + ":");
+            boolean thanhCong = them();
+            if (!thanhCong) {
+                System.out.println("Them that bai (trung ma hoac du lieu khong hop le). Vui long nhap lai.");
+                i--;
             }
-        } catch (Exception e) {
-            System.out.println("Loi nhap du lieu danh sach!");
         }
     }
 
-    @Override
     public void xuat() {
         if (soLuong == 0) {
             System.out.println("Danh sach nhan vien trong!");
             return;
         }
-        System.out.println("--- DANH SACH NHAN VIEN ---");
         for (int i = 0; i < soLuong; i++) {
             if (danhSach[i] != null) {
-                System.out.println(danhSach[i].toString());
+                danhSach[i].xuat(); 
             }
         }
     }
@@ -99,20 +90,39 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
             System.out.println("Khong tim thay nhan vien co ma: " + ma);
             return false;
         }
-        try {
-            System.out.print("Nhap ho ten moi: ");
-            String s = sc.nextLine().trim(); if (!s.isEmpty()) nv.setHoTen(s);
-            System.out.print("Nhap ngay sinh moi: ");
-            s = sc.nextLine().trim(); if (!s.isEmpty()) nv.setNgaySinh(s);
-            System.out.print("Nhap gioi tinh moi (1:Nu, 2:Nam, 0:Khac): ");
-            s = sc.nextLine().trim(); if (!s.isEmpty()) nv.setGioiTinh(Integer.parseInt(s));
-            System.out.print("Nhap so dien thoai moi: ");
-            s = sc.nextLine().trim(); if (!s.isEmpty()) nv.setSoDienThoai(s);
-            return capNhat(nv);
-        } catch (Exception e) {
-            System.out.println("Loi cap nhat thong tin: " + e.getMessage());
-            return false;
+
+        System.out.println("Thong tin nhan vien hien tai:");
+        nv.xuat();
+
+        System.out.print("Chinh Ho ten: ");
+        String hoTen = sc.nextLine();
+        if (!hoTen.isBlank()) {
+            nv.setHoTen(hoTen);
         }
+
+        System.out.print("Chinh Ngay sinh: ");
+        String ngaySinh = sc.nextLine();
+        if (!ngaySinh.isBlank()) {
+            nv.setNgaySinh(ngaySinh.trim());
+        }
+
+        System.out.print("Chinh Gioi tinh (0: Nu, 1: Nam): ");
+        String gioiTinhStr = sc.nextLine();
+        if (!gioiTinhStr.isBlank()) {
+            int gioiTinh = Integer.parseInt(gioiTinhStr.trim());
+            nv.setGioiTinh(gioiTinh);
+        }
+
+        System.out.print("Chinh So dien thoai: ");
+        String soDienThoai = sc.nextLine();
+        if (!soDienThoai.isBlank()) {
+            nv.setSoDienThoai(soDienThoai);
+        }
+
+        System.out.println("Thong tin nhan vien sau khi cap nhat:");
+        nv.xuat();
+        
+        return true;
     }
 
     @Override
@@ -139,18 +149,6 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         return ketQua;
     }
 
-    @Override
-    public boolean capNhat(NhanVien nhanVien) {
-        if (danhSach == null || soLuong <= 0 || nhanVien == null || nhanVien.getMaNhanVien() <= 0) return false;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getMaNhanVien() == nhanVien.getMaNhanVien()) {
-                danhSach[i] = nhanVien;
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override 
     public boolean xoaTheoMa(int maNhanVien) {
         if (danhSach == null || soLuong <= 0 || maNhanVien <= 0) return false;
@@ -173,83 +171,54 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         return kq;
     }
 
-    public String[] xuatDuLieu() {
-        String[] dongTXT = new String[soLuong];
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null) {
-                dongTXT[i] = danhSach[i].toString();
-            }
-        }
-        return dongTXT;
-    }
-
-    public boolean nhapDuLieu(String[] dongDuLieu) {
-        if (dongDuLieu == null) return false;
-        NhanVien[] temp = new NhanVien[dongDuLieu.length];
-        int count = 0;
-        for (String line : dongDuLieu) {
-            String[] parts = line.split(",");
-            if (parts.length < 5) return false;
-            try {
-                int maNhanVien = Integer.parseInt(parts[0].trim());
-                String hoTen = parts[1].trim();
-                String ngaySinh = parts[2].trim();
-                int gioiTinh = Integer.parseInt(parts[3].trim());
-                String soDienThoai = parts[4].trim();
-                NhanVien nv = new NhanVien(maNhanVien, hoTen, ngaySinh, gioiTinh, soDienThoai);
-                temp[count] = nv;
-                count++;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-        danhSach = temp;
-        soLuong = count;
-        return true;
-    }
-
-    @Override
-<<<<<<< HEAD
     public boolean docFile(String duongDan) {
-        return false;
-    }
-
-    @Override
-    public boolean ghiFile(String duongDan) {
-        return false;
-    }
-
-    // Methods còn lại
-    public NhanVien[] timTheoTen(String hoTen) {
-        if (danhSach == null || soLuong <= 0 || hoTen.isBlank())return new NhanVien[0];
-        NhanVien[] ketQua = new NhanVien[0];
-        int index = 0;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i]!=null && danhSach[i].getHoTen().equalsIgnoreCase(hoTen.trim())) {
-                ketQua = Arrays.copyOf(ketQua, index + 1);
-                ketQua[index] = danhSach[i];
-                index++;
+        danhSach = new NhanVien[0];
+        soLuong = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
+            String temp;
+            while ((temp = reader.readLine()) != null) {
+                if (temp.trim().isEmpty()) continue;
+                String[] parts = temp.split("\\|"); 
+                if (parts.length >= 5) {
+                    NhanVien nv = new NhanVien(
+                        Integer.parseInt(parts[0].trim()),
+                        parts[1].trim(),
+                        parts[2].trim(),
+                        Integer.parseInt(parts[3].trim()),
+                        parts[4].trim()
+                    );
+                    them(nv);
+                }
             }
-=======
-    public boolean docFile(Path path) {
-        try {
-            if (!Files.exists(path)) return false;
-            List<String> lines = Files.readAllLines(path);
-            return nhapDuLieu(lines.toArray(new String[0]));
-        } catch (IOException e) {
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
 
-    @Override
-    public boolean ghiFile(Path path) {
-        try {
-            String[] data = xuatDuLieu();
-            Files.write(path, Arrays.asList(data));
-            return true;
-        } catch (IOException e) {
+    public boolean ghiFile(String duongDan) {
+        if (danhSach == null) {
             return false;
->>>>>>> 5b7e99c03316bb4bacd537cc560f8d202e0490e9
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
+            for (int i = 0; i < soLuong; i++) {
+                if (danhSach[i] == null) continue;
+                String temp = "";
+                temp += danhSach[i].getMaNhanVien();
+                temp += "|";
+                temp += danhSach[i].getHoTen();
+                temp += "|";
+                temp += danhSach[i].getNgaySinh();
+                temp += "|";
+                temp += danhSach[i].getGioiTinh();
+                temp += "|";
+                temp += danhSach[i].getSoDienThoai();
+                writer.write(temp);
+                writer.newLine();
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }

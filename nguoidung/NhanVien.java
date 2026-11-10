@@ -1,13 +1,18 @@
 package nguoidung;
 
+import java.util.Scanner;
+
 public class NhanVien {
     private int maNhanVien;
     private String hoTen;
     private String ngaySinh;
     private int gioiTinh;
     private String soDienThoai;
+    private transient Scanner sc = new Scanner(System.in);
+
     public NhanVien() {
     }
+
     public NhanVien(int maNhanVien, String hoTen, String ngaySinh, int gioiTinh, String soDienThoai) {
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
@@ -15,6 +20,7 @@ public class NhanVien {
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai;
     }
+
     public int getMaNhanVien() {
         return maNhanVien;
     }
@@ -29,7 +35,7 @@ public class NhanVien {
 
     public void setHoTen(String hoTen) {
         if (hoTen != null) {
-            this.hoTen = hoTen.trim();// trim dùng để xóa khoảng trắng cuối và đầu chuỗi
+            this.hoTen = hoTen.trim();
         }
     }
 
@@ -46,7 +52,9 @@ public class NhanVien {
     }
 
     public void setGioiTinh(int gioiTinh) {
-        this.gioiTinh = gioiTinh;
+        if (gioiTinh == 0 || gioiTinh == 1) {
+            this.gioiTinh = gioiTinh;
+        }
     }
 
     public String getSoDienThoai() {
@@ -58,17 +66,39 @@ public class NhanVien {
             this.soDienThoai = soDienThoai.trim();
         }
     }
-    public boolean capNhatThongTin(String hoTen,String ngaySinh,int gioiTinh,String soDienThoai){
-        if(hoTen==null||hoTen.trim().isEmpty()||soDienThoai==null||soDienThoai.trim().isEmpty()){
+
+    public boolean capNhatThongTin(String hoTen, String ngaySinh, int gioiTinh, String soDienThoai) {
+        if (hoTen == null || hoTen.isBlank() || soDienThoai == null || soDienThoai.isBlank()) {
             return false;
         }
-        if(gioiTinh < 0 || gioiTinh >2){
+        if (gioiTinh != 0 && gioiTinh != 1) {
             return false;
         }
         this.hoTen = hoTen.trim();
-        this.ngaySinh = ngaySinh;
+        this.ngaySinh = ngaySinh.trim();
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai.trim();
         return true;
+    }
+
+    public void nhap() {
+        System.out.print("Nhap ma nhan vien: ");
+        this.maNhanVien = Integer.parseInt(sc.nextLine().trim());
+        
+        System.out.print("Nhap ho va ten: ");
+        this.hoTen = sc.nextLine().trim();
+        
+        System.out.print("Nhap ngay sinh (vd: 2001-08-25): ");
+        this.ngaySinh = sc.nextLine().trim();
+        
+        System.out.print("Nhap gioi tinh (0: Nu, 1: Nam): ");
+        this.gioiTinh = Integer.parseInt(sc.nextLine().trim());
+        
+        System.out.print("Nhap so dien thoai: ");
+        this.soDienThoai = sc.nextLine().trim();
+    }
+
+    public void xuat() {
+        System.out.println(maNhanVien + "|" + hoTen + "|" + ngaySinh + "|" + gioiTinh + "|" + soDienThoai);
     }
 }
