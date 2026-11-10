@@ -55,8 +55,8 @@ package "tour" #E8F2F9 {
     + xuat(): void
     + nhap(): void
     + layTatCa(): Tour[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 
   Tour <|-- TourTrongNuoc
@@ -102,8 +102,8 @@ package "nguoidung" #E9F6EF {
     + xuat(): void
     + nhap(): void
     + layTatCa(): NhanVien[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 
   class DanhSachHanhKhach {
@@ -120,8 +120,8 @@ package "nguoidung" #E9F6EF {
     + xuat(): void
     + nhap(): void
     + layTatCa(): HanhKhach[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 
   DanhSachNhanVien o--> "0..*" NhanVien : quản lý
@@ -178,8 +178,8 @@ package "tochuctour" #FDF2E6 {
     + xuat(): void
     + nhap(): void
     + layTatCa(): KeHoachTour[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 
   class PhuongTien {
@@ -214,8 +214,8 @@ package "tochuctour" #FDF2E6 {
     + xuat(): void
     + nhap(): void
     + layTatCa(): PhuongTien[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 
   class DanhSachKhachSan {
@@ -232,8 +232,8 @@ package "tochuctour" #FDF2E6 {
     + xuat(): void
     + nhap(): void
     + layTatCa(): KhachSan[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 
   KeHoachTour *--> "0..*" ChiTietKeHoachTour : chứa lịch trình ngày
@@ -294,8 +294,8 @@ package "datvevathanhtoan" #F3ECFB {
     + xuat(): void
     + nhap(): void
     + layTatCa(): Ve[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 
   class ChiTietHoaDon {
@@ -372,8 +372,8 @@ package "datvevathanhtoan" #F3ECFB {
     + xuat(): void
     + nhap(): void
     + layTatCa(): HoaDon[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 
   DanhSachVe o--> "0..*" Ve : quản lý vé
@@ -410,8 +410,8 @@ package "danhsach" #F0F4F8 {
     + suaTheoMa(ma: int): boolean
     + timTheoMa(ma: int): T
     + layTatCa(): T[]
-    + docFile(path: Path): boolean
-    + ghiFile(path: Path): boolean
+    + docFile(duongDan: String): boolean
+    + ghiFile(duongDan: String): boolean
   }
 }
 

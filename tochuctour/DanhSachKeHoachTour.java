@@ -1,7 +1,13 @@
 package tochuctour;
 
-import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import danhsach.DanhSach;
 
 public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
@@ -134,14 +140,61 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
         return danhSach;
     }
 
-    @Override
-    public boolean docFile(Path path) {
+// maKeHoachTour|maTour|maNhanVien|ngayDi|ngayVe|soLuongVeToiDa
+@Override
+public boolean docFile(String duongDan) {
+    this.danhSach = new KeHoachTour[0];
+    this.soLuong = 0;
+    try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
+        String temp;
+        while ((temp = reader.readLine()) != null) {
+            if (temp.trim().isEmpty()) continue;
+            String[] parts = temp.split("\\|"); //dùng cái nay để tách 1 chuổi thành 1 mạng phga6n tách bằng dấu |
+            if (parts.length >= 6) { // số 6 này biệu thì cho số lượng thuộc tính trong class kế hoạch tour 
+                KeHoachTour kh = new KeHoachTour(
+                    Integer.parseInt(parts[0].trim()),
+                    Integer.parseInt(parts[1].trim()),
+                    Integer.parseInt(parts[2].trim()),
+                    parts[3].trim(),
+                    parts[4].trim(),
+                    Integer.parseInt(parts[5].trim())
+                );
+                this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+                this.danhSach[this.soLuong++] = kh;
+            }
+        }
+        return true;
+    } catch (Exception e) {
         return false;
     }
+}
 
     @Override
-    public boolean ghiFile(Path path) {
-        return false;
+    public boolean ghiFile(String duongDan) {
+        if(this.danhSach == null){
+            return false;
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
+            for(int i = 0 ; i < this.soLuong ; i++){
+                String temp = "";
+                temp += this.danhSach[i].getMaKeHoachTour();
+                temp += "|";
+                temp += this.danhSach[i].getMaTour();
+                temp += "|";
+                temp += this.danhSach[i].getMaNhanVien();
+                temp += "|";
+                temp += this.danhSach[i].getNgayDi();
+                temp += "|";
+                temp += this.danhSach[i].getNgayVe();
+                temp += "|";
+                temp += this.danhSach[i].getSoLuongVeToiDa();
+                writer.write(temp);
+                writer.newLine();
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     // Methods còn lại

@@ -1,6 +1,5 @@
 package tour;
 
-import java.nio.file.Path;
 import java.util.Arrays;
 import danhsach.DanhSach;
 
@@ -116,12 +115,12 @@ public class DanhSachTour implements DanhSach<Tour> {
     }
 
     @Override
-    public boolean docFile(Path path) {
+    public boolean docFile(String duongDan) {
         return false;
     }
 
     @Override
-    public boolean ghiFile(Path path) {
+    public boolean ghiFile(String duongDan) {
         return false;
     }
 

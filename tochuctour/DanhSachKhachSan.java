@@ -1,6 +1,9 @@
 package tochuctour;
 
-import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Arrays;
 import danhsach.DanhSach;
 
@@ -138,14 +141,55 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
         return danhSach;
     }
 
+    // maKhachSan|tenKhachSan|giaOMoiNguoiMoiDem|giaAnMoiNguoiMoiNgay
     @Override
-    public boolean docFile(Path path) {
-        return false;
+    public boolean docFile(String duongDan) {
+        this.danhSach = new KhachSan[0];
+        this.soLuong = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
+            String temp;
+            while ((temp = reader.readLine()) != null) {
+                if (temp.trim().isEmpty()) continue;
+                String[] parts = temp.split("\\|");
+                if (parts.length >= 4) {
+                    KhachSan ks = new KhachSan(
+                        Integer.parseInt(parts[0].trim()),
+                        parts[1].trim(),
+                        Long.parseLong(parts[2].trim()),
+                        Long.parseLong(parts[3].trim())
+                    );
+                    this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+                    this.danhSach[this.soLuong++] = ks;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public boolean ghiFile(Path path) {
-        return false;
+    public boolean ghiFile(String duongDan) {
+        if (this.danhSach == null) {
+            return false;
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
+            for (int i = 0; i < this.soLuong; i++) {
+                String temp = "";
+                temp += this.danhSach[i].getMaKhachSan();
+                temp += "|";
+                temp += this.danhSach[i].getTenKhachSan();
+                temp += "|";
+                temp += this.danhSach[i].getGiaOMoiNguoiMoiDem();
+                temp += "|";
+                temp += this.danhSach[i].getGiaAnMoiNguoiMoiNgay();
+                writer.write(temp);
+                writer.newLine();
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     // Methods còn lại

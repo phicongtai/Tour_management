@@ -1,6 +1,5 @@
 package nguoidung;
 
-import java.nio.file.Path;
 import java.util.Arrays;
 import danhsach.DanhSach;
 
@@ -95,12 +94,12 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
     }
 
     @Override
-    public boolean docFile(Path path) {
+    public boolean docFile(String duongDan) {
         return false;
     }
 
     @Override
-    public boolean ghiFile(Path path) {
+    public boolean ghiFile(String duongDan) {
         return false;
     }
 

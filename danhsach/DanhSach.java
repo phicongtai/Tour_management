@@ -1,7 +1,5 @@
 package danhsach;
 
-import java.nio.file.Path;
-
 public interface DanhSach<T> {
     // Thêm phần tử (có tham số và không có tham số)
     boolean them(T phanTu);
@@ -23,6 +21,6 @@ public interface DanhSach<T> {
     T[] layTatCa();
 
     // Đọc và ghi file (chỉ khai báo, không có thân hàm)
-    boolean docFile(Path path);
-    boolean ghiFile(Path path);
+    boolean docFile(String duongDan);
+    boolean ghiFile(String duongDan);
 }
