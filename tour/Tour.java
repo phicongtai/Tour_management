@@ -67,26 +67,8 @@ public abstract class Tour {
     public void setDonGiaCoBan(long donGiaCoBan) {
         this.donGiaCoBan = donGiaCoBan;
     }
-    public boolean capNhatThongTinChung(String tenTour, String diemKhoiHanh,
-        String diemDen, int soNgay, long donGiaCoBan) {
 
-    if (tenTour == null || tenTour.trim().isEmpty()
-            || diemKhoiHanh == null || diemKhoiHanh.trim().isEmpty()
-            || diemDen == null || diemDen.trim().isEmpty()
-            || soNgay <= 0 || donGiaCoBan < 0) {
-        return false;
-    }
-
-    this.tenTour = tenTour;
-    this.diemKhoiHanh = diemKhoiHanh;
-    this.diemDen = diemDen;
-    this.soNgay = soNgay;
-    this.donGiaCoBan = donGiaCoBan;
-
-    return true;
-}
-
-public long tinhGiaVe(){
+    public long tinhGiaVe(){
     return donGiaCoBan;
 };
 }

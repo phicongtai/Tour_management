@@ -20,7 +20,6 @@ package "tour" #E8F2F9 {
     - soNgay: int
     - donGiaCoBan: long
     --
-    + capNhatThongTinChung(tenTour: String, diemKhoiHanh: String, diemDen: String, soNgay: int, donGiaCoBan: long): boolean
     + tinhGiaVe(): long
   }
 
@@ -28,7 +27,6 @@ package "tour" #E8F2F9 {
     - vungMien: String
     - phuPhi: long
     --
-    + capNhatThongTinRieng(vungMien: String, phuPhi: long): boolean
     + tinhGiaVe(): long
   }
 
@@ -37,7 +35,6 @@ package "tour" #E8F2F9 {
     - canVisa: boolean
     - phiVisa: long
     --
-    + capNhatThongTinRieng(quocGia: String, canVisa: boolean, phiVisa: long): boolean
     + tinhGiaVe(): long
   }
 
@@ -74,8 +71,6 @@ package "nguoidung" #E9F6EF {
     - ngaySinh: String
     - gioiTinh: int
     - soDienThoai: String
-    --
-    + capNhatThongTin(hoTen: String, ngaySinh: String, gioiTinh: int, soDienThoai: String): boolean
   }
 
   class HanhKhach {
@@ -84,8 +79,6 @@ package "nguoidung" #E9F6EF {
     - ngaySinh: String
     - gioiTinh: int
     - soDienThoai: String
-    --
-    + capNhatThongTin(hoTen: String, ngaySinh: String, gioiTinh: int, soDienThoai: String): boolean
   }
 
   class DanhSachNhanVien {
@@ -142,7 +135,6 @@ package "tochuctour" #FDF2E6 {
     - chiTietLichTrinh: ChiTietKeHoachTour[]
     - soLuongChiTiet: int
     --
-    + capNhatThongTin(maNhanVien: int, ngayDi: String, ngayVe: String, soLuongVeToiDa: int): boolean
     + soChoConLai(soVeDaDat: int): int
     + conDuCho(soVeDaDat: int, soVeCanDat: int): boolean
     + themChiTiet(chiTiet: ChiTietKeHoachTour): boolean
@@ -160,7 +152,6 @@ package "tochuctour" #FDF2E6 {
     - tienO: long
     - tienDiLai: long
     --
-    + capNhat(maPhuongTien: int, maKhachSan: int, tienAn: long, tienO: long, tienDiLai: long): boolean
     + tinhChiPhiNgay(soKhach: int): long
   }
 
@@ -187,8 +178,6 @@ package "tochuctour" #FDF2E6 {
     - tenPhuongTien: String
     - soChoToiDa: int
     - giaMoiNguoiMoiNgay: long
-    --
-    + capNhatThongTin(tenPhuongTien: String, soChoToiDa: int, giaMoiNguoiMoiNgay: long): boolean
   }
 
   class KhachSan {
@@ -196,8 +185,6 @@ package "tochuctour" #FDF2E6 {
     - tenKhachSan: String
     - giaOMoiNguoiMoiDem: long
     - giaAnMoiNguoiMoiNgay: long
-    --
-    + capNhatThongTin(tenKhachSan: String, giaOMoiNguoiMoiDem: long, giaAnMoiNguoiMoiNgay: long): boolean
   }
 
   class DanhSachPhuongTien {

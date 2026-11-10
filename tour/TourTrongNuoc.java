@@ -41,16 +41,4 @@ public class TourTrongNuoc extends Tour {
     public long tinhGiaVe() {
         return getDonGiaCoBan() + phuPhi;
     }
-
-    // Methods còn lại
-    public boolean capNhatThongTinRieng(String vungMien, long phuPhi) {
-        if (vungMien == null || vungMien.trim().isEmpty() || phuPhi < 0) {
-            return false;
-        }
-
-        this.vungMien = vungMien;
-        this.phuPhi = phuPhi;
-
-        return true;
-    }
 }

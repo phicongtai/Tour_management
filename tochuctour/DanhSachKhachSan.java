@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.Scanner;
+
 import danhsach.DanhSach;
 
 public class DanhSachKhachSan implements DanhSach<KhachSan> {
@@ -118,7 +120,38 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        return false;
+        Scanner in = new Scanner(System.in);
+        if(this.danhSach == null){
+            return false;
+        }
+        KhachSan temp = timTheoMa(ma);
+        if(temp == null){
+            return false;
+        }
+
+        System.out.println("Thông tin khách sạn gốc là:");
+        System.out.println("Tên: " + temp.getTenKhachSan() + " | Giá ở/đêm: " + temp.getGiaOMoiNguoiMoiDem() + " | Giá ăn/ngày: " + temp.getGiaAnMoiNguoiMoiNgay());
+
+        System.out.println("Chỉnh sửa thông tin");
+
+        System.out.print("Chỉnh sửa tên khách sạn: ");
+        String tenkhachsan = in.nextLine();
+        if(!tenkhachsan.isBlank()){
+            temp.setTenKhachSan(tenkhachsan);
+        }
+
+        System.out.print("Chỉnh sửa giá ở mỗi đêm: ");
+        long giaODem = in.nextLong();
+        if(giaODem > 0){
+            temp.setGiaOMoiNguoiMoiDem(giaODem); 
+        }
+
+        System.out.print("Chỉnh sửa giá ăn mỗi ngày: ");
+        long giaanmoingay = in.nextLong();
+        if(giaanmoingay > 0){
+            temp.setGiaAnMoiNguoiMoiNgay(giaanmoingay); 
+        }
+        return true;
     }
 
     @Override

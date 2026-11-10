@@ -61,17 +61,4 @@ public class HanhKhach {
             this.soDienThoai=soDienThoai;
         }
     }
-    public boolean capNhatThongTin(String hoTen,String ngaySinh,int gioiTinh,String soDienThoai){
-         if(hoTen==null||hoTen.trim().isEmpty()||soDienThoai==null||soDienThoai.trim().isEmpty()){
-            return false;
-        }
-        if(gioiTinh < 0 || gioiTinh >2){
-            return false;
-        }
-        this.hoTen = hoTen.trim();
-        this.ngaySinh = ngaySinh;
-        this.gioiTinh = gioiTinh;
-        this.soDienThoai = soDienThoai.trim();
-        return true;
-    }
 }

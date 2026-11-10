@@ -60,17 +60,4 @@ public class TourNuocNgoai extends Tour {
 
         return getDonGiaCoBan();
     }
-
-    // Methods còn lại
-    public boolean capNhatThongTinRieng(String quocGia, boolean canVisa, long phiVisa) {
-        if (quocGia == null || quocGia.trim().isEmpty() || phiVisa < 0) {
-            return false;
-        }
-
-        this.quocGia = quocGia;
-        this.canVisa = canVisa;
-        this.phiVisa = phiVisa;
-
-        return true;
-    }
 }

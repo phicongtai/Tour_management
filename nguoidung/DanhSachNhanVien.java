@@ -1,9 +1,6 @@
 package nguoidung;
 
-<<<<<<< HEAD
 import java.util.Arrays;
-=======
->>>>>>> 5b7e99c03316bb4bacd537cc560f8d202e0490e9
 import danhsach.DanhSach;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -209,7 +206,6 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     }
 
     @Override
-<<<<<<< HEAD
     public boolean docFile(String duongDan) {
         return false;
     }
@@ -220,36 +216,4 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     }
 
     // Methods còn lại
-    public NhanVien[] timTheoTen(String hoTen) {
-        if (danhSach == null || soLuong <= 0 || hoTen.isBlank())return new NhanVien[0];
-        NhanVien[] ketQua = new NhanVien[0];
-        int index = 0;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i]!=null && danhSach[i].getHoTen().equalsIgnoreCase(hoTen.trim())) {
-                ketQua = Arrays.copyOf(ketQua, index + 1);
-                ketQua[index] = danhSach[i];
-                index++;
-            }
-=======
-    public boolean docFile(Path path) {
-        try {
-            if (!Files.exists(path)) return false;
-            List<String> lines = Files.readAllLines(path);
-            return nhapDuLieu(lines.toArray(new String[0]));
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean ghiFile(Path path) {
-        try {
-            String[] data = xuatDuLieu();
-            Files.write(path, Arrays.asList(data));
-            return true;
-        } catch (IOException e) {
-            return false;
->>>>>>> 5b7e99c03316bb4bacd537cc560f8d202e0490e9
-        }
-    }
 }

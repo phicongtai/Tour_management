@@ -99,19 +99,6 @@ public class KeHoachTour {
         this.soLuongChiTiet = soLuongChiTiet;
     }
 
-    public boolean capNhatThongTin(int maNhanVien, String ngayDi, String ngayVe, int soLuongVeToiDa) {
-        // Chức năng dùng để cập nhật thông tin của một chuyến tour
-        if (maNhanVien <= 0 || ngayDi == null || ngayVe == null || soLuongVeToiDa <= 0) {
-            return false;
-        }
-
-        this.maNhanVien = maNhanVien;
-        this.ngayDi = ngayDi;
-        this.ngayVe = ngayVe;
-        this.soLuongVeToiDa = soLuongVeToiDa;
-        return true;
-    }
-
     public int soChoConLai(int soVeDaDat) {
         //sovedadat lấy ra từ danh sach ve và tin kiếm bãng mã kế hoạch tour
         if (soVeDaDat <= 0 || soVeDaDat > soLuongVeToiDa) {
