@@ -57,7 +57,7 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
         hk.nhap(); 
         return them(hk);
     }
-
+    @Override 
     public void nhap() {
         System.out.print("Nhap so luong hanh khach can them: ");
         int n = Integer.parseInt(sc.nextLine().trim());
@@ -70,7 +70,7 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
             }
         }
     }
-
+    @Override 
     public void xuat() {
         if (soLuong == 0) {
             System.out.println("Danh sach hanh khach trong!");
@@ -84,10 +84,10 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
     }
 
     @Override
-    public boolean suaTheoMa(int ma) {
-        HanhKhach hk = timTheoMa(ma);
+    public boolean suaTheoMa(int maHanhKhach) {
+        HanhKhach hk = timTheoMa(maHanhKhach);
         if (hk == null) {
-            System.out.println("Khong tim thay hanh khach co ma: " + ma);
+            System.out.println("Khong tim thay hanh khach co ma: " + maHanhKhach);
             return false;
         }
 
@@ -134,21 +134,6 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
         }
         return null;
     }
-
-    public HanhKhach[] timTheoTen(String hoTen) {
-        if (danhSach == null || soLuong <= 0 || hoTen == null || hoTen.isBlank()) return new HanhKhach[0];
-        HanhKhach[] ketQua = new HanhKhach[0];
-        int index = 0;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getHoTen() != null && danhSach[i].getHoTen().equalsIgnoreCase(hoTen)) {
-                ketQua = Arrays.copyOf(ketQua, index + 1);
-                ketQua[index] = danhSach[i];
-                index++;
-            }
-        }
-        return ketQua;
-    }
-
     @Override 
     public boolean xoaTheoMa(int maHanhKhach) {
         if (danhSach == null || soLuong <= 0 || maHanhKhach <= 0) return false;
@@ -170,14 +155,14 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
         System.arraycopy(danhSach, 0, kq, 0, soLuong);
         return kq;
     }
-
+    @Override 
     public boolean docFile(String duongDan) {
         danhSach = new HanhKhach[0];
         soLuong = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
             String temp;
             while ((temp = reader.readLine()) != null) {
-                if (temp.trim().isEmpty()) continue;
+                if (temp.isBlank()) continue;
                 String[] parts = temp.split("\\|"); 
                 if (parts.length >= 5) {
                     HanhKhach hk = new HanhKhach(
@@ -195,7 +180,7 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
             return false;
         }
     }
-
+    @Override 
     public boolean ghiFile(String duongDan) {
         if (danhSach == null) {
             return false;
@@ -221,4 +206,18 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
             return false;
         }
     }
+    public HanhKhach[] timTheoTen(String hoTen) {
+        if (danhSach == null || soLuong <= 0 || hoTen == null || hoTen.isBlank()) return new HanhKhach[0];
+        HanhKhach[] ketQua = new HanhKhach[0];
+        int index = 0;
+        for (int i = 0; i < soLuong; i++) {
+            if (danhSach[i] != null && danhSach[i].getHoTen() != null && danhSach[i].getHoTen().equalsIgnoreCase(hoTen)) {
+                ketQua = Arrays.copyOf(ketQua, index + 1);
+                ketQua[index] = danhSach[i];
+                index++;
+            }
+        }
+        return ketQua;
+    }
+
 }
