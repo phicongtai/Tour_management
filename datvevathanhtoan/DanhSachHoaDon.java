@@ -18,13 +18,11 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     // Constructors
     public DanhSachHoaDon() {
-        this(new HoaDon[0], 0);
     }
 
     public DanhSachHoaDon(HoaDon[] danhSach, int soLuong) {
-        this.danhSach = danhSach == null ? new HoaDon[0]
-                : Arrays.copyOf(danhSach, Math.min(Math.max(soLuong, 0), danhSach.length));
-        this.soLuong = this.danhSach.length;
+        this.danhSach = danhSach;
+        this.soLuong = soLuong;
     }
 
     // Getters / Setters
@@ -34,7 +32,6 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     public void setDanhSach(HoaDon[] danhSach) {
         this.danhSach = danhSach;
-        soLuong = danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
     }
 
     public int getSoLuong() {
@@ -42,7 +39,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     }
 
     public void setSoLuong(int soLuong) {
-        this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
+        this.soLuong = soLuong;
     }
 
     // Methods @Override
