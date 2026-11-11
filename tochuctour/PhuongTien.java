@@ -1,6 +1,7 @@
 package tochuctour;
 
 import java.util.Scanner;
+import kho.KhoDuLieu;
 
 public class PhuongTien {
     private int maPhuongTien;
@@ -55,7 +56,7 @@ public class PhuongTien {
     }
 
     public void nhap() {
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhập mã phương tiện: ");
         this.maPhuongTien = in.nextInt();
         in.nextLine();

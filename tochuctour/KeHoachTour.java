@@ -2,6 +2,7 @@ package tochuctour;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import kho.KhoDuLieu;
 
 public class KeHoachTour {
     private int maKeHoachTour;
@@ -216,7 +217,7 @@ public class KeHoachTour {
     }
 
     public void nhap(){
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhập mã kế hoạch tour: ");
         this.maKeHoachTour = in.nextInt();
         in.nextLine();

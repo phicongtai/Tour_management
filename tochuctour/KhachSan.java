@@ -1,6 +1,7 @@
 package tochuctour;
 
 import java.util.Scanner;
+import kho.KhoDuLieu;
 
 public class KhachSan {
     private int maKhachSan;
@@ -55,7 +56,7 @@ public class KhachSan {
     }
 
     public void nhap() {
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhập mã khách sạn: ");
         this.maKhachSan = in.nextInt();
         in.nextLine();

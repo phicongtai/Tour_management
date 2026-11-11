@@ -87,7 +87,7 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public void nhap() {
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhập số lượng vé: ");
         this.soLuong = in.nextInt();
         in.nextLine();
@@ -126,7 +126,7 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         if(this.danhSach == null){
             return false;
         }

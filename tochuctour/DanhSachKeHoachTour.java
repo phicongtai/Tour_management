@@ -6,10 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileReader;
-
 import danhsach.DanhSach;
+import kho.KhoDuLieu;
 
 public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
     private KeHoachTour[] danhSach;
@@ -90,7 +88,7 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
 
     @Override
     public void nhap() {
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhập vào số lượng: ");
         this.soLuong = in.nextInt();
         in.nextLine();
@@ -129,7 +127,7 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         if(this.danhSach == null){
             return false;
         }

@@ -104,7 +104,7 @@ public class Ve {
     }
 
     public void nhap(){
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhập mã vé: ");
         this.maVe = in.nextInt();
         in.nextLine();

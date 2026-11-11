@@ -1,6 +1,7 @@
 package nguoidung;
 
 import danhsach.DanhSach;
+import kho.KhoDuLieu;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.io.BufferedReader;
@@ -11,7 +12,7 @@ import java.io.FileWriter;
 public class DanhSachNhanVien implements DanhSach<NhanVien> {
     private NhanVien[] danhSach;
     private int soLuong;
-    private Scanner sc = new Scanner(System.in);
+    private Scanner sc = KhoDuLieu.getScanner();
 
     public DanhSachNhanVien() {
         danhSach = new NhanVien[0];

@@ -183,7 +183,7 @@ public long tinhSoTienConLai() {
     }
 
     public void nhap(){
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhập mã hóa đơn: ");
         this.maHoaDon = in.nextInt();
         in.nextLine();
