@@ -1,6 +1,8 @@
 package datvevathanhtoan;
 
 import java.util.Arrays;
+import java.util.Scanner;
+
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
 import nguoidung.DanhSachNhanVien;
@@ -53,34 +55,95 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public boolean them() {
-        return false;
+        if(this.danhSach == null){
+            this.danhSach = new HoaDon[0];
+            this.soLuong = 0;
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = new HoaDon();
+        this.danhSach[this.soLuong].nhap();
+        this.soLuong++;
+
+        return true;
     }
 
     @Override
     public void xuat() {
+        if(this.danhSach == null){
+            return;
+        }
+        System.out.println("Danh sách vé: ");
+        for (int i = 0 ; i < this.soLuong ; i++){
+            this.danhSach[i].xuat();
+        }
     }
 
     @Override
     public void nhap() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Nhập số lượng vé: ");
+        this.soLuong = in.nextInt();
+        in.nextLine();
+        this.danhSach = new HoaDon[this.soLuong];
+        for(int i = 0 ; i < this.soLuong ; i++){
+            System.out.println("Nhập vé thứ " + (i + 1));
+            this.danhSach[i] = new HoaDon();
+            this.danhSach[i].nhap();
+        }
     }
 
     @Override
     public boolean xoaTheoMa(int maHoaDon) {
-        if (maHoaDon <= 0 || danhSach == null) {
+         if(this.danhSach == null || maHoaDon <= 0 ){
             return false;
         }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaHoaDon() == maHoaDon) {
-                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan() - i - 1);
-                danhSach[--soLuong] = null;
-                return true;
+        boolean check = false;
+        int checkpoint = 0;
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getMaHoaDon() == maHoaDon){
+                check = true;
+                checkpoint = i;
+                break;
             }
         }
-        return false;
+
+        if(!check){
+            return false;
+        }
+        for(int i = checkpoint ; i < this.soLuong-1 ; i++){
+            this.danhSach[i] = this.danhSach[i+1];
+        }
+        this.soLuong--;
+        return true;
     }
 
     @Override
     public boolean suaTheoMa(int ma) {
+        Scanner in = new Scanner(System.in);
+        if(this.danhSach == null){
+            return false;
+        }
+
+        HoaDon temp = timTheoMa(ma);
+        if(temp == null ){
+            return false;
+        }
+        System.out.println("Thông tin hóa đơn là");
+        temp.xuat();
+        
+        System.out.print("Sửa ngày lập: ");
+        String ngaylap = in.nextLine();
+        if(!ngaylap.isBlank()){
+        temp.setNgayLap(ngaylap);
+        }
+
+        System.out.print("Sữa số tiền đã thanh toán: ");
+        long soTienDaThanhToan = in.nextInt();
+        if(soTienDaThanhToan > 0){
+        temp.setSoTienDaThanhToan(soTienDaThanhToan);
+        }
+
         return false;
     }
 

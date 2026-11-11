@@ -147,7 +147,7 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
         temp.setNgayDi(ngaydi);
         }
 
-        System.out.print("Sữa này về: ");
+        System.out.print("Sửa này về: ");
         String ngayve = in.nextLine();
         if(!ngayve.isBlank()){
         temp.setNgayVe(ngaydi);
