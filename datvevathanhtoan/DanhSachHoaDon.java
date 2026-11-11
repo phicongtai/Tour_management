@@ -1,5 +1,9 @@
 package datvevathanhtoan;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Arrays;
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
@@ -104,12 +108,79 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public boolean docFile(String duongDan) {
-        return false;
+        this.danhSach = new HoaDon[0];
+        this.soLuong = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
+            String temp;
+            while ((temp = reader.readLine()) != null) {
+                if (temp.trim().isEmpty()) continue;
+                String[] parts = temp.split("\\|");
+                if (parts.length >= 7) {
+                    int maHoaDon = Integer.parseInt(parts[0].trim());
+                    int maDonDatTour = Integer.parseInt(parts[1].trim());
+                    int maNhanVien = Integer.parseInt(parts[2].trim());
+                    String ngayLap = parts[3].trim();
+                    long soTienDaThanhToan = Long.parseLong(parts[4].trim());
+
+                    int[] dsMaVe = new int[0];
+                    String veStr = parts[5].trim();
+                    if (!veStr.isEmpty()) {
+                        String[] maVeStrs = veStr.split(",");
+                        dsMaVe = new int[maVeStrs.length];
+                        for (int j = 0; j < maVeStrs.length; j++) {
+                            dsMaVe[j] = Integer.parseInt(maVeStrs[j].trim());
+                        }
+                    }
+                    long tongTien = Long.parseLong(parts[6].trim());
+                    ChiTietHoaDon chiTiet = new ChiTietHoaDon(maHoaDon, dsMaVe, dsMaVe.length, tongTien);
+
+                    HoaDon hd = new HoaDon(maHoaDon, maDonDatTour, maNhanVien, ngayLap, soTienDaThanhToan, chiTiet);
+                    this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+                    this.danhSach[this.soLuong++] = hd;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public boolean ghiFile(String duongDan) {
-        return false;
+        if (this.danhSach == null) {
+            return false;
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
+            for (int i = 0; i < this.soLuong; i++) {
+                HoaDon hd = this.danhSach[i];
+                if (hd == null) continue;
+                String temp = "";
+                temp += hd.getMaHoaDon() + "|";
+                temp += hd.getMaDonDatTour() + "|";
+                temp += hd.getMaNhanVien() + "|";
+                temp += hd.getNgayLap() + "|";
+                temp += hd.getSoTienDaThanhToan() + "|";
+
+                ChiTietHoaDon ct = hd.getChiTiet();
+                String dsVeStr = "";
+                if (ct != null && ct.getDanhSachMaVe() != null) {
+                    int[] maVes = ct.getDanhSachMaVe();
+                    for (int j = 0; j < maVes.length; j++) {
+                        dsVeStr += maVes[j];
+                        if (j < maVes.length - 1) {
+                            dsVeStr += ",";
+                        }
+                    }
+                }
+                temp += dsVeStr + "|";
+                temp += (ct != null ? ct.getTongTien() : 0);
+                writer.write(temp);
+                writer.newLine();
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     // Methods còn lại
