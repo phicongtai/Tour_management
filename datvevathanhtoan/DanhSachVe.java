@@ -263,28 +263,39 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
 
     public int[] layDanhSachMaDonDatTour() {
-        if (gioiHan() == 0) {
+        if (danhSach == null || soLuong <= 0) {
             return new int[0];
         }
-        int[] ketQua = new int[gioiHan()];
+
+        int[] tam = new int[soLuong];
         int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
+
+        for (int i = 0; i < soLuong; i++) {
             if (danhSach[i] == null) {
                 continue;
             }
-            int maDon = danhSach[i].getMaDonDatTour();
+
+            int maDonDatTour = danhSach[i].getMaDonDatTour();
+
             boolean daCo = false;
             for (int j = 0; j < dem; j++) {
-                if (ketQua[j] == maDon) {
+                if (tam[j] == maDonDatTour) {
                     daCo = true;
                     break;
                 }
             }
+
             if (!daCo) {
-                ketQua[dem++] = maDon;
+                tam[dem] = maDonDatTour;
+                dem++;
             }
         }
-        return Arrays.copyOf(ketQua, dem);
+
+        int[] ketQua = new int[dem];
+        for (int i = 0; i < dem; i++) {
+            ketQua[i] = tam[i];
+        }
+        return ketQua;
     }
 
     public Ve[] timTheoTrangThai(int trangThai) {

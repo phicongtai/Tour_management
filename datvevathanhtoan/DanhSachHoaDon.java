@@ -256,58 +256,47 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     }
 
     // Methods còn lại
-    public HoaDon[] timTheoTen(String hoTen) {
-        if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
-            return new HoaDon[0];
-        }
-        DanhSachNhanVien dsNhanVien = KhoDuLieu.getDanhSachNhanVien();
-        if (dsNhanVien == null) {
-            return new HoaDon[0];
-        }
-        NhanVien[] nhanViens = dsNhanVien.timTheoTen(hoTen);
-        if (nhanViens == null || nhanViens.length == 0) {
-            return new HoaDon[0];
-        }
-
-        HoaDon[] ketQua = new HoaDon[gioiHan()];
-        int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
-            HoaDon hoaDon = danhSach[i];
-            if (hoaDon != null && thuocNhanVien(hoaDon, nhanViens)) {
-                ketQua[dem++] = hoaDon;
-            }
-        }
-        return Arrays.copyOf(ketQua, dem);
-    }
 
     public HoaDon[] timTheoMaDonDatTour(int maDonDatTour) {
         if (maDonDatTour <= 0 || danhSach == null) {
             return new HoaDon[0];
         }
-        HoaDon[] ketQua = new HoaDon[gioiHan()];
-        int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaDonDatTour() == maDonDatTour) {
-                ketQua[dem++] = danhSach[i];
+        HoaDon[] temp = new HoaDon[0];
+        int tempsize = 0;
+        for (int i = 0; i < this.soLuong; i++) {
+            if(maDonDatTour == this.danhSach[i].getMaDonDatTour()){
+                temp = Arrays.copyOf(temp,tempsize + 1);
+                temp[tempsize] = this.danhSach[i];
+                tempsize++;
             }
         }
-        return Arrays.copyOf(ketQua, dem);
+        return temp;
     }
 
     public HoaDon[] timChuaThanhToanDu(DanhSachVe dsVe) {
+        if (danhSach == null || dsVe == null) {
+            return new HoaDon[0];
+        }
+
         HoaDon[] ketQua = new HoaDon[gioiHan()];
         int dem = 0;
         for (int i = 0; i < gioiHan(); i++) {
-            HoaDon hoaDon = danhSach[i];
-            if (hoaDon == null) {
+            HoaDon hoaDon = this.danhSach[i];
+            if (hoaDon == null || hoaDon.daThanhToanDu()) {
                 continue;
             }
-            if (dsVe != null && hoaDon.getChiTiet() != null && hoaDon.tinhTongTien() == 0) {
-                hoaDon.getChiTiet().capNhatTongTien(dsVe);
+            int[] danhSachMaVe = hoaDon.layDanhSachMaVe();
+            boolean daHuyHet = danhSachMaVe.length > 0;
+            for (int j = 0; j < danhSachMaVe.length && daHuyHet; j++) {
+                Ve ve = dsVe.timTheoMa(danhSachMaVe[j]);
+                if (ve == null || ve.getTrangThai() != Ve.DA_HUY) {
+                    daHuyHet = false;
+                }
             }
-            if (!hoaDon.daThanhToanDu()) {
-                ketQua[dem++] = hoaDon;
+            if (daHuyHet) {
+                continue;
             }
+            ketQua[dem++] = hoaDon;
         }
         return Arrays.copyOf(ketQua, dem);
     }
