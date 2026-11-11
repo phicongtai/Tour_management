@@ -11,6 +11,7 @@ import danhsach.DanhSach;
 import kho.KhoDuLieu;
 import nguoidung.DanhSachNhanVien;
 import nguoidung.NhanVien;
+import tochuctour.KeHoachTour;
 
 public class DanhSachHoaDon implements DanhSach<HoaDon> {
     private HoaDon[] danhSach;
@@ -45,12 +46,23 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     // Methods @Override
     @Override
     public boolean them(HoaDon hoaDon) {
-        if (hoaDon == null || hoaDon.getMaHoaDon() <= 0 || danhSach == null || soLuong < 0
-                || soLuong > danhSach.length || timTheoMa(hoaDon.getMaHoaDon()) != null) {
+        if (hoaDon == null ) {
             return false;
         }
-        danhSach = Arrays.copyOf(danhSach, soLuong + 1);
-        danhSach[soLuong++] = hoaDon;
+        if(danhSach == null){
+            this.danhSach = new HoaDon[0];
+            this.soLuong = 0;
+        }
+
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getMaHoaDon() == hoaDon.getMaHoaDon() ){;
+            return false;
+            }
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, soLuong + 1);
+        this.danhSach[this.soLuong] = hoaDon;
+        this.soLuong++;
         return true;
     }
 

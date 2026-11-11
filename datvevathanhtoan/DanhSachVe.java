@@ -46,12 +46,24 @@ public class DanhSachVe implements DanhSach<Ve> {
     // Methods @Override
     @Override
     public boolean them(Ve ve) {
-        if (ve == null || ve.getMaVe() <= 0 || danhSach == null || soLuong < 0
-                || soLuong > danhSach.length || timTheoMa(ve.getMaVe()) != null) {
+        if (ve == null){
             return false;
         }
-        danhSach = Arrays.copyOf(danhSach, soLuong + 1);
-        danhSach[soLuong++] = ve;
+        if(danhSach == null){
+            this.danhSach = new Ve[0];
+            this.soLuong = 0;
+        }
+        
+        for (int i = 0 ; i < this.soLuong; i++){
+            if(this.danhSach[i].getMaVe() == ve.getMaVe()){
+                return false;
+            }
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, soLuong + 1);
+        this.danhSach[this.soLuong] = ve;
+        this.soLuong++;
+
         return true;
     }
 
