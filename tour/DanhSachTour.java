@@ -5,7 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.Scanner;
+
 import danhsach.DanhSach;
+import kho.KhoDuLieu;
 
 public class DanhSachTour implements DanhSach<Tour> {
     private Tour[] danhSach;
@@ -84,7 +87,78 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        return false;
+        Scanner in = KhoDuLieu.getScanner();
+        if(this.danhSach == null){
+            return false;
+        }
+        Tour tour = timTheoMa(ma);
+        if(tour == null){
+            return false;
+        }
+        System.out.println("Thong tin tour goc la: " + tour);
+        tour.xuat();
+        System.out.println("Chinh sua ten tour: ");
+        String tenTour=in.nextLine();
+        if(!tenTour.isBlank()){
+            tour.setTenTour(tenTour);
+        }
+        System.out.println("Chinh sua diem khoi hanh: ");
+        String diemKhoiHanh=in.nextLine();
+        if(!diemKhoiHanh.isBlank()){
+            tour.setDiemKhoiHanh(diemKhoiHanh);
+        }
+        System.out.println("Chinh sua diem den: ");
+        String diemDen=in.nextLine();
+        if(!diemDen.isBlank()){
+            tour.setDiemDen(diemDen);
+        }
+        System.out.println("Chinh sua so ngay: ");
+        String soNgay=in.nextLine();
+        if(!soNgay.isBlank()){
+            tour.setSoNgay(Integer.parseInt(soNgay));
+        }
+        System.out.println("Chinh sua don gia co ban: ");
+        String donGiaCoBan=in.nextLine();
+        if(!donGiaCoBan.isBlank()){
+            tour.setDonGiaCoBan(Long.parseLong(donGiaCoBan));
+        }
+        if(tour instanceof TourTrongNuoc){
+            TourTrongNuoc tourTrongNuoc=(TourTrongNuoc) tour;
+            System.out.println("Thong tin goc cua tour trong nuoc la: ");
+            tourTrongNuoc.xuat();
+            System.out.println("Chinh sua vung mien: ");
+            String vungMien=in.nextLine();
+            if(!vungMien.isBlank()){
+                tourTrongNuoc.setVungMien(vungMien);
+            }
+            System.out.println("Chinh sua phu phi: ");
+            String phuPhi=in.nextLine();
+            if(!phuPhi.isBlank()){
+                tourTrongNuoc.setPhuPhi(Long.parseLong(phuPhi));
+            }
+        }
+    else if(tour instanceof TourNuocNgoai){
+            TourNuocNgoai tourNuocNgoai=(TourNuocNgoai) tour;
+            System.out.println("Thong tin goc cua tour nuoc ngoai la: ");
+            tourNuocNgoai.xuat();
+            System.out.println("Chinh sua quoc gia: ");
+            String quocGia=in.nextLine();
+            if(!quocGia.isBlank()){
+                tourNuocNgoai.setQuocGia(quocGia);
+            }
+            System.out.println("Chinh sua can visa: ");
+            String canVisa=in.nextLine();
+            if(!canVisa.isBlank()){
+                tourNuocNgoai.setCanVisa(Boolean.parseBoolean(canVisa));
+            }
+            System.out.println("Chinh sua phi visa: ");
+            String phiVisa=in.nextLine();
+            if(!phiVisa.isBlank()){
+                tourNuocNgoai.setPhiVisa(Long.parseLong(phiVisa));
+            }
+        }
+        System.out.println("Chinh sua thanh cong!");
+        return true;
     }
 
     @Override
@@ -199,8 +273,8 @@ public class DanhSachTour implements DanhSach<Tour> {
         int index = 0;
         for (int i = 0; i < soLuong; i++) {
             if (danhSach[i] != null && danhSach[i].getTenTour() != null
-                    && (danhSach[i].getTenTour().equalsIgnoreCase(tenTour)
-                    || danhSach[i].getTenTour().toLowerCase().contains(tenTour.toLowerCase()))) {
+                    && danhSach[i].getTenTour().equalsIgnoreCase(tenTour))
+            {
                 ketQua = Arrays.copyOf(ketQua, index + 1);
                 ketQua[index] = danhSach[i];
                 index++;

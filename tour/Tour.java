@@ -70,5 +70,13 @@ public abstract class Tour {
 
     public long tinhGiaVe(){
     return donGiaCoBan;
+    }
+    public void xuat() {
+    System.out.println("Ma tour: " + maTour);
+    System.out.println("Ten tour: " + tenTour);
+    System.out.println("Diem khoi hanh: " + diemKhoiHanh);
+    System.out.println("Diem den: " + diemDen);
+    System.out.println("So ngay: " + soNgay);
+    System.out.println("Don gia co ban: " + donGiaCoBan);
 };
 }
