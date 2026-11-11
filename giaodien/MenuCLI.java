@@ -17,7 +17,7 @@ public class MenuCLI {
         System.out.print("Chọn: ");
         chose = in.nextInt();
         if(chose < 0 || chose > 2 ){
-        System.out.print("\n Vui long chọn lại!");
+        System.out.print("\n Vui long chọn lại!\n");
         }
         }while(chose < 0 || chose > 2 );
 
