@@ -5,10 +5,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.Scanner;
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
 import nguoidung.DanhSachHanhKhach;
 import nguoidung.HanhKhach;
+import tochuctour.DanhSachKeHoachTour;
+import tochuctour.KeHoachTour;
 
 public class DanhSachVe implements DanhSach<Ve> {
     private Ve[] danhSach;
@@ -57,34 +60,101 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public boolean them() {
-        return false;
+        if(this.danhSach == null){
+            this.danhSach = new Ve[0];
+            this.soLuong = 0;
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = new Ve();
+        this.danhSach[this.soLuong].nhap();
+        this.soLuong++;
+
+        return true;
     }
 
     @Override
     public void xuat() {
+        if(this.danhSach == null){
+            return;
+        }
+        System.out.println("Danh sách vé: ");
+        for (int i = 0 ; i < this.soLuong ; i++){
+            this.danhSach[i].xuat();
+        }
+        
     }
 
     @Override
     public void nhap() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Nhập số lượng vé: ");
+        this.soLuong = in.nextInt();
+        in.nextLine();
+        this.danhSach = new Ve[this.soLuong];
+        for(int i = 0 ; i < this.soLuong ; i++){
+            System.out.println("Nhập vé thứ " + (i + 1));
+            this.danhSach[i] = new Ve();
+            this.danhSach[i].nhap();
+        }
     }
 
     @Override
     public boolean xoaTheoMa(int maVe) {
-        if (maVe <= 0 || danhSach == null) {
+        if(this.danhSach == null || maVe <= 0 ){
             return false;
         }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaVe() == maVe) {
-                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan() - i - 1);
-                danhSach[--soLuong] = null;
-                return true;
+        boolean check = false;
+        int checkpoint = 0;
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getMaVe() == maVe){
+                check = true;
+                checkpoint = i;
+                break;
             }
         }
-        return false;
+
+        if(!check){
+            return false;
+        }
+        for(int i = checkpoint ; i < this.soLuong-1 ; i++){
+            this.danhSach[i] = this.danhSach[i+1];
+        }
+        this.soLuong--;
+        return true;
     }
 
     @Override
     public boolean suaTheoMa(int ma) {
+        Scanner in = new Scanner(System.in);
+        if(this.danhSach == null){
+            return false;
+        }
+
+        Ve temp = timTheoMa(ma);
+        if(temp == null ){
+            return false;
+        }
+        System.out.println("Thông tin vé là");
+        temp.xuat();
+        
+        System.out.print("Sửa ngày đặt: ");
+        String ngaydat = in.nextLine();
+        if(!ngaydat.isBlank()){
+        temp.setNgayDat(ngaydat);
+        }
+
+        System.out.print("Sữa đơn giá: ");
+        long dongia = in.nextLong();
+        if(dongia > 0){
+        temp.setDonGia(dongia);
+        }
+
+        System.out.print("Sua trang thai: ");
+        int trangThai = in.nextInt();
+        if(trangThai > 0){
+        temp.setTrangThai(trangThai);
+        }
         return false;
     }
 
