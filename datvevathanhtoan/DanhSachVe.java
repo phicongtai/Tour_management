@@ -15,13 +15,11 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     // Constructors
     public DanhSachVe() {
-        this(new Ve[0], 0);
     }
 
     public DanhSachVe(Ve[] danhSach, int soLuong) {
-        this.danhSach = danhSach == null ? new Ve[0]
-                : Arrays.copyOf(danhSach, Math.min(Math.max(soLuong, 0), danhSach.length));
-        this.soLuong = this.danhSach.length;
+        this.danhSach = danhSach;
+        this.soLuong = soLuong;
     }
 
     // Getters / Setters
@@ -31,7 +29,6 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     public void setDanhSach(Ve[] danhSach) {
         this.danhSach = danhSach;
-        soLuong = danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
     }
 
     public int getSoLuong() {
@@ -39,7 +36,7 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
 
     public void setSoLuong(int soLuong) {
-        this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
+        this.soLuong = soLuong;
     }
 
     // Methods @Override
@@ -182,30 +179,6 @@ public class DanhSachVe implements DanhSach<Ve> {
         return false;
     }
 
-    // Methods còn lại
-    public Ve[] timTheoTen(String hoTen) {
-        if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
-            return new Ve[0];
-        }
-        DanhSachHanhKhach dsHanhKhach = KhoDuLieu.getDanhSachHanhKhach();
-        if (dsHanhKhach == null) {
-            return new Ve[0];
-        }
-        HanhKhach[] hanhKhachs = dsHanhKhach.timTheoTen(hoTen);
-        if (hanhKhachs == null || hanhKhachs.length == 0) {
-            return new Ve[0];
-        }
-
-        Ve[] ketQua = new Ve[gioiHan()];
-        int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
-            Ve ve = danhSach[i];
-            if (ve != null && thuocHanhKhach(ve, hanhKhachs)) {
-                ketQua[dem++] = ve;
-            }
-        }
-        return Arrays.copyOf(ketQua, dem);
-    }
 
     public Ve[] timTheoMaDonDatTour(int maDonDatTour) {
         if (maDonDatTour <= 0 || danhSach == null) {
