@@ -165,9 +165,9 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         if (maHoaDon <= 0 || danhSach == null) {
             return null;
         }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaHoaDon() == maHoaDon) {
-                return danhSach[i];
+        for (int i = 0; i < this.soLuong; i++) {
+            if (maHoaDon == this.danhSach[i].getMaHoaDon()) {
+                return this.danhSach[i];
             }
         }
         return null;
@@ -175,7 +175,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public HoaDon[] layTatCa() {
-        return danhSach == null ? new HoaDon[0] : Arrays.copyOf(danhSach, gioiHan());
+        return danhSach;
     }
 
     @Override
