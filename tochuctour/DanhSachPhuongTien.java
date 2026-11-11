@@ -100,7 +100,7 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
             System.out.println("Nhập phương tiện thứ " + (i + 1));
             this.danhSach[i] = new PhuongTien();
             this.danhSach[i].nhap();
-        }
+    }
     }
 
     @Override

@@ -1,5 +1,9 @@
 package tour;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Arrays;
 import danhsach.DanhSach;
 
@@ -103,12 +107,87 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     @Override
     public boolean docFile(String duongDan) {
-        return false;
+        this.danhSach = new Tour[0];
+        this.soLuong = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
+            String temp;
+            while ((temp = reader.readLine()) != null) {
+                if (temp.trim().isEmpty()) continue;
+                String[] parts = temp.split("\\|");
+                if (parts[0].trim().equalsIgnoreCase("TRONG_NUOC") && parts.length >= 9) {
+                    TourTrongNuoc t = new TourTrongNuoc(
+                        Integer.parseInt(parts[1].trim()),
+                        parts[2].trim(),
+                        parts[3].trim(),
+                        parts[4].trim(),
+                        Integer.parseInt(parts[5].trim()),
+                        Long.parseLong(parts[6].trim()),
+                        parts[7].trim(),
+                        Long.parseLong(parts[8].trim())
+                    );
+                    this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+                    this.danhSach[this.soLuong++] = t;
+                } else if (parts[0].trim().equalsIgnoreCase("NUOC_NGOAI") && parts.length >= 10) {
+                    TourNuocNgoai t = new TourNuocNgoai(
+                        Integer.parseInt(parts[1].trim()),
+                        parts[2].trim(),
+                        parts[3].trim(),
+                        parts[4].trim(),
+                        Integer.parseInt(parts[5].trim()),
+                        Long.parseLong(parts[6].trim()),
+                        parts[7].trim(),
+                        Boolean.parseBoolean(parts[8].trim()),
+                        Long.parseLong(parts[9].trim())
+                    );
+                    this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+                    this.danhSach[this.soLuong++] = t;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public boolean ghiFile(String duongDan) {
-        return false;
+        if (this.danhSach == null) {
+            return false;
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
+            for (int i = 0; i < this.soLuong; i++) {
+                String temp = "";
+                if (this.danhSach[i] instanceof TourTrongNuoc) {
+                    TourTrongNuoc t = (TourTrongNuoc) this.danhSach[i];
+                    temp += "TRONG_NUOC|";
+                    temp += t.getMaTour() + "|";
+                    temp += t.getTenTour() + "|";
+                    temp += t.getDiemKhoiHanh() + "|";
+                    temp += t.getDiemDen() + "|";
+                    temp += t.getSoNgay() + "|";
+                    temp += t.getDonGiaCoBan() + "|";
+                    temp += t.getVungMien() + "|";
+                    temp += t.getPhuPhi();
+                } else if (this.danhSach[i] instanceof TourNuocNgoai) {
+                    TourNuocNgoai t = (TourNuocNgoai) this.danhSach[i];
+                    temp += "NUOC_NGOAI|";
+                    temp += t.getMaTour() + "|";
+                    temp += t.getTenTour() + "|";
+                    temp += t.getDiemKhoiHanh() + "|";
+                    temp += t.getDiemDen() + "|";
+                    temp += t.getSoNgay() + "|";
+                    temp += t.getDonGiaCoBan() + "|";
+                    temp += t.getQuocGia() + "|";
+                    temp += t.isCanVisa() + "|";
+                    temp += t.getPhiVisa();
+                }
+                writer.write(temp);
+                writer.newLine();
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     // Methods còn lại

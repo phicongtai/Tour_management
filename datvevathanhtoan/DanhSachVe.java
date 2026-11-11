@@ -1,5 +1,9 @@
 package datvevathanhtoan;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 import danhsach.DanhSach;
@@ -171,12 +175,64 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public boolean docFile(String duongDan) {
-        return false;
+        this.danhSach = new Ve[0];
+        this.soLuong = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
+            String temp;
+            while ((temp = reader.readLine()) != null) {
+                if (temp.trim().isEmpty()) continue;
+                String[] parts = temp.split("\\|");
+                if (parts.length >= 8) {
+                    Ve ve = new Ve(
+                        Integer.parseInt(parts[0].trim()),
+                        Integer.parseInt(parts[1].trim()),
+                        Integer.parseInt(parts[2].trim()),
+                        Integer.parseInt(parts[3].trim()),
+                        Integer.parseInt(parts[4].trim()),
+                        parts[5].trim(),
+                        Long.parseLong(parts[6].trim()),
+                        Integer.parseInt(parts[7].trim())
+                    );
+                    this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+                    this.danhSach[this.soLuong++] = ve;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public boolean ghiFile(String duongDan) {
-        return false;
+        if (this.danhSach == null) {
+            return false;
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
+            for (int i = 0; i < this.soLuong; i++) {
+                String temp = "";
+                temp += this.danhSach[i].getMaVe();
+                temp += "|";
+                temp += this.danhSach[i].getMaDonDatTour();
+                temp += "|";
+                temp += this.danhSach[i].getMaNguoiDat();
+                temp += "|";
+                temp += this.danhSach[i].getMaKeHoachTour();
+                temp += "|";
+                temp += this.danhSach[i].getMaHanhKhach();
+                temp += "|";
+                temp += this.danhSach[i].getNgayDat();
+                temp += "|";
+                temp += this.danhSach[i].getDonGia();
+                temp += "|";
+                temp += this.danhSach[i].getTrangThai();
+                writer.write(temp);
+                writer.newLine();
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 
