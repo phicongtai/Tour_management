@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import danhsach.DanhSach;
+import kho.KhoDuLieu;
 
 public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
     private PhuongTien[] danhSach;
@@ -91,7 +92,7 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
 
     @Override
     public void nhap() {
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhập vào số lượng: ");
         this.soLuong = in.nextInt();
         in.nextLine();
@@ -100,7 +101,7 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
             System.out.println("Nhập phương tiện thứ " + (i + 1));
             this.danhSach[i] = new PhuongTien();
             this.danhSach[i].nhap();
-        }
+    }
     }
 
     @Override
@@ -126,7 +127,7 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        Scanner in = new Scanner(System.in);
+        Scanner in = KhoDuLieu.getScanner();
         if(this.danhSach == null){
             return false;
         }

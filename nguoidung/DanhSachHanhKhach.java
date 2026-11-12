@@ -1,5 +1,10 @@
 package nguoidung;
 import danhsach.DanhSach;
+<<<<<<< HEAD
+=======
+import kho.KhoDuLieu;
+import java.util.Scanner;
+>>>>>>> b47a561c57a7eaeec0e2494d9a547643aaa4900a
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
@@ -9,7 +14,12 @@ import java.io.FileWriter;
 public class DanhSachHanhKhach implements DanhSach<HanhKhach>{
     private HanhKhach[] danhSach;
     private int soLuong;
+<<<<<<< HEAD
     private Scanner sc = new Scanner(System.in);
+=======
+    private Scanner sc = KhoDuLieu.getScanner();
+
+>>>>>>> b47a561c57a7eaeec0e2494d9a547643aaa4900a
     public DanhSachHanhKhach(){
         danhSach = new HanhKhach[0];
         soLuong = 0;

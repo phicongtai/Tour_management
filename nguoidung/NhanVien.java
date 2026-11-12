@@ -1,6 +1,7 @@
 package nguoidung;
 
 import java.util.Scanner;
+import kho.KhoDuLieu;
 
 public class NhanVien {
     private int maNhanVien;
@@ -8,7 +9,7 @@ public class NhanVien {
     private String ngaySinh;
     private int gioiTinh;
     private String soDienThoai;
-    private transient Scanner sc = new Scanner(System.in);
+    private transient Scanner sc = KhoDuLieu.getScanner();
 
     public NhanVien() {
     }

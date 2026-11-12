@@ -262,6 +262,8 @@ package "datvevathanhtoan" #F3ECFB {
     + chiemCho(): boolean
     + duocHuy(): boolean
     + capNhatTrangThai(trangThaiMoi: int): boolean
+    + nhap(): void
+    + xuat(): void
   }
 
   note right of Ve
@@ -323,6 +325,8 @@ package "datvevathanhtoan" #F3ECFB {
     + tinhSoTienConLai(): long
     + ghiNhanThanhToan(soTien: long, dsVe: DanhSachVe): boolean
     + daThanhToanDu(): boolean
+    + nhap(): void
+    + xuat(): void
   }
 
   note right of ChiTietHoaDon
@@ -410,31 +414,65 @@ package "danhsach" #F0F4F8 {
 }
 
 ' ============================================================
-' 7. NHẬP/XUẤT TXT
+' 7. KHO DỮ LIỆU — CƠ SỞ DỮ LIỆU TRÊN RAM
+' ============================================================
+package "kho" #EBF3F9 {
+  class KhoDuLieu <<final>> {
+    - {static} danhSachTour: DanhSachTour
+    - {static} danhSachNhanVien: DanhSachNhanVien
+    - {static} danhSachHanhKhach: DanhSachHanhKhach
+    - {static} danhSachKeHoachTour: DanhSachKeHoachTour
+    - {static} danhSachPhuongTien: DanhSachPhuongTien
+    - {static} danhSachKhachSan: DanhSachKhachSan
+    - {static} danhSachVe: DanhSachVe
+    - {static} danhSachHoaDon: DanhSachHoaDon
+    - {static} scanner: Scanner
+    --
+    - KhoDuLieu()
+    + {static} getDanhSachTour(): DanhSachTour
+    + {static} getDanhSachNhanVien(): DanhSachNhanVien
+    + {static} getDanhSachHanhKhach(): DanhSachHanhKhach
+    + {static} getDanhSachKeHoachTour(): DanhSachKeHoachTour
+    + {static} getDanhSachPhuongTien(): DanhSachPhuongTien
+    + {static} getDanhSachKhachSan(): DanhSachKhachSan
+    + {static} getDanhSachVe(): DanhSachVe
+    + {static} getDanhSachHoaDon(): DanhSachHoaDon
+    + {static} getScanner(): Scanner
+    + {static} dongScanner(): void
+    + {static} layTatCaDanhSach(): DanhSach<?>[]
+  }
+}
+
+' ============================================================
+' 8. NHẬP/XUẤT TXT
 ' ============================================================
 package "dulieu" #EAF0F7 {
-  class NhapXuatFile {
+  class DocGhiFile {
+    - {static} FILE_TOUR: String
+    - {static} FILE_NHAN_VIEN: String
+    - {static} FILE_HANH_KHACH: String
+    - {static} FILE_PHUONG_TIEN: String
+    - {static} FILE_KHACH_SAN: String
+    - {static} FILE_KE_HOACH: String
+    - {static} FILE_VE: String
+    - {static} FILE_HOA_DON: String
+    --
     - docTuFile(duongDan: String, danhSach: DanhSach<?>): boolean
     - ghiRaFile(duongDan: String, danhSach: DanhSach<?>): boolean
     + docTatCa(): boolean
-    + xuatTatCa(): boolean
+    + ghiTatCa(): boolean
   }
 
-  class FileTxt {
-    + docCacDong(duongDan: String): String[]
-    + ghiCacDong(duongDan: String, cacDong: String[]): boolean
-  }
-
-  note right of NhapXuatFile
+  note right of DocGhiFile
     Tên file: tour.txt, nhan_vien.txt, hanh_khach.txt, phuong_tien.txt,
     khach_san.txt, ke_hoach_tour.txt, ve.txt, hoa_don.txt.
-    Thứ tự nạp: danh mục → kế hoạch → vé → hóa đơn.
+    Thứ tự nạp: danh mục -> kế hoạch -> vé -> hóa đơn.
     Mỗi dòng là một đối tượng; Tour có thêm cột loại (trong nước / nước ngoài);
     HoaDon ghi kèm danhSachMaVe và tongTien của ChiTietHoaDon.
   end note
 
-  NhapXuatFile ..> FileTxt : đọc/ghi file thực tế
-  NhapXuatFile ..> DanhSach : sử dụng giao diện chung
+  DocGhiFile ..> KhoDuLieu : nạp/lưu dữ liệu qua kho
+  DocGhiFile ..> DanhSach : sử dụng giao diện chung
 }
 
 ' ============================================================
@@ -484,8 +522,23 @@ HoaDon ..> NhanVien : maNhanVien
 BaoCaoThongKe ..> DanhSachVe
 BaoCaoThongKe ..> DanhSachHoaDon
 BaoCaoThongKe ..> DanhSachKeHoachTour
-MenuCLI ..> NhapXuatFile : nhập/xuất TXT
+MenuCLI ..> DocGhiFile : nhập/xuất TXT
+MenuCLI ..> KhoDuLieu : truy cập dữ liệu
 MenuCLI ..> BaoCaoThongKe : yêu cầu báo cáo
+
+' KhoDuLieu quản lý 8 danh sách tĩnh
+KhoDuLieu o--> "1" DanhSachTour
+KhoDuLieu o--> "1" DanhSachNhanVien
+KhoDuLieu o--> "1" DanhSachHanhKhach
+KhoDuLieu o--> "1" DanhSachKeHoachTour
+KhoDuLieu o--> "1" DanhSachPhuongTien
+KhoDuLieu o--> "1" DanhSachKhachSan
+KhoDuLieu o--> "1" DanhSachVe
+KhoDuLieu o--> "1" DanhSachHoaDon
+
+' Tra cứu chéo và dùng Scanner tĩnh từ KhoDuLieu
+DanhSachVe ..> KhoDuLieu : tra cứu hành khách, scanner
+DanhSachHoaDon ..> KhoDuLieu : tra cứu nhân viên, scanner
 
 note bottom of MenuCLI
 CLI gom theo luồng sử dụng thay vì có một class cho từng màn hình:

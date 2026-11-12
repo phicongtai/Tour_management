@@ -1,5 +1,6 @@
 package kho;
 
+import java.util.Scanner;
 import danhsach.DanhSach;
 import datvevathanhtoan.DanhSachHoaDon;
 import datvevathanhtoan.DanhSachVe;
@@ -20,9 +21,20 @@ public final class KhoDuLieu {
     private static final DanhSachKhachSan danhSachKhachSan = new DanhSachKhachSan();
     private static final DanhSachVe danhSachVe = new DanhSachVe();
     private static final DanhSachHoaDon danhSachHoaDon = new DanhSachHoaDon();
+    private static final Scanner scanner = new Scanner(System.in);
 
     // Private constructor để ngăn tạo đối tượng bên ngoài
     private KhoDuLieu() {
+    }
+
+    public static Scanner getScanner() {
+        return scanner;
+    }
+
+    public static void dongScanner() {
+        if (scanner != null) {
+            scanner.close();
+        }
     }
 
     // Getters tĩnh cho từng danh sách

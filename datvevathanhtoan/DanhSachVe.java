@@ -1,10 +1,17 @@
 package datvevathanhtoan;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.Scanner;
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
 import nguoidung.DanhSachHanhKhach;
 import nguoidung.HanhKhach;
+import tochuctour.DanhSachKeHoachTour;
+import tochuctour.KeHoachTour;
 
 public class DanhSachVe implements DanhSach<Ve> {
     private Ve[] danhSach;
@@ -12,13 +19,11 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     // Constructors
     public DanhSachVe() {
-        this(new Ve[0], 0);
     }
 
     public DanhSachVe(Ve[] danhSach, int soLuong) {
-        this.danhSach = danhSach == null ? new Ve[0]
-                : Arrays.copyOf(danhSach, Math.min(Math.max(soLuong, 0), danhSach.length));
-        this.soLuong = this.danhSach.length;
+        this.danhSach = danhSach;
+        this.soLuong = soLuong;
     }
 
     // Getters / Setters
@@ -28,7 +33,6 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     public void setDanhSach(Ve[] danhSach) {
         this.danhSach = danhSach;
-        soLuong = danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
     }
 
     public int getSoLuong() {
@@ -36,51 +40,130 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
 
     public void setSoLuong(int soLuong) {
-        this.soLuong = danhSach == null ? 0 : Math.min(Math.max(soLuong, 0), danhSach.length);
+        this.soLuong = soLuong;
     }
 
     // Methods @Override
     @Override
     public boolean them(Ve ve) {
-        if (ve == null || ve.getMaVe() <= 0 || danhSach == null || soLuong < 0
-                || soLuong > danhSach.length || timTheoMa(ve.getMaVe()) != null) {
+        if (ve == null){
             return false;
         }
-        danhSach = Arrays.copyOf(danhSach, soLuong + 1);
-        danhSach[soLuong++] = ve;
+        if(danhSach == null){
+            this.danhSach = new Ve[0];
+            this.soLuong = 0;
+        }
+        
+        for (int i = 0 ; i < this.soLuong; i++){
+            if(this.danhSach[i].getMaVe() == ve.getMaVe()){
+                return false;
+            }
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, soLuong + 1);
+        this.danhSach[this.soLuong] = ve;
+        this.soLuong++;
+
         return true;
     }
 
     @Override
     public boolean them() {
-        return false;
+        if(this.danhSach == null){
+            this.danhSach = new Ve[0];
+            this.soLuong = 0;
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = new Ve();
+        this.danhSach[this.soLuong].nhap();
+        this.soLuong++;
+
+        return true;
     }
 
     @Override
     public void xuat() {
+        if(this.danhSach == null){
+            return;
+        }
+        System.out.println("Danh sách vé: ");
+        for (int i = 0 ; i < this.soLuong ; i++){
+            this.danhSach[i].xuat();
+        }
+        
     }
 
     @Override
     public void nhap() {
+        Scanner in = KhoDuLieu.getScanner();
+        System.out.print("Nhập số lượng vé: ");
+        this.soLuong = in.nextInt();
+        in.nextLine();
+        this.danhSach = new Ve[this.soLuong];
+        for(int i = 0 ; i < this.soLuong ; i++){
+            System.out.println("Nhập vé thứ " + (i + 1));
+            this.danhSach[i] = new Ve();
+            this.danhSach[i].nhap();
+        }
     }
 
     @Override
     public boolean xoaTheoMa(int maVe) {
-        if (maVe <= 0 || danhSach == null) {
+        if(this.danhSach == null || maVe <= 0 ){
             return false;
         }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaVe() == maVe) {
-                System.arraycopy(danhSach, i + 1, danhSach, i, gioiHan() - i - 1);
-                danhSach[--soLuong] = null;
-                return true;
+        boolean check = false;
+        int checkpoint = 0;
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getMaVe() == maVe){
+                check = true;
+                checkpoint = i;
+                break;
             }
         }
-        return false;
+
+        if(!check){
+            return false;
+        }
+        for(int i = checkpoint ; i < this.soLuong-1 ; i++){
+            this.danhSach[i] = this.danhSach[i+1];
+        }
+        this.soLuong--;
+        return true;
     }
 
     @Override
     public boolean suaTheoMa(int ma) {
+        Scanner in = KhoDuLieu.getScanner();
+        if(this.danhSach == null){
+            return false;
+        }
+
+        Ve temp = timTheoMa(ma);
+        if(temp == null ){
+            return false;
+        }
+        System.out.println("Thông tin vé là");
+        temp.xuat();
+        
+        System.out.print("Sửa ngày đặt: ");
+        String ngaydat = in.nextLine();
+        if(!ngaydat.isBlank()){
+        temp.setNgayDat(ngaydat);
+        }
+
+        System.out.print("Sữa đơn giá: ");
+        long dongia = in.nextLong();
+        if(dongia > 0){
+        temp.setDonGia(dongia);
+        }
+
+        System.out.print("Sua trang thai: ");
+        int trangThai = in.nextInt();
+        if(trangThai > 0){
+        temp.setTrangThai(trangThai);
+        }
         return false;
     }
 
@@ -104,38 +187,66 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public boolean docFile(String duongDan) {
-        return false;
+        this.danhSach = new Ve[0];
+        this.soLuong = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
+            String temp;
+            while ((temp = reader.readLine()) != null) {
+                if (temp.trim().isEmpty()) continue;
+                String[] parts = temp.split("\\|");
+                if (parts.length >= 8) {
+                    Ve ve = new Ve(
+                        Integer.parseInt(parts[0].trim()),
+                        Integer.parseInt(parts[1].trim()),
+                        Integer.parseInt(parts[2].trim()),
+                        Integer.parseInt(parts[3].trim()),
+                        Integer.parseInt(parts[4].trim()),
+                        parts[5].trim(),
+                        Long.parseLong(parts[6].trim()),
+                        Integer.parseInt(parts[7].trim())
+                    );
+                    this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+                    this.danhSach[this.soLuong++] = ve;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public boolean ghiFile(String duongDan) {
-        return false;
-    }
-
-    // Methods còn lại
-    public Ve[] timTheoTen(String hoTen) {
-        if (hoTen == null || hoTen.trim().isEmpty() || danhSach == null) {
-            return new Ve[0];
+        if (this.danhSach == null) {
+            return false;
         }
-        DanhSachHanhKhach dsHanhKhach = KhoDuLieu.getDanhSachHanhKhach();
-        if (dsHanhKhach == null) {
-            return new Ve[0];
-        }
-        HanhKhach[] hanhKhachs = dsHanhKhach.timTheoTen(hoTen);
-        if (hanhKhachs == null || hanhKhachs.length == 0) {
-            return new Ve[0];
-        }
-
-        Ve[] ketQua = new Ve[gioiHan()];
-        int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
-            Ve ve = danhSach[i];
-            if (ve != null && thuocHanhKhach(ve, hanhKhachs)) {
-                ketQua[dem++] = ve;
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
+            for (int i = 0; i < this.soLuong; i++) {
+                String temp = "";
+                temp += this.danhSach[i].getMaVe();
+                temp += "|";
+                temp += this.danhSach[i].getMaDonDatTour();
+                temp += "|";
+                temp += this.danhSach[i].getMaNguoiDat();
+                temp += "|";
+                temp += this.danhSach[i].getMaKeHoachTour();
+                temp += "|";
+                temp += this.danhSach[i].getMaHanhKhach();
+                temp += "|";
+                temp += this.danhSach[i].getNgayDat();
+                temp += "|";
+                temp += this.danhSach[i].getDonGia();
+                temp += "|";
+                temp += this.danhSach[i].getTrangThai();
+                writer.write(temp);
+                writer.newLine();
             }
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-        return Arrays.copyOf(ketQua, dem);
     }
+
 
     public Ve[] timTheoMaDonDatTour(int maDonDatTour) {
         if (maDonDatTour <= 0 || danhSach == null) {
@@ -152,28 +263,39 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
 
     public int[] layDanhSachMaDonDatTour() {
-        if (gioiHan() == 0) {
+        if (danhSach == null || soLuong <= 0) {
             return new int[0];
         }
-        int[] ketQua = new int[gioiHan()];
+
+        int[] tam = new int[soLuong];
         int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
+
+        for (int i = 0; i < soLuong; i++) {
             if (danhSach[i] == null) {
                 continue;
             }
-            int maDon = danhSach[i].getMaDonDatTour();
+
+            int maDonDatTour = danhSach[i].getMaDonDatTour();
+
             boolean daCo = false;
             for (int j = 0; j < dem; j++) {
-                if (ketQua[j] == maDon) {
+                if (tam[j] == maDonDatTour) {
                     daCo = true;
                     break;
                 }
             }
+
             if (!daCo) {
-                ketQua[dem++] = maDon;
+                tam[dem] = maDonDatTour;
+                dem++;
             }
         }
-        return Arrays.copyOf(ketQua, dem);
+
+        int[] ketQua = new int[dem];
+        for (int i = 0; i < dem; i++) {
+            ketQua[i] = tam[i];
+        }
+        return ketQua;
     }
 
     public Ve[] timTheoTrangThai(int trangThai) {

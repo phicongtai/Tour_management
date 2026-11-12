@@ -16,7 +16,7 @@ public class ChiTietKeHoachTour {
         this.maPhuongTien = maPhuongTien;
         this.maKhachSan = maKhachSan;
         this.tienAn = tienAn;
-        this.tienO = tienO;
+        this.tienO = tienO; 
         this.tienDiLai = tienDiLai;
     }
 

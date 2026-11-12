@@ -1,5 +1,7 @@
 package datvevathanhtoan;
 
+import java.util.Scanner;
+
 import kho.KhoDuLieu;
 
 public class HoaDon {
@@ -180,4 +182,22 @@ public long tinhSoTienConLai() {
         return soTienDaThanhToan >= tongTien;
     }
 
+    public void nhap(){
+        Scanner in = KhoDuLieu.getScanner();
+        System.out.print("Nhập mã hóa đơn: ");
+        this.maHoaDon = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập mã đơn đặt tour: ");
+        this.maDonDatTour = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập mã nhân viên: ");
+        this.maNhanVien = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập ngày lập: ");
+        this.ngayLap = in.nextLine();
+    }
+
+    public void xuat(){
+        System.out.println(this.maHoaDon + "|" + this.maDonDatTour + "|" + this.maNhanVien + "|" + this.ngayLap + "|");
+    }
 }

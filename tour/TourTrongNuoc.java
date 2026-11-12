@@ -41,4 +41,10 @@ public class TourTrongNuoc extends Tour {
     public long tinhGiaVe() {
         return getDonGiaCoBan() + phuPhi;
     }
+    @Override
+    public void xuat() {
+        super.xuat();
+        System.out.println("Vung mien: " + vungMien);
+        System.out.println("Phu phi: " + phuPhi);
+    }
 }

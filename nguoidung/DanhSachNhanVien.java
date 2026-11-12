@@ -1,5 +1,10 @@
 package nguoidung;
 import danhsach.DanhSach;
+<<<<<<< HEAD
+=======
+import kho.KhoDuLieu;
+import java.util.Scanner;
+>>>>>>> b47a561c57a7eaeec0e2494d9a547643aaa4900a
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
@@ -9,10 +14,18 @@ import java.io.FileWriter;
 public class DanhSachNhanVien implements DanhSach<NhanVien>{
     private NhanVien[] danhSach;
     private int soLuong;
+<<<<<<< HEAD
     private Scanner sc=new Scanner(System.in);
     public DanhSachNhanVien(){
         danhSach=new NhanVien[0];
         soLuong=0;
+=======
+    private Scanner sc = KhoDuLieu.getScanner();
+
+    public DanhSachNhanVien() {
+        danhSach = new NhanVien[0];
+        soLuong = 0;
+>>>>>>> b47a561c57a7eaeec0e2494d9a547643aaa4900a
     }
     public NhanVien[] getDanhSach(){return danhSach;}
     public void setDanhSach(NhanVien[] danhSach){this.danhSach=danhSach;}

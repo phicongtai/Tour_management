@@ -1,5 +1,13 @@
 package datvevathanhtoan;
 
+import java.util.Scanner;
+import kho.KhoDuLieu;
+import tochuctour.DanhSachKeHoachTour;
+import tochuctour.KeHoachTour;
+import nguoidung.DanhSachHanhKhach;
+import tour.DanhSachTour;
+import tour.Tour;
+
 public class Ve {
     public static final int DA_DAT = 0;
     public static final int DA_THANH_TOAN = 1;
@@ -93,6 +101,37 @@ public class Ve {
 
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public void nhap(){
+        Scanner in = KhoDuLieu.getScanner();
+        System.out.print("Nhập mã vé: ");
+        this.maVe = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập mã đơn đặt tour: ");
+        this.maDonDatTour = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập mã người đặt: ");
+        this.maNguoiDat = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập mã kế hoạch tour: ");
+        this.maKeHoachTour = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập mã hành khách: ");
+        this.maHanhKhach = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập ngày đặt: ");
+        this.ngayDat = in.nextLine();
+        System.out.print("Nhập đơn giá: ");
+        this.donGia = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhập trạng thái: ");
+        this.trangThai = in.nextInt();
+        in.nextLine();
+    }
+
+        public void xuat(){
+        System.out.println(this.maVe + "|" + this.maDonDatTour + "|" + this.maNguoiDat + "|" + this.maKeHoachTour + "|" + this.maHanhKhach + "|" + this.ngayDat + "|" + this.donGia + "|" + "|" + this.trangThai + "|");
     }
 
     public boolean chiemCho() {

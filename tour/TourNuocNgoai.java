@@ -60,4 +60,11 @@ public class TourNuocNgoai extends Tour {
 
         return getDonGiaCoBan();
     }
+    @Override
+    public void xuat() {
+        super.xuat();
+        System.out.println("Quoc gia: " + quocGia);
+        System.out.println("Can visa: " + canVisa);
+        System.out.println("Phi visa: " + phiVisa);
+    }
 }
