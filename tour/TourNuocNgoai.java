@@ -1,5 +1,6 @@
 package tour;
-
+import java.util.Scanner;
+import kho.KhoDuLieu;
 public class TourNuocNgoai extends Tour {
     private String quocGia;
     private boolean canVisa;
@@ -67,4 +68,17 @@ public class TourNuocNgoai extends Tour {
         System.out.println("Can visa: " + canVisa);
         System.out.println("Phi visa: " + phiVisa);
     }
+    @Override
+    public void nhap() {
+        super.nhap();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Nhap quoc gia:");
+        this.quocGia = in.nextLine();
+        System.out.println("Nhap can visa (true/false):");
+        this.canVisa = in.nextBoolean();
+        if (this.canVisa) {
+            System.out.println("Nhap phi visa:");
+            this.phiVisa = in.nextLong();
+        }
+    } 
 }

@@ -1,5 +1,6 @@
 package tour;
-
+import java.util.Scanner;
+import kho.KhoDuLieu;
 public class TourTrongNuoc extends Tour {
     private String vungMien;
     private long phuPhi;
@@ -46,5 +47,15 @@ public class TourTrongNuoc extends Tour {
         super.xuat();
         System.out.println("Vung mien: " + vungMien);
         System.out.println("Phu phi: " + phuPhi);
+    }
+    @Override 
+    public void nhap(){
+        super.nhap();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Nhap vung mien:");
+        this.vungMien=in.nextLine();
+        System.out.println("Nhap phu phi:");
+        this.phuPhi=in.nextLong();
+        in.nextLine();
     }
 }
