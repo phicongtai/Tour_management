@@ -15,40 +15,41 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     private Scanner sc = KhoDuLieu.getScanner();
 
     public DanhSachNhanVien() {
-        danhSach = new NhanVien[0];
-        soLuong = 0;
+        this.danhSach = new NhanVien[0];
+        this.soLuong = 0;
     }
 
-    public NhanVien[] getDanhSach() {
-        return danhSach;
+    public NhanVien[] getDanhSach() { 
+        return this.danhSach; 
     }
-
-    public void setDanhSach(NhanVien[] danhSach) {
-        this.danhSach = danhSach;
+    
+    public void setDanhSach(NhanVien[] danhSach) { 
+        this.danhSach = danhSach; 
     }
-
-    public int getSoLuong() {
-        return soLuong;
+    
+    public int getSoLuong() { 
+        return this.soLuong; 
     }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+    
+    public void setSoLuong(int soLuong) { 
+        this.soLuong = soLuong; 
     }
 
     @Override 
     public boolean them(NhanVien nhanVien) {
         if (nhanVien == null) return false;
-        if (danhSach == null) {
-            danhSach = new NhanVien[0];
-            soLuong = 0;
+        if (this.danhSach == null) {
+            this.danhSach = new NhanVien[0];
+            this.soLuong = 0;
         }
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getMaNhanVien() == nhanVien.getMaNhanVien())
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getMaNhanVien() == nhanVien.getMaNhanVien()) {
                 return false;
+            }
         }
-        danhSach = Arrays.copyOf(danhSach, soLuong + 1);
-        danhSach[soLuong] = nhanVien;
-        soLuong++;
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = nhanVien;
+        this.soLuong++;
         return true;
     }
 
@@ -56,42 +57,42 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     public boolean them() {
         NhanVien nv = new NhanVien();
         nv.nhap();
-        return them(nv);
+        return this.them(nv);
     }
 
-    @Override 
+    @Override
     public void nhap() {
-        System.out.print("Nhap so luong nhan vien can them: ");
-        int n = Integer.parseInt(sc.nextLine().trim());
-        for (int i = 0; i < n; i++) {
-            System.out.println("Nhap thong tin nhan vien thu " + (i + 1) + ": ");
-            boolean thanhCong = them();
-            if (!thanhCong) {
-                System.out.println("Them that bai (trung ma hoac du lieu khong hop le!). Vui long nhap lai.");
-                i--;
-            }
+        System.out.print("Nhap vao so luong nhan vien: ");
+        this.soLuong = this.sc.nextInt();
+        this.sc.nextLine(); 
+        this.danhSach = new NhanVien[this.soLuong];
+        for (int i = 0; i < this.soLuong; i++) {
+            System.out.println("Nhap thong tin nhan vien thu " + (i + 1) + ":");
+            this.danhSach[i] = new NhanVien(); 
+            this.danhSach[i].nhap();
         }
     }
 
-    @Override 
+    @Override
     public void xuat() {
-        if (soLuong == 0) {
+        if (this.danhSach == null || this.soLuong == 0) {
             System.out.println("Danh sach nhan vien trong!");
             return;
         }
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null) {
-                danhSach[i].xuat();
+        System.out.println("Danh sach nhan vien:");
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null) {
+                this.danhSach[i].xuat();
             }
         }
     }
 
     @Override 
     public NhanVien timTheoMa(int maNhanVien) {
-        if (danhSach == null || soLuong <= 0 || maNhanVien <= 0) return null;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getMaNhanVien() == maNhanVien) {
-                return danhSach[i];
+        if (this.danhSach == null || this.soLuong <= 0 || maNhanVien <= 0) return null;
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getMaNhanVien() == maNhanVien) {
+                return this.danhSach[i];
             }
         }
         return null;
@@ -99,67 +100,75 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
 
     @Override 
     public boolean suaTheoMa(int maNhanVien) {
-        NhanVien nv = timTheoMa(maNhanVien);
+        NhanVien nv = this.timTheoMa(maNhanVien);
         if (nv == null) {
             System.out.println("Khong tim thay nhan vien co ma: " + maNhanVien);
             return false;
         }
-        
-        System.out.println("Thong tin nhan vien hien tai:");
+        System.out.println("Thong tin nhan vien hien tai: ");
         nv.xuat();
-
-        System.out.print("Chinh Ho ten: ");
-        String hoTen = sc.nextLine();
-        if (!hoTen.isBlank()) { nv.setHoTen(hoTen); }
         
-        System.out.print("Chinh Ngay sinh (vd: 1995-05-20): ");
-        String ngaySinh = sc.nextLine();
-        if (!ngaySinh.isBlank()) { nv.setNgaySinh(ngaySinh); }
+        System.out.print("Chinh Ho ten: ");
+        String hoTen = this.sc.nextLine();
+        if (!hoTen.isBlank()) { 
+            nv.setHoTen(hoTen); 
+        }
+        
+        System.out.print("Chinh Ngay sinh (vd:2007-11-20): ");
+        String ngaySinh = this.sc.nextLine();
+        if (!ngaySinh.isBlank()) { 
+            nv.setNgaySinh(ngaySinh); 
+        }
         
         System.out.print("Chinh Gioi tinh (0: Nu, 1: Nam): ");
-        String gioiTinhStr = sc.nextLine();
+        String gioiTinhStr = this.sc.nextLine();
         if (!gioiTinhStr.isBlank()) {
             int gioiTinh = Integer.parseInt(gioiTinhStr.trim());
             nv.setGioiTinh(gioiTinh);
         }
         
         System.out.print("Chinh So dien thoai: ");
-        String soDienThoai = sc.nextLine();
-        if (!soDienThoai.isBlank()) { nv.setSoDienThoai(soDienThoai); }
+        String soDienThoai = this.sc.nextLine();
+        if (!soDienThoai.isBlank()) { 
+            nv.setSoDienThoai(soDienThoai); 
+        }
         
-        // (Lưu ý: Nếu lớp NhanVien của bạn có thêm các thuộc tính riêng như Chức vụ, Lương,... bạn có thể bổ sung các dòng nhập/sửa tương tự ở đây)
-
         System.out.println("Thong tin nhan vien sau khi cap nhat: ");
         nv.xuat();
         return true;
     }
 
-    @Override 
+    @Override
     public boolean xoaTheoMa(int maNhanVien) {
-        if (danhSach == null || soLuong <= 0 || maNhanVien <= 0) return false;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getMaNhanVien() == maNhanVien) {
-                for (int j = i; j < soLuong - 1; j++) {
-                    danhSach[j] = danhSach[j + 1];
-                }
-                danhSach[--soLuong] = null;
-                return true;
+        if (this.danhSach == null || this.soLuong <= 0 || maNhanVien <= 0) {
+            return false;
+        }
+        int index = 0;
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getMaNhanVien() == maNhanVien) {
+                index = i;
+                break;
             }
         }
-        return false;
+        for (int i = index; i < this.soLuong - 1; i++) {
+            this.danhSach[i] = this.danhSach[i + 1];
+        }
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong - 1);
+        this.soLuong--;
+        return true;
     }
 
-    @Override 
+    @Override
     public NhanVien[] layTatCa() {
-        NhanVien[] kq = new NhanVien[soLuong];
-        System.arraycopy(danhSach, 0, kq, 0, soLuong);
+        NhanVien[] kq = new NhanVien[this.soLuong];
+        System.arraycopy(this.danhSach, 0, kq, 0, this.soLuong);
         return kq;
     }
 
     @Override 
     public boolean docFile(String duongDan) {
-        danhSach = new NhanVien[0];
-        soLuong = 0;
+        this.danhSach = new NhanVien[0];
+        this.soLuong = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
             String temp;
             while ((temp = reader.readLine()) != null) {
@@ -173,7 +182,7 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
                         Integer.parseInt(parts[3].trim()),
                         parts[4].trim()
                     );
-                    them(nv);
+                    this.them(nv);
                 }
             }
             return true;
@@ -184,16 +193,15 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
 
     @Override 
     public boolean ghiFile(String duongDan) {
-        if (danhSach == null) return false;
+        if (this.danhSach == null) return false;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
-            for (int i = 0; i < soLuong; i++) {
-                if (danhSach[i] == null) continue;
-                String temp = danhSach[i].getMaNhanVien() + "|" +
-                    danhSach[i].getHoTen() + "|" +
-                    danhSach[i].getNgaySinh() + "|" +
-                    danhSach[i].getGioiTinh() + "|" +
-                    danhSach[i].getSoDienThoai();
-                
+            for (int i = 0; i < this.soLuong; i++) {
+                if (this.danhSach[i] == null) continue;
+                String temp = this.danhSach[i].getMaNhanVien() + "|" +
+                              this.danhSach[i].getHoTen() + "|" +
+                              this.danhSach[i].getNgaySinh() + "|" +
+                              this.danhSach[i].getGioiTinh() + "|" +
+                              this.danhSach[i].getSoDienThoai();
                 writer.write(temp);
                 writer.newLine();
             }
@@ -204,13 +212,15 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
     }
 
     public NhanVien[] timTheoTen(String hoTen) {
-        if (danhSach == null || soLuong <= 0 || hoTen == null || hoTen.isBlank()) return new NhanVien[0];
+        if (this.danhSach == null || this.soLuong <= 0 || hoTen == null || hoTen.isBlank()) {
+            return new NhanVien[0];
+        }
         NhanVien[] ketQua = new NhanVien[0];
         int index = 0;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getHoTen() != null && danhSach[i].getHoTen().equalsIgnoreCase(hoTen)) {
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getHoTen() != null && this.danhSach[i].getHoTen().equalsIgnoreCase(hoTen)) {
                 ketQua = Arrays.copyOf(ketQua, index + 1);
-                ketQua[index] = danhSach[i];
+                ketQua[index] = this.danhSach[i];
                 index++;
             }
         }
