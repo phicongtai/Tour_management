@@ -108,7 +108,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public boolean xoaTheoMa(int maHoaDon) {
-         if(this.danhSach == null || maHoaDon <= 0 ){
+        if(this.danhSach == null || maHoaDon <= 0 ){
             return false;
         }
         boolean check = false;

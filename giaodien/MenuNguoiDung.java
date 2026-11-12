@@ -124,7 +124,18 @@ public class MenuNguoiDung {
         }while(chose < 0 || chose > 3);
     }
 
-
+    public static void case3(){
+        System.out.print("Vui long nhap ma tour: ");
+        int matour = in.nextInt();
+        Tour t = kho.KhoDuLieu.getDanhSachTour().timTheoMa(matour);
+        t.xuat();
+        System.out.println();
+        KeHoachTour[] listkehoachtour = kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMaTour(matour);
+        for(KeHoachTour temp : listkehoachtour){
+            temp.xuat();
+            System.out.println();
+        }
+    }
 
     public static void menunguoidung(){
         int chose;
