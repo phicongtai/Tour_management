@@ -120,9 +120,9 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
         for(int i = point ; i < this.soLuong-1 ; i++){
             this.danhSach[i] = this.danhSach[i + 1];
         }
-
+        this.danhSach=Arrays.copyOf(this.danhSach,this.soLuong-1);
         this.soLuong--;
-        return false;
+        return true;
     }
 
     @Override
