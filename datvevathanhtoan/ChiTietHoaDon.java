@@ -92,8 +92,7 @@ public class ChiTietHoaDon {
         if (maVe <= 0 || danhSachMaVe == null || soLuongVe <= 0) {
             return false;
         }
-        int gioiHan = Math.min(soLuongVe, danhSachMaVe.length);
-        for (int i = 0; i < gioiHan; i++) {
+        for (int i = 0; i < this.soLuongVe; i++) {
             if (danhSachMaVe[i] == maVe) {
                 return true;
             }
