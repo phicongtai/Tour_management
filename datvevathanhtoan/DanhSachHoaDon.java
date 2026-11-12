@@ -255,7 +255,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         }
     }
 
-    // Methods còn lại
+    // Methods con lai
 
     public HoaDon[] timTheoMaDonDatTour(int maDonDatTour) {
         if (maDonDatTour <= 0 || danhSach == null) {
@@ -275,43 +275,21 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     public HoaDon[] timChuaThanhToanDu(DanhSachVe dsVe) {
         if (danhSach == null || dsVe == null) {
-            return new HoaDon[0];
-        }
-
-        HoaDon[] ketQua = new HoaDon[gioiHan()];
-        int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
-            HoaDon hoaDon = this.danhSach[i];
-            if (hoaDon == null || hoaDon.daThanhToanDu()) {
-                continue;
-            }
-            int[] danhSachMaVe = hoaDon.layDanhSachMaVe();
-            boolean daHuyHet = danhSachMaVe.length > 0;
-            for (int j = 0; j < danhSachMaVe.length && daHuyHet; j++) {
-                Ve ve = dsVe.timTheoMa(danhSachMaVe[j]);
-                if (ve == null || ve.getTrangThai() != Ve.DA_HUY) {
-                    daHuyHet = false;
-                }
-            }
-            if (daHuyHet) {
-                continue;
-            }
-            ketQua[dem++] = hoaDon;
-        }
-        return Arrays.copyOf(ketQua, dem);
+        return new HoaDon[0];
     }
 
-    // Helper methods
-    private int gioiHan() {
-        return danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
-    }
-
-    private boolean thuocNhanVien(HoaDon hoaDon, NhanVien[] nhanViens) {
-        for (NhanVien nhanVien : nhanViens) {
-            if (nhanVien != null && nhanVien.getMaNhanVien() == hoaDon.getMaNhanVien()) {
-                return true;
-            }
+    HoaDon[] ketQua = new HoaDon[0];
+    int dem = 0;
+    for (int i = 0; i < this.soLuong; i++) {
+        HoaDon hoaDon = this.danhSach[i];
+        if (hoaDon == null) {
+            continue;
         }
-        return false;
+        if (hoaDon.daThanhToanDu()) {
+            continue;
+        }
+        ketQua[dem++] = hoaDon;
     }
+    return Arrays.copyOf(ketQua, dem);
+}
 }
