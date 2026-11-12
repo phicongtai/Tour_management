@@ -6,9 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
-
+import tour.*;
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
+import tochuctour.KeHoachTour;
 
 public class DanhSachTour implements DanhSach<Tour> {
     private Tour[] danhSach;
@@ -46,44 +47,92 @@ public class DanhSachTour implements DanhSach<Tour> {
         if (tour == null || timTheoMa(tour.getMaTour()) != null)
             return false;
 
-        if (danhSach == null) danhSach = new Tour[10];
-        if (soLuong >= danhSach.length)
-            danhSach = Arrays.copyOf(danhSach,
-                    danhSach.length == 0 ? 10 : danhSach.length * 2);
+        if (this.danhSach == null) this.danhSach = new Tour[10];
+        if (this.soLuong >= this.danhSach.length)
+            this.danhSach = Arrays.copyOf(this.danhSach,
+                    this.danhSach.length == 0 ? 10 : this.danhSach.length * 2);
 
-        danhSach[soLuong++] = tour;
+        this.danhSach[this.soLuong++] = tour;
         return true;
     }
 
     @Override
     public boolean them() {
-        return false;
+        Scanner in = KhoDuLieu.getScanner();
+        System.out.println("Nhap loai tour (1: Trong nuoc, 2: Nuoc ngoai):");
+        int loaiTour=in.nextInt();
+        in.nextLine();
+        Tour tour;
+        if(loaiTour==1){
+            tour=new TourTrongNuoc();
+        }
+        else if(loaiTour==2){
+            tour=new TourNuocNgoai();
+        }
+        else{
+            System.out.println("Loai tour khong hop le!");
+            return false;
+        }
+        tour.nhap();
+        if(this.danhSach == null){
+            this.danhSach = new Tour[0];
+            this.soLuong = 0;
+        }
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = tour;
+        this.soLuong++;
+        return true;
     }
 
     @Override
     public void xuat() {
+        if(this.danhSach==null||this.soLuong==0){
+            System.out.println("Danh sach tour rong!");
+            return;
+        }
+        System.out.println("Danh sach tour:");
+        for(int i=0;i<this.soLuong;i++){
+            this.danhSach[i].xuat();
+        }
     }
 
     @Override
     public void nhap() {
+        Scanner in=KhoDuLieu.getScanner();
+        System.out.println("Nhap so luong tour:");
+        this.soLuong=in.nextInt();
+        in.nextLine();
+        this.danhSach = new Tour[this.soLuong];
+        for(int i=0;i<this.soLuong;i++){
+            System.out.println("Nhap tour thu: "+ (i+1));
+            System.out.println("Nhap loai tour (1: Trong nuoc, 2: Nuoc ngoai):");
+            int loaiTour=in.nextInt();
+            if(loaiTour==1){
+                this.danhSach[i]=new TourTrongNuoc();
+            }
+            else if(loaiTour==2){
+                this.danhSach[i]=new TourNuocNgoai();
+            }
+            this.danhSach[i].nhap();
+        }
     }
 
     @Override
     public boolean xoaTheoMa(int maTour) {
-        if (danhSach == null) return false;
+        if (this.danhSach == null) return false;
 
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null
-                    && danhSach[i].getMaTour() == maTour) {
-                for (int j = i; j < soLuong - 1; j++)
-                    danhSach[j] = danhSach[j + 1];
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null
+                    && this.danhSach[i].getMaTour() == maTour) {
+                for (int j = i; j < this.soLuong - 1; j++)
+                    this.danhSach[j] = this.danhSach[j + 1];
 
-                danhSach[--soLuong] = null;
+                this.danhSach[--this.soLuong] = null;
                 return true;
             }
         }
         return false;
-    }
+    }      
 
     @Override
     public boolean suaTheoMa(int ma) {
@@ -163,20 +212,20 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     @Override
     public Tour timTheoMa(int maTour) {
-        if (danhSach == null) return null;
+        if (this.danhSach == null) return null;
 
-        for (int i = 0; i < soLuong; i++)
-            if (danhSach[i] != null
-                    && danhSach[i].getMaTour() == maTour)
-                return danhSach[i];
+        for (int i = 0; i < this.soLuong; i++)
+            if (this.danhSach[i] != null
+                    && this.danhSach[i].getMaTour() == maTour)
+                return this.danhSach[i];
 
         return null;
     }
 
     @Override
     public Tour[] layTatCa() {
-        return danhSach == null ? new Tour[0]
-                : Arrays.copyOf(danhSach, soLuong);
+        return this.danhSach == null ? new Tour[0]
+                : Arrays.copyOf(this.danhSach, this.soLuong);
     }
 
     @Override
@@ -266,17 +315,17 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     // Methods còn lại
     public Tour[] timTheoTen(String tenTour) {
-        if (danhSach == null || tenTour == null)
+        if (this.danhSach == null || tenTour == null)
             return new Tour[0];
 
-        Tour[] ketQua = new Tour[soLuong];
+        Tour[] ketQua = new Tour[this.soLuong];
         int index = 0;
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getTenTour() != null
-                    && danhSach[i].getTenTour().equalsIgnoreCase(tenTour))
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getTenTour() != null
+                    && this.danhSach[i].getTenTour().equalsIgnoreCase(tenTour))
             {
                 ketQua = Arrays.copyOf(ketQua, index + 1);
-                ketQua[index] = danhSach[i];
+                ketQua[index] = this.danhSach[i];
                 index++;
             }
         }
