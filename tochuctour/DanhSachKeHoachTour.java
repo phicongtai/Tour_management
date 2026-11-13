@@ -178,7 +178,7 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
         return danhSach;
     }
 
-// maKeHoachTour|maTour|maNhanVien|ngayDi|ngayVe|soLuongVeToiDa
+// maKeHoachTour|maTour|maNhanVien|ngayDi|ngayVe|soLuongVeToiDa|chuoiChiTiet(optional)
 @Override
 public boolean docFile(String duongDan) {
     this.danhSach = new KeHoachTour[0];
@@ -187,8 +187,8 @@ public boolean docFile(String duongDan) {
         String temp;
         while ((temp = reader.readLine()) != null) {
             if (temp.trim().isEmpty()) continue;
-            String[] parts = temp.split("\\|"); //dùng cái nay để tách 1 chuổi thành 1 mạng phga6n tách bằng dấu |
-            if (parts.length >= 6) { // số 6 này biệu thì cho số lượng thuộc tính trong class kế hoạch tour 
+            String[] parts = temp.split("\\|");
+            if (parts.length >= 6) {
                 KeHoachTour kh = new KeHoachTour(
                     Integer.parseInt(parts[0].trim()),
                     Integer.parseInt(parts[1].trim()),
@@ -197,6 +197,27 @@ public boolean docFile(String duongDan) {
                     parts[4].trim(),
                     Integer.parseInt(parts[5].trim())
                 );
+
+                // Doc chi tiet lich trinh neu co (cot thu 7)
+                if (parts.length >= 7 && !parts[6].trim().isEmpty() && !parts[6].trim().equalsIgnoreCase("none")) {
+                    String[] dsChiTietStr = parts[6].trim().split(";");
+                    for (String ctStr : dsChiTietStr) {
+                        if (ctStr.trim().isEmpty()) continue;
+                        String[] ctParts = ctStr.split(",");
+                        if (ctParts.length >= 6) {
+                            ChiTietKeHoachTour ct = new ChiTietKeHoachTour(
+                                ctParts[0].trim(),
+                                Integer.parseInt(ctParts[1].trim()),
+                                Integer.parseInt(ctParts[2].trim()),
+                                Long.parseLong(ctParts[3].trim()),
+                                Long.parseLong(ctParts[4].trim()),
+                                Long.parseLong(ctParts[5].trim())
+                            );
+                            kh.themChiTiet(ct);
+                        }
+                    }
+                }
+
                 this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
                 this.danhSach[this.soLuong++] = kh;
             }
@@ -214,19 +235,38 @@ public boolean docFile(String duongDan) {
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
             for(int i = 0 ; i < this.soLuong ; i++){
-                String temp = "";
-                temp += this.danhSach[i].getMaKeHoachTour();
-                temp += "|";
-                temp += this.danhSach[i].getMaTour();
-                temp += "|";
-                temp += this.danhSach[i].getMaNhanVien();
-                temp += "|";
-                temp += this.danhSach[i].getNgayDi();
-                temp += "|";
-                temp += this.danhSach[i].getNgayVe();
-                temp += "|";
-                temp += this.danhSach[i].getSoLuongVeToiDa();
-                writer.write(temp);
+                KeHoachTour kh = this.danhSach[i];
+                if (kh == null) continue;
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(kh.getMaKeHoachTour()).append("|")
+                  .append(kh.getMaTour()).append("|")
+                  .append(kh.getMaNhanVien()).append("|")
+                  .append(kh.getNgayDi()).append("|")
+                  .append(kh.getNgayVe()).append("|")
+                  .append(kh.getSoLuongVeToiDa()).append("|");
+
+                ChiTietKeHoachTour[] listCT = kh.getChiTietLichTrinh();
+                if (listCT != null && kh.getSoLuongChiTiet() > 0) {
+                    for (int j = 0; j < kh.getSoLuongChiTiet(); j++) {
+                        ChiTietKeHoachTour ct = listCT[j];
+                        if (ct != null) {
+                            sb.append(ct.getNgay()).append(",")
+                              .append(ct.getMaPhuongTien()).append(",")
+                              .append(ct.getMaKhachSan()).append(",")
+                              .append(ct.getTienAn()).append(",")
+                              .append(ct.getTienO()).append(",")
+                              .append(ct.getTienDiLai());
+                            if (j < kh.getSoLuongChiTiet() - 1) {
+                                sb.append(";");
+                            }
+                        }
+                    }
+                } else {
+                    sb.append("none");
+                }
+
+                writer.write(sb.toString());
                 writer.newLine();
             }
             return true;
