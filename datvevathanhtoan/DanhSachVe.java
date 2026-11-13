@@ -403,4 +403,68 @@ public class DanhSachVe implements DanhSach<Ve> {
         }
         return dsMaVeMoi;
     }
+
+    public int[] layDanhSachMaDonTheoNguoiDat(int maNguoiDat) {
+        if (maNguoiDat <= 0) {
+            return new int[0];
+        }
+        int[] dsMaDon = layDanhSachMaDonDatTour();
+        int[] ketQua = new int[0];
+        for (int maDon : dsMaDon) {
+            Ve[] nhom = timTheoMaDonDatTour(maDon);
+            boolean thuocNguoiDat = false;
+            for (Ve v : nhom) {
+                if (v != null && v.getMaNguoiDat() == maNguoiDat) {
+                    thuocNguoiDat = true;
+                    break;
+                }
+            }
+            if (thuocNguoiDat) {
+                ketQua = Arrays.copyOf(ketQua, ketQua.length + 1);
+                ketQua[ketQua.length - 1] = maDon;
+            }
+        }
+        return ketQua;
+    }
+
+    public String layTrangThaiNhom(int maDonDatTour) {
+        Ve[] dsNhom = timTheoMaDonDatTour(maDonDatTour);
+        if (dsNhom.length == 0) {
+            return "Khong co ve";
+        }
+        int tong = 0;
+        int daThanhToan = 0;
+        int daHuy = 0;
+        for (Ve v : dsNhom) {
+            if (v == null) {
+                continue;
+            }
+            tong++;
+            if (v.getTrangThai() == Ve.DA_THANH_TOAN) {
+                daThanhToan++;
+            } else if (v.getTrangThai() == Ve.DA_HUY) {
+                daHuy++;
+            }
+        }
+        if (tong == 0) {
+            return "Khong co ve";
+        }
+        if (daHuy == tong) {
+            return "Đã hủy toàn bộ";
+        }
+        return daThanhToan + "/" + tong + " vé đã thanh toán";
+    }
+
+    public int huyNhomVe(int maDonDatTour) {
+        Ve[] dsNhom = timTheoMaDonDatTour(maDonDatTour);
+        int soVeDaHuy = 0;
+        for (Ve v : dsNhom) {
+            if (v != null && v.duocHuy()) {
+                if (v.capNhatTrangThai(Ve.DA_HUY)) {
+                    soVeDaHuy++;
+                }
+            }
+        }
+        return soVeDaHuy;
+    }
 }

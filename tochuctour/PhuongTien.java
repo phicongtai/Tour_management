@@ -57,9 +57,8 @@ public class PhuongTien {
 
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập mã phương tiện: ");
-        this.maPhuongTien = in.nextInt();
-        in.nextLine();
+        this.maPhuongTien = KhoDuLieu.getDanhSachPhuongTien().getMaMoi();
+        System.out.println("Mã phương tiện (tự động): " + this.maPhuongTien);
         System.out.print("Nhập tên phương tiện: ");
         this.tenPhuongTien = in.nextLine();
         System.out.print("Nhập số chỗ tối đa: ");

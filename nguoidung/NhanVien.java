@@ -81,8 +81,8 @@ public class NhanVien {
         return true;
     }
     public void nhap() {
-        System.out.print("Nhap ma nhan vien: ");
-        this.maNhanVien = Integer.parseInt(sc.nextLine().trim());
+        this.maNhanVien = kho.KhoDuLieu.getDanhSachNhanVien().getMaMoi();
+        System.out.println("Ma nhan vien (tu dong): " + this.maNhanVien);
         
         System.out.print("Nhap ho va ten: ");
         this.hoTen = sc.nextLine().trim();

@@ -8,7 +8,7 @@ public class HanhKhach {
     private String ngaySinh;
     private int gioiTinh;
     private String soDienThoai;
-    private Scanner sc = new Scanner(System.in);
+    private Scanner sc = kho.KhoDuLieu.getScanner();
 
     public HanhKhach() {
     }
@@ -82,8 +82,8 @@ public class HanhKhach {
     }
 
     public void nhap() {
-        System.out.print("Nhap ma hanh khach: ");
-        this.maHanhKhach = Integer.parseInt(sc.nextLine().trim());
+        this.maHanhKhach = kho.KhoDuLieu.getDanhSachHanhKhach().getMaMoi();
+        System.out.println("Ma hanh khach (tu dong): " + this.maHanhKhach);
         
         System.out.print("Nhap ho va ten: ");
         this.hoTen = sc.nextLine().trim();

@@ -105,9 +105,8 @@ public class Ve {
 
     public void nhap(){
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập mã vé: ");
-        this.maVe = in.nextInt();
-        in.nextLine();
+        this.maVe = KhoDuLieu.getDanhSachVe().getmamoi();
+        System.out.println("Mã vé (tự động): " + this.maVe);
         System.out.print("Nhập mã đơn đặt tour: ");
         this.maDonDatTour = in.nextInt();
         in.nextLine();
@@ -149,5 +148,18 @@ public class Ve {
 
         this.trangThai = trangThaiMoi;
         return true;
+    }
+
+    public String layTenTrangThai() {
+        if (this.trangThai == DA_DAT) {
+            return "Da dat";
+        }
+        if (this.trangThai == DA_THANH_TOAN) {
+            return "Da thanh toan";
+        }
+        if (this.trangThai == DA_HUY) {
+            return "Da huy";
+        }
+        return "Khac";
     }
 }

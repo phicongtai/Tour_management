@@ -57,9 +57,8 @@ public class KhachSan {
 
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập mã khách sạn: ");
-        this.maKhachSan = in.nextInt();
-        in.nextLine();
+        this.maKhachSan = KhoDuLieu.getDanhSachKhachSan().getMaMoi();
+        System.out.println("Mã khách sạn (tự động): " + this.maKhachSan);
         System.out.print("Nhập tên khách sạn: ");
         this.tenKhachSan = in.nextLine();
         System.out.print("Nhập giá ở mỗi người mỗi đêm: ");

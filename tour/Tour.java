@@ -77,9 +77,8 @@ public abstract class Tour {
     }
     public void nhap(){
         Scanner in = new Scanner(System.in);
-        System.out.println("Nhap ma tour:");
-        this.maTour=in.nextInt();
-        in.nextLine();
+        this.maTour = kho.KhoDuLieu.getDanhSachTour().getMaMoi();
+        System.out.println("Ma tour (tu dong): " + this.maTour);
         System.out.println("Nhap ten tour:");
         this.tenTour=in.nextLine();
         System.out.println("Nhap diem khoi hanh:");

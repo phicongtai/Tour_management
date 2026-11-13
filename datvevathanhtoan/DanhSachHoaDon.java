@@ -321,4 +321,14 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         }
         return hoaDon;
     }
+
+    public boolean donDaThuTien(int maDonDatTour) {
+        HoaDon[] dsHD = timTheoMaDonDatTour(maDonDatTour);
+        for (HoaDon hd : dsHD) {
+            if (hd != null && hd.getSoTienDaThanhToan() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -236,4 +236,14 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         }
         return ketQua;
     }
+
+    public int getMaMoi() {
+        int max = 0;
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getMaNhanVien() > max) {
+                max = this.danhSach[i].getMaNhanVien();
+            }
+        }
+        return max + 1;
+    }
 }

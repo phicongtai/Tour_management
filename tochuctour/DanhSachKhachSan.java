@@ -256,4 +256,14 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
         }
         return temp;
     }
+
+    public int getMaMoi() {
+        int max = 0;
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getMaKhachSan() > max) {
+                max = this.danhSach[i].getMaKhachSan();
+            }
+        }
+        return max + 1;
+    }
 }

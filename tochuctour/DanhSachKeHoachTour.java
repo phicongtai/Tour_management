@@ -294,4 +294,28 @@ public boolean docFile(String duongDan) {
 
         return temp;
     }
+
+    public KeHoachTour timTheoMaVaTour(int maKeHoach, int maTour){
+        if(this.danhSach == null || maKeHoach <= 0 || maTour <= 0){
+            return null;
+        }
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i] != null){
+            if(this.danhSach[i].getMaTour() == maTour &&  this.danhSach[i].getMaKeHoachTour() == maKeHoach){
+                return this.danhSach[i];
+            }
+        }
+        }
+        return null;
+    }
+
+    public int getMaMoi() {
+        int max = 0;
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getMaKeHoachTour() > max) {
+                max = this.danhSach[i].getMaKeHoachTour();
+            }
+        }
+        return max + 1;
+    }
 }

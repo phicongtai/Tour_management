@@ -184,9 +184,8 @@ public long tinhSoTienConLai() {
 
     public void nhap(){
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập mã hóa đơn: ");
-        this.maHoaDon = in.nextInt();
-        in.nextLine();
+        this.maHoaDon = KhoDuLieu.getDanhSachHoaDon().getmamoi();
+        System.out.println("Mã hóa đơn (tự động): " + this.maHoaDon);
         System.out.print("Nhập mã đơn đặt tour: ");
         this.maDonDatTour = in.nextInt();
         in.nextLine();

@@ -320,14 +320,15 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     // Methods còn lại
     public Tour[] timTheoTen(String tenTour) {
-        if (this.danhSach == null || tenTour == null)
+        if (this.danhSach == null || tenTour == null || tenTour.trim().isEmpty())
             return new Tour[0];
 
-        Tour[] ketQua = new Tour[this.soLuong];
+        String tuKhoa = tenTour.trim().toLowerCase();
+        Tour[] ketQua = new Tour[0];
         int index = 0;
         for (int i = 0; i < this.soLuong; i++) {
             if (this.danhSach[i] != null && this.danhSach[i].getTenTour() != null
-                    && this.danhSach[i].getTenTour().equalsIgnoreCase(tenTour))
+                    && this.danhSach[i].getTenTour().toLowerCase().contains(tuKhoa))
             {
                 ketQua = Arrays.copyOf(ketQua, index + 1);
                 ketQua[index] = this.danhSach[i];
@@ -335,5 +336,15 @@ public class DanhSachTour implements DanhSach<Tour> {
             }
         }
         return ketQua;
+    }
+
+    public int getMaMoi() {
+        int max = 0;
+        for (int i = 0; i < this.soLuong; i++) {
+            if (this.danhSach[i] != null && this.danhSach[i].getMaTour() > max) {
+                max = this.danhSach[i].getMaTour();
+            }
+        }
+        return max + 1;
     }
 }

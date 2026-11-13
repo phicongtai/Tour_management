@@ -3,6 +3,7 @@ package tochuctour;
 import java.util.Arrays;
 import java.util.Scanner;
 import kho.KhoDuLieu;
+import tour.Tour;
 
 public class KeHoachTour {
     private int maKeHoachTour;
@@ -103,7 +104,7 @@ public class KeHoachTour {
 
     public int soChoConLai(int soVeDaDat) {
         //sovedadat lấy ra từ danh sach ve và tin kiếm bãng mã kế hoạch tour
-        if (soVeDaDat <= 0 || soVeDaDat > soLuongVeToiDa) {
+        if (soVeDaDat < 0 || soVeDaDat > soLuongVeToiDa) {
             return -1;
         }
         int conLai = Math.abs(soLuongVeToiDa - soVeDaDat);
@@ -112,7 +113,7 @@ public class KeHoachTour {
 
     public boolean conDuCho(int soVeDaDat, int soVeCanDat) {
         // mực dích là kiem tra xem số vé cần đát nó có lớn hơn số vé còn lại không sovedadat lấy ra từ danh sach ve và tin kiếm bãng mã kế hoạch tour
-        if (soVeCanDat <= 0 || soVeDaDat > soLuongVeToiDa || soVeCanDat <= 0) {
+        if (soVeCanDat <= 0 || soVeDaDat < 0 || soVeDaDat > soLuongVeToiDa) {
             return false;
         }
         return soVeCanDat <= soLuongVeToiDa - soVeDaDat;
@@ -220,9 +221,8 @@ public class KeHoachTour {
 
     public void nhap(){
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập mã kế hoạch tour: ");
-        this.maKeHoachTour = in.nextInt();
-        in.nextLine();
+        this.maKeHoachTour = KhoDuLieu.getDanhSachKeHoachTour().getMaMoi();
+        System.out.println("Mã kế hoạch tour (tự động): " + this.maKeHoachTour);
         System.out.print("Nhập mã tour: ");
         this.maTour = in.nextInt();
         in.nextLine();
@@ -236,5 +236,9 @@ public class KeHoachTour {
         System.out.print("Nhập số lượng vé tối đa: ");
         this.soLuongVeToiDa = in.nextInt();
         in.nextLine();
+    }
+
+    public long tinhDonGiaVe(Tour tour){// tình don gia theo tour trên 1 người
+        return tour.tinhGiaVe() + this.tinhTongChiPhi(1);
     }
 }
