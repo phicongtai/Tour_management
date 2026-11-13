@@ -206,7 +206,7 @@ public class KeHoachTour {
         long result = 0;
 
     for(int i = 0 ; i < soLuongChiTiet ; i++){
-        result += soKhach * chiTietLichTrinh[i].tinhChiPhiNgay(soKhach);
+        result += chiTietLichTrinh[i].tinhChiPhiNgay(soKhach);
         }
 
         return result;

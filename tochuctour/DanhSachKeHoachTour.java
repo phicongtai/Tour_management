@@ -50,7 +50,7 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
             this.soLuong = 0;
         }
         for(int i = 0 ; i < this.soLuong ; i++){
-            if(this.danhSach[i].getMaKeHoachTour() == keHoach.getMaKeHoachTour() ){;
+            if(this.danhSach[i].getMaKeHoachTour() == keHoach.getMaKeHoachTour() ){
             return false;
             }
         }

@@ -329,4 +329,27 @@ public class DanhSachVe implements DanhSach<Ve> {
         return false;
     }
 
+    public int getmamoi(){
+        int temp = 0;
+        if(this.danhSach != null){
+            for(int i = 0 ; i < this.soLuong; i++){
+                if(this.danhSach[i] != null && temp < this.danhSach[i].getMaVe()){
+                    temp = this.danhSach[i].getMaVe();
+                }
+            }
+        }
+        return temp + 1;
+    }
+
+    public int getmadondattourmoi(){
+        int temp = 0;
+        if(this.danhSach != null){
+            for(int i = 0 ; i < this.soLuong ; i++){
+                if(this.danhSach[i] != null && this.danhSach[i].getMaDonDatTour() > temp){
+                    temp = this.danhSach[i].getMaDonDatTour();
+                }
+            }
+        }
+        return temp + 1;
+    }
 }

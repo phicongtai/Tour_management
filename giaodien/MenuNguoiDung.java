@@ -13,6 +13,8 @@ import dulieu.*;
 public class MenuNguoiDung {
     private static Scanner in = KhoDuLieu.getScanner();
     private static HanhKhach nguoidung;
+    private static Tour tourDaChon;
+    private static KeHoachTour keHoachDaChon;
 
     public static HanhKhach case1(){
         HanhKhach temp1 = new HanhKhach();
@@ -168,7 +170,7 @@ public class MenuNguoiDung {
     }
 
     public static void case4(){
-        //các dữ liệu chọn 
+        //các dữ liệu chọn
         int matour;
         int chosekh;
         // kiểm tra xem coi người dùng đăng nhập hay chưa
@@ -180,25 +182,30 @@ public class MenuNguoiDung {
         }
     }
 
-        System.out.println("Danh sách tour");
+        System.out.println("\n--- DANH SACH TOUR ---");
         System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
                 "Ma Tour", "Ten Tour", "Diem Khoi Hanh", "Diem Den", "So Ngay", "Don Gia Co Ban",
                 "Loai Tour", "Vung/QuocGia", "Phu Phi", "Can Visa", "Phi Visa");
         kho.KhoDuLieu.getDanhSachTour().xuat();
+        System.out.println();
         do{
-        System.out.print("Chon tour(nhap ma tour vao): ");
+        System.out.print("Chon tour (nhap ma tour vao): ");
         matour = in.nextInt();
         in.nextLine();
-        if(kho.KhoDuLieu.getDanhSachTour().timTheoMa(matour) == null){
+        tourDaChon = kho.KhoDuLieu.getDanhSachTour().timTheoMa(matour);
+        if(tourDaChon == null){
             System.out.println("Ma tour khong ton tai vui long chon lai!");
         }
-        }while(kho.KhoDuLieu.getDanhSachTour().timTheoMa(matour) == null);
+        }while(tourDaChon == null);
+
         KeHoachTour[] dskh = kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMaTour(matour);
         if(dskh.length == 0){
             System.out.println("Tour Chưa có kế hoạch vui lòng chọn tour khac!");
             case4();
             return;
         }
+
+        System.out.println("\n--- DANH SACH KE HOACH TOUR ---");
         for(KeHoachTour temp : dskh){
             System.out.printf("%-18s | %-26s | %-18s | %-12s | %-12s | %-18s%n", "Ma Ke Hoach Tour", "Ten Tour", "Ten Nhan Vien", "Ngay Di", "Ngay Ve", "So Luong Ve Toi Da");
             temp.xuat();
@@ -210,37 +217,130 @@ public class MenuNguoiDung {
                     }
                 }
             }
+            System.out.println();
         }
-            System.out.print("Chon ke hoach tour: ");
             do{
+                System.out.print("Chon ke hoach tour: ");
                 chosekh = in.nextInt();
-                if(kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh) == null || kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh).getMaTour() != matour  ){
+                in.nextLine();
+                keHoachDaChon = kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh);
+                if(keHoachDaChon == null || keHoachDaChon.getMaTour() != matour){
                     System.out.println("khong ton tai ke hoach tour nay!");
                 }
-            }while(kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh) == null || kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh).getMaTour() != matour  );
+            }while(keHoachDaChon == null || keHoachDaChon.getMaTour() != matour);
             
-            if(KhoDuLieu.getDanhSachVe().daCoVeHopLe(chosekh,nguoidung.getMaHanhKhach())){
-                System.out.print("Ban da dat vé rồi!");
+            if(KhoDuLieu.getDanhSachVe().daCoVeHopLe(keHoachDaChon.getMaKeHoachTour(), nguoidung.getMaHanhKhach())){
+                System.out.println("\nBan da dat vé rồi!");
                 return;
             }
             // lấy số lượng vé tối đa - số lượng vé đã đặt
-            int soluongvecon = kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh).getSoLuongVeToiDa() - kho.KhoDuLieu.getDanhSachVe().demVeChiemChoTheoKeHoach(chosekh);
+            int soluongvecon = keHoachDaChon.getSoLuongVeToiDa() - kho.KhoDuLieu.getDanhSachVe().demVeChiemChoTheoKeHoach(keHoachDaChon.getMaKeHoachTour());
             if(soluongvecon <= 0){
-                System.out.println("Kế hoạch tour này đã hết chỗ vui lọng chọn tour khoac kế haoch tour khác!");
+                System.out.println("\nKế hoạch tour này đã hết chỗ vui lọng chọn tour khoac kế haoch tour khác!");
                 case4();
                 return;
             }
             int chosesoluongve;
+            System.out.println();
             do{
-            System.out.println("chọn số luong vé: ");
-
+            System.out.print("Chọn số lượng vé (còn " + soluongvecon + " chỗ): ");
             chosesoluongve = in.nextInt();
+            in.nextLine();
             if(chosesoluongve > soluongvecon || chosesoluongve <= 0){
-                System.out.println("Không đủ chỗ! Chỉ còn" + soluongvecon + "chỗ.");
+                System.out.println("Không đủ chỗ! Chỉ còn " + soluongvecon + " chỗ.");
             }
             }while(chosesoluongve > soluongvecon || chosesoluongve <= 0);
 
+            System.out.println("\n--- NHAP HANH KHACH DI CUNG ---");
+            int[] dsmakh = new int[chosesoluongve];
+            System.out.println("Da luu ma khach hang cua ban!");
+            dsmakh[0] = nguoidung.getMaHanhKhach();
+            for(int i = 1 ; i < chosesoluongve ; i++){
+                int makh;
+                boolean check;
+                do{
+                check = false;
+                System.out.print("Nhap ma khach hang thu " + (i + 1) + ": ");
+                makh = in.nextInt();
+                in.nextLine();
+                if(KhoDuLieu.getDanhSachHanhKhach().timTheoMa(makh) == null || makh <= 0 ){
+                    System.out.println("Ma khach hang khong ton tai vui long nhap lai!");
+                    check = true;
+                }
+                for(int j = 0 ; j < i ; j++){
+                    if(dsmakh[j] == makh){
+                        System.out.println("Ma da ton tai vui long nhap lai!");
+                        check = true;
+                    }
+                }
+                if(KhoDuLieu.getDanhSachVe().daCoVeHopLe(keHoachDaChon.getMaKeHoachTour(), makh)){
+                    System.out.println("Nguoi dung da co ve");
+                    check = true;
+                }
+                if(!check){
+                    dsmakh[i] = makh;
+                }
+                }while(KhoDuLieu.getDanhSachHanhKhach().timTheoMa(makh) == null || makh <= 0 || check);
+            }
             
+            long giaTour  = tourDaChon.tinhGiaVe();
+            long chiphikehoac = keHoachDaChon.tinhTongChiPhi(1);
+            long dongia = giaTour + chiphikehoac;
+            long tongTien = dongia * chosesoluongve;
+
+            System.out.println("\n================ TOM TAT DAT VE ================");
+            System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                    "Ma Tour", "Ten Tour", "Diem Khoi Hanh", "Diem Den", "So Ngay", "Don Gia Co Ban",
+                    "Loai Tour", "Vung/QuocGia", "Phu Phi", "Can Visa", "Phi Visa");
+            tourDaChon.xuat();
+            System.out.println();
+
+            System.out.printf("%-18s | %-26s | %-18s | %-12s | %-12s | %-18s%n", "Ma Ke Hoach Tour", "Ten Tour", "Ten Nhan Vien", "Ngay Di", "Ngay Ve", "So Luong Ve Toi Da");
+            keHoachDaChon.xuat();
+            if(keHoachDaChon.getChiTietLichTrinh() != null && keHoachDaChon.getSoLuongChiTiet() > 0){
+                System.out.println();
+                System.out.printf("%-12s | %-22s | %-28s | %-12s | %-12s | %-12s%n", "Ngay", "Phuong Tien", "Khach San", "Tien An", "Tien O", "Tien Di Lai");
+                for(ChiTietKeHoachTour temp : keHoachDaChon.getChiTietLichTrinh()){
+                    if(temp != null){
+                        temp.xuat();
+                    }
+                }
+            }
+            System.out.println();
+            System.out.println("Gia Tour: " + giaTour);
+            System.out.println("Gia ve chi tiet: " + chiphikehoac);
+            System.out.println("Don gia 1 ve: " + dongia);
+            System.out.println("So luong ve: " + chosesoluongve);
+            System.out.println("Tong tien: " + tongTien);
+            System.out.println("================================================");
+
+            int chose;
+            System.out.println("Xac nhan dat ve(1. Dong y / 0. Huy)");
+            System.out.println("Vui long chon: ");
+            chose = in.nextInt();
+            in.nextLine();
+            if(chose == 1){
+                DanhSachVe dsVe = KhoDuLieu.getDanhSachVe();
+                DanhSachHoaDon dsHD = KhoDuLieu.getDanhSachHoaDon();
+                int maDonDatTourMoi = dsVe.getmadondattourmoi();
+                int mavemoi  = dsVe.getmamoi();
+                int madonmoi = dsHD.getmamoi();
+                System.out.print("Nhap ngay hom nay vd(2007-10-20): ");
+                String ngayHienTai = in.nextLine();
+                System.out.println();
+                int[] dsMaVeMoi = new int[chosesoluongve];
+                HoaDon hdMoi = new HoaDon(madonmoi, maDonDatTourMoi, keHoachDaChon.getMaNhanVien(), ngayHienTai);
+                for(int i = 0 ; i < chosesoluongve ; i++){
+                    Ve temp = new Ve(mavemoi, maDonDatTourMoi, nguoidung.getMaHanhKhach() ,keHoachDaChon.getMaKeHoachTour(),dsmakh[i], ngayHienTai, dongia, Ve.DA_DAT);
+                    dsVe.them(temp);
+                    dsMaVeMoi[i] = mavemoi;
+                    hdMoi.themVeVaoChiTiet(mavemoi, dsVe);
+                    mavemoi++;
+                }
+                dsHD.them(hdMoi);
+            }else{
+                return;
+            }
         }
 
 
