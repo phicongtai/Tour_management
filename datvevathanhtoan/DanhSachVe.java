@@ -110,10 +110,11 @@ public class DanhSachVe implements DanhSach<Ve> {
     public boolean xoaTheoMa(int maVe) {
         if(this.danhSach == null || maVe <= 0){
             return false;
-        }
+        }   
         boolean check = false;
         int checkpoint = 0;
-        for(int i = 0 ; i < this.soLuong - 1; i++){
+
+        for (int i = 0 ; i < this.soLuong; i++){
             if(this.danhSach[i].getMaVe() == maVe){
                 check = true;
                 checkpoint = i;
@@ -124,8 +125,9 @@ public class DanhSachVe implements DanhSach<Ve> {
         if(!check){
             return false;
         }
-        for (int i = checkpoint; i < this.soLuong; i++){
-            this.danhSach[i] = this.danhSach[i+1];
+
+        for(int i = checkpoint; i < this.soLuong - 1; i++){
+            this.danhSach[i] = this.danhSach[i + 1];
         }
         this.soLuong--;
         return true;
@@ -245,14 +247,16 @@ public class DanhSachVe implements DanhSach<Ve> {
 
 
     public Ve[] timTheoMaDonDatTour(int maDonDatTour) {
-        if (maDonDatTour <= 0 || danhSach == null) {
+        if(this.danhSach == null || this.soLuong <= 0){
             return new Ve[0];
         }
+
         Ve[] temp = new Ve[0];
-        int tempsize = 0 ;
-        for(int i = 0 ; i < this.soLuong ; i++){
+        int tempsize = 0;
+
+        for(int i = 0 ; i < this.soLuong; i++){
             if(maDonDatTour == this.danhSach[i].getMaDonDatTour()){
-                temp = Arrays.copyOf(temp,tempsize + 1);
+                temp = Arrays.copyOf(temp, tempsize + 1);
                 temp[tempsize] = this.danhSach[i];
                 tempsize++;
             }
@@ -289,19 +293,23 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
     return ketQua;
 }
-    public Ve[] timTheoTrangThai(int trangThai) {
-        if (soLuong == 0) {
-            return new Ve[0];
-        }
-        Ve[] ketQua = new Ve[0];
-        int dem = 0;
-        for (int i = 0; i < this.soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getTrangThai() == trangThai) {
-                ketQua[dem++] = danhSach[i];
-            }
-        }
-        return Arrays.copyOf(ketQua, dem);
+   public Ve[] timTheoTrangThai(int trangThai) {
+    if(this.danhSach == null || this.soLuong <= 0){
+        return new Ve[0];
     }
+
+    Ve[] temp = new Ve[0];
+    int tempsize = 0;
+
+    for (int i = 0 ; i < this.soLuong; i++){
+        if(trangThai == this.danhSach[i].getTrangThai()){
+            temp = Arrays.copyOf(temp , tempsize + 1);
+            temp[tempsize] = this.danhSach[i];
+            tempsize++;
+        }
+    }
+    return temp;
+}
 
     public int demVeChiemChoTheoKeHoach(int maKeHoachTour) {
         if (maKeHoachTour <= 0) {
@@ -309,8 +317,7 @@ public class DanhSachVe implements DanhSach<Ve> {
         }
         int dem = 0;
         for (int i = 0; i < this.soLuong; i++) {
-            if (danhSach[i] != null && danhSach[i].getMaKeHoachTour() == maKeHoachTour
-                    && danhSach[i].chiemCho()) {
+            if ( danhSach[i].getMaKeHoachTour() == maKeHoachTour && danhSach[i].chiemCho()) {
                 dem++;
             }
         }
