@@ -60,7 +60,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
             }
         }
 
-        this.danhSach = Arrays.copyOf(this.danhSach, soLuong + 1);
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
         this.danhSach[this.soLuong] = hoaDon;
         this.soLuong++;
         return true;
@@ -86,7 +86,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         if(this.danhSach == null){
             return;
         }
-        System.out.println("Danh sách vé: ");
+        System.out.println("Danh sách hoa don: ");
         for (int i = 0 ; i < this.soLuong ; i++){
             this.danhSach[i].xuat();
         }
@@ -259,7 +259,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     public HoaDon[] timTheoMaDonDatTour(int maDonDatTour) {
         if (maDonDatTour <= 0 || danhSach == null) {
-            return new HoaDon[0];
+            return new HoaDon[0]; 
         }
         HoaDon[] temp = new HoaDon[0];
         int tempsize = 0;

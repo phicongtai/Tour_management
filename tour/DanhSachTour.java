@@ -90,7 +90,6 @@ public class DanhSachTour implements DanhSach<Tour> {
             System.out.println("Danh sach tour rong!");
             return;
         }
-        System.out.println("Danh sach tour:");
         for(int i=0;i<this.soLuong;i++){
             this.danhSach[i].xuat();
         }

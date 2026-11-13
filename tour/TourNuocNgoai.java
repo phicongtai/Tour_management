@@ -64,9 +64,8 @@ public class TourNuocNgoai extends Tour {
     @Override
     public void xuat() {
         super.xuat();
-        System.out.println("Quoc gia: " + quocGia);
-        System.out.println("Can visa: " + canVisa);
-        System.out.println("Phi visa: " + phiVisa);
+        System.out.printf(" | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                "Nuoc ngoai", quocGia, "-", canVisa, phiVisa);
     }
     @Override
     public void nhap() {

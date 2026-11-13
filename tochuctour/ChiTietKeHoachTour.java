@@ -1,5 +1,8 @@
 package tochuctour;
 
+import java.util.Scanner;
+import kho.KhoDuLieu;
+
 public class ChiTietKeHoachTour {
     private String ngay;
     private int maPhuongTien;
@@ -73,5 +76,32 @@ public class ChiTietKeHoachTour {
             return -1;
         }
         return soKhach * (this.tienAn + this.tienDiLai + this.tienO);
+    }
+
+    public void xuat() {
+        String pt = kho.KhoDuLieu.getDanhSachPhuongTien().timTheoMa(this.maPhuongTien).getTenPhuongTien();
+        String ks = kho.KhoDuLieu.getDanhSachKhachSan().timTheoMa(maKhachSan).getTenKhachSan();
+        System.out.printf("%-12s | %-22s | %-28s | %-12s | %-12s | %-12s%n", this.ngay, pt, ks, this.tienAn, this.tienO, this.tienDiLai);
+    }
+
+    public void nhap() {
+        Scanner in = KhoDuLieu.getScanner();
+        System.out.print("Nhap ngay (vd: 2026-11-20): ");
+        this.ngay = in.nextLine();
+        System.out.print("Nhap ma phuong tien: ");
+        this.maPhuongTien = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhap ma khach san: ");
+        this.maKhachSan = in.nextInt();
+        in.nextLine();
+        System.out.print("Nhap tien an: ");
+        this.tienAn = in.nextLong();
+        in.nextLine();
+        System.out.print("Nhap tien o: ");
+        this.tienO = in.nextLong();
+        in.nextLine();
+        System.out.print("Nhap tien di lai: ");
+        this.tienDiLai = in.nextLong();
+        in.nextLine();
     }
 }

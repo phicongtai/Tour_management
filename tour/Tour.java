@@ -93,11 +93,7 @@ public abstract class Tour {
         in.nextLine();
     }
     public void xuat() {
-    System.out.println("Ma tour: " + maTour);
-    System.out.println("Ten tour: " + tenTour);
-    System.out.println("Diem khoi hanh: " + diemKhoiHanh);
-    System.out.println("Diem den: " + diemDen);
-    System.out.println("So ngay: " + soNgay);
-    System.out.println("Don gia co ban: " + donGiaCoBan);
-};
+        System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s",
+                maTour, tenTour, diemKhoiHanh, diemDen, soNgay, donGiaCoBan);
+    }
 }
