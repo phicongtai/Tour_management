@@ -45,8 +45,8 @@ public class TourTrongNuoc extends Tour {
     @Override
     public void xuat() {
         super.xuat();
-        System.out.println("Vung mien: " + vungMien);
-        System.out.println("Phu phi: " + phuPhi);
+        System.out.printf(" | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                "Trong nuoc", vungMien, phuPhi, "-", "-");
     }
     @Override 
     public void nhap(){

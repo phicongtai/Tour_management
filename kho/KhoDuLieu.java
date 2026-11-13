@@ -12,7 +12,9 @@ import tochuctour.DanhSachPhuongTien;
 import tour.DanhSachTour;
 
 public final class KhoDuLieu {
-    // 8 danh sách tĩnh dùng chung toàn hệ thống
+    private static final Scanner scanner = new Scanner(System.in);
+
+    // 8 danh sach tinh dung chung toan he thong
     private static final DanhSachTour danhSachTour = new DanhSachTour();
     private static final DanhSachNhanVien danhSachNhanVien = new DanhSachNhanVien();
     private static final DanhSachHanhKhach danhSachHanhKhach = new DanhSachHanhKhach();
@@ -21,7 +23,6 @@ public final class KhoDuLieu {
     private static final DanhSachKhachSan danhSachKhachSan = new DanhSachKhachSan();
     private static final DanhSachVe danhSachVe = new DanhSachVe();
     private static final DanhSachHoaDon danhSachHoaDon = new DanhSachHoaDon();
-    private static final Scanner scanner = new Scanner(System.in);
 
     // Private constructor để ngăn tạo đối tượng bên ngoài
     private KhoDuLieu() {

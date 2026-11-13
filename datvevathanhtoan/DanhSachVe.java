@@ -78,31 +78,29 @@ public class DanhSachVe implements DanhSach<Ve> {
         this.danhSach[this.soLuong] = new Ve();
         this.danhSach[this.soLuong].nhap();
         this.soLuong++;
-
+        
         return true;
     }
 
     @Override
     public void xuat() {
-        if(this.danhSach == null){
+        if(danhSach == null){
             return;
         }
-        System.out.println("Danh sách vé: ");
-        for (int i = 0 ; i < this.soLuong ; i++){
+        System.out.println("Danh sach ve: ");
+        for(int i = 0 ; i < this.soLuong; i++){
             this.danhSach[i].xuat();
         }
-        
     }
 
     @Override
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập số lượng vé: ");
+        System.out.print("Nhap so luong ve: ");
         this.soLuong = in.nextInt();
         in.nextLine();
-        this.danhSach = new Ve[this.soLuong];
-        for(int i = 0 ; i < this.soLuong ; i++){
-            System.out.println("Nhập vé thứ " + (i + 1));
+        for(int i = 0 ; i < this.soLuong; i++){
+            System.out.println("Nhap ve thu: " + (i + 1));
             this.danhSach[i] = new Ve();
             this.danhSach[i].nhap();
         }
@@ -110,12 +108,12 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public boolean xoaTheoMa(int maVe) {
-        if(this.danhSach == null || maVe <= 0 ){
+        if(this.danhSach == null || maVe <= 0){
             return false;
         }
         boolean check = false;
         int checkpoint = 0;
-        for(int i = 0 ; i < this.soLuong ; i++){
+        for(int i = 0 ; i < this.soLuong - 1; i++){
             if(this.danhSach[i].getMaVe() == maVe){
                 check = true;
                 checkpoint = i;
@@ -126,7 +124,7 @@ public class DanhSachVe implements DanhSach<Ve> {
         if(!check){
             return false;
         }
-        for(int i = checkpoint ; i < this.soLuong-1 ; i++){
+        for (int i = checkpoint; i < this.soLuong; i++){
             this.danhSach[i] = this.danhSach[i+1];
         }
         this.soLuong--;
@@ -166,23 +164,21 @@ public class DanhSachVe implements DanhSach<Ve> {
         }
         return false;
     }
-
     @Override
     public Ve timTheoMa(int maVe) {
         if (maVe <= 0 || danhSach == null) {
             return null;
         }
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaVe() == maVe) {
-                return danhSach[i];
+        for (int i = 0; i < this.soLuong; i++) {
+            if (maVe == this.danhSach[i].getMaVe()) {
+                return this.danhSach[i];
             }
         }
         return null;
     }
-
     @Override
     public Ve[] layTatCa() {
-        return danhSach == null ? new Ve[0] : Arrays.copyOf(danhSach, gioiHan());
+        return danhSach;
     }
 
     @Override
@@ -252,59 +248,54 @@ public class DanhSachVe implements DanhSach<Ve> {
         if (maDonDatTour <= 0 || danhSach == null) {
             return new Ve[0];
         }
-        Ve[] ketQua = new Ve[gioiHan()];
-        int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
-            if (danhSach[i] != null && danhSach[i].getMaDonDatTour() == maDonDatTour) {
-                ketQua[dem++] = danhSach[i];
+        Ve[] temp = new Ve[0];
+        int tempsize = 0 ;
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(maDonDatTour == this.danhSach[i].getMaDonDatTour()){
+                temp = Arrays.copyOf(temp,tempsize + 1);
+                temp[tempsize] = this.danhSach[i];
+                tempsize++;
             }
         }
-        return Arrays.copyOf(ketQua, dem);
+        return temp;
     }
 
     public int[] layDanhSachMaDonDatTour() {
-        if (danhSach == null || soLuong <= 0) {
-            return new int[0];
-        }
-
-        int[] tam = new int[soLuong];
-        int dem = 0;
-
-        for (int i = 0; i < soLuong; i++) {
-            if (danhSach[i] == null) {
-                continue;
-            }
-
-            int maDonDatTour = danhSach[i].getMaDonDatTour();
-
-            boolean daCo = false;
-            for (int j = 0; j < dem; j++) {
-                if (tam[j] == maDonDatTour) {
-                    daCo = true;
-                    break;
-                }
-            }
-
-            if (!daCo) {
-                tam[dem] = maDonDatTour;
-                dem++;
-            }
-        }
-
-        int[] ketQua = new int[dem];
-        for (int i = 0; i < dem; i++) {
-            ketQua[i] = tam[i];
-        }
-        return ketQua;
+    if (danhSach == null || soLuong <= 0) {
+        return new int[0];
     }
-
+    int[] tam = new int[soLuong];
+    int dem = 0;
+    for (int i = 0; i < soLuong; i++) {
+        if (danhSach[i] == null) {
+            continue;
+        }
+        int maDonDatTour = danhSach[i].getMaDonDatTour();
+        boolean daCo = false;
+        for (int j = 0; j < dem; j++) {
+            if (tam[j] == maDonDatTour) {
+                daCo = true;
+                break;
+            }
+        }
+        if (!daCo) {
+            tam[dem] = maDonDatTour;
+            dem++;
+        }
+    }
+    int[] ketQua = new int[dem];
+    for (int i = 0; i < dem; i++) {
+        ketQua[i] = tam[i];
+    }
+    return ketQua;
+}
     public Ve[] timTheoTrangThai(int trangThai) {
-        if (gioiHan() == 0) {
+        if (soLuong == 0) {
             return new Ve[0];
         }
-        Ve[] ketQua = new Ve[gioiHan()];
+        Ve[] ketQua = new Ve[0];
         int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
+        for (int i = 0; i < this.soLuong; i++) {
             if (danhSach[i] != null && danhSach[i].getTrangThai() == trangThai) {
                 ketQua[dem++] = danhSach[i];
             }
@@ -317,7 +308,7 @@ public class DanhSachVe implements DanhSach<Ve> {
             return 0;
         }
         int dem = 0;
-        for (int i = 0; i < gioiHan(); i++) {
+        for (int i = 0; i < this.soLuong; i++) {
             if (danhSach[i] != null && danhSach[i].getMaKeHoachTour() == maKeHoachTour
                     && danhSach[i].chiemCho()) {
                 dem++;
@@ -325,12 +316,11 @@ public class DanhSachVe implements DanhSach<Ve> {
         }
         return dem;
     }
-
     public boolean daCoVeHopLe(int maKeHoachTour, int maHanhKhach) {
         if (maKeHoachTour <= 0 || maHanhKhach <= 0) {
             return false;
         }
-        for (int i = 0; i < gioiHan(); i++) {
+        for (int i = 0; i < this.soLuong; i++) {
             if (danhSach[i] != null && danhSach[i].getMaKeHoachTour() == maKeHoachTour
                     && danhSach[i].getMaHanhKhach() == maHanhKhach && danhSach[i].chiemCho()) {
                 return true;
@@ -339,17 +329,4 @@ public class DanhSachVe implements DanhSach<Ve> {
         return false;
     }
 
-    // Helper methods
-    private int gioiHan() {
-        return danhSach == null ? 0 : Math.min(soLuong, danhSach.length);
-    }
-
-    private boolean thuocHanhKhach(Ve ve, HanhKhach[] hanhKhachs) {
-        for (HanhKhach hanhKhach : hanhKhachs) {
-            if (hanhKhach != null && hanhKhach.getMaHanhKhach() == ve.getMaHanhKhach()) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

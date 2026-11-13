@@ -86,7 +86,7 @@ public class KeHoachTour {
     }
 
     public ChiTietKeHoachTour[] getChiTietLichTrinh() {
-        return chiTietLichTrinh;
+        return chiTietLichTrinh == null ? new ChiTietKeHoachTour[0] : chiTietLichTrinh;
     }
 
     public void setChiTietLichTrinh(ChiTietKeHoachTour[] chiTietLichTrinh) {
@@ -213,7 +213,9 @@ public class KeHoachTour {
     }
 
     public void xuat(){
-        System.out.println(this.maKeHoachTour + "|" + this.maTour + "|" + this.maNhanVien + "|" + this.ngayDi + "|" + this.ngayVe + "|" + this.soLuongVeToiDa);
+        String tentour = kho.KhoDuLieu.getDanhSachTour().timTheoMa(maTour).getTenTour();
+        String tenNhanvien = kho.KhoDuLieu.getDanhSachNhanVien().timTheoMa(maNhanVien).getHoTen();
+        System.out.printf("%-18s | %-26s | %-18s | %-12s | %-12s | %-18s%n", this.maKeHoachTour, tentour, tenNhanvien, this.ngayDi, this.ngayVe, this.soLuongVeToiDa);
     }
 
     public void nhap(){

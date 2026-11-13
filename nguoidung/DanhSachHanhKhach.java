@@ -2,6 +2,8 @@ package nguoidung;
 
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
+import tochuctour.KhachSan;
+
 import java.util.Scanner;
 import java.util.Arrays;
 import java.io.BufferedReader;
@@ -55,38 +57,42 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
 
     @Override 
     public boolean them() {
-        HanhKhach hk = new HanhKhach();
-        hk.nhap();
-        return this.them(hk);
+        if(this.danhSach == null){
+            this.danhSach = new HanhKhach[0];
+            this.soLuong = 0;
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = new HanhKhach();
+        this.danhSach[this.soLuong].nhap();
+        this.soLuong++;
+        return true;
     }
 
-    @Override
-    public void nhap() {
-        System.out.print("Nhap vao so luong hanh khach: ");
-        this.soLuong = this.sc.nextInt();
-        this.sc.nextLine(); 
-        this.danhSach = new HanhKhach[this.soLuong];
-        for (int i = 0; i < this.soLuong; i++) {
-            System.out.println("Nhap thong tin hanh khach thu " + (i + 1) + ":");
-            this.danhSach[i] = new HanhKhach(); 
+    @Override 
+    public void nhap(){
+        System.out.print("Nhap so luong hanh khach: ");
+        this.soLuong=this.sc.nextInt();
+        this.sc.nextLine();
+        this.danhSach=new HanhKhach[this.soLuong];
+        for(int i=0;i<this.soLuong;i++){
+            System.out.println("Nhap thong tin hanh khach thu "+(i+1)+":");
+            this.danhSach[i]=new HanhKhach();
             this.danhSach[i].nhap();
         }
     }
-
-    @Override
-    public void xuat() {
-        if (this.danhSach == null || this.soLuong == 0) {
+    @Override 
+    public void xuat(){
+        if(this.danhSach==null || this.soLuong==0){
             System.out.println("Danh sach hanh khach trong!");
             return;
         }
-        System.out.println("Danh sach hanh khach:");
-        for (int i = 0; i < this.soLuong; i++) {
-            if (this.danhSach[i] != null) {
+        for(int i=0;i<this.soLuong;i++){
+            if(this.danhSach[i]!=null){
                 this.danhSach[i].xuat();
             }
         }
     }
-
     @Override 
     public HanhKhach timTheoMa(int maHanhKhach) {
         if (this.danhSach == null || this.soLuong <= 0 || maHanhKhach <= 0) return null;
@@ -137,24 +143,22 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
         hk.xuat();
         return true;
     }
-
-    @Override
-    public boolean xoaTheoMa(int maHanhKhach) {
-        if (this.danhSach == null || this.soLuong <= 0 || maHanhKhach <= 0) {
-            return false;
-        }
-        int index = 0;
+    @Override 
+    public boolean xoaTheoMa(int maHanhKhach){
+        if(danhSach==null ||this.soLuong<=0 || maHanhKhach<=0)return false;
+        int index=-1;
         for (int i = 0; i < this.soLuong; i++) {
             if (this.danhSach[i] != null && this.danhSach[i].getMaHanhKhach() == maHanhKhach) {
                 index = i;
                 break;
             }
         }
-        for (int i = index; i < this.soLuong - 1; i++) {
-            this.danhSach[i] = this.danhSach[i + 1];
+        if(index==-1)return false;
+        for(int i=index;i<soLuong-1;i++){
+            this.danhSach[i]=danhSach[i+1];
         }
-        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong - 1);
-        this.soLuong--;
+        this.danhSach=Arrays.copyOf(danhSach,soLuong-1);
+        soLuong--;
         return true;
     }
 
@@ -166,16 +170,16 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
     }
 
     @Override 
-    public boolean docFile(String duongDan) {
-        this.danhSach = new HanhKhach[0];
-        this.soLuong = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
+    public boolean docFile(String duongDan){
+        this.danhSach=new HanhKhach[0];
+        this.soLuong=0;
+        try(BufferedReader reader=new BufferedReader(new FileReader(duongDan))){
             String temp;
-            while ((temp = reader.readLine()) != null) {
-                if (temp.isBlank()) continue;
-                String[] parts = temp.split("\\|");
-                if (parts.length >= 5) {
-                    HanhKhach hk = new HanhKhach(
+            while((temp=reader.readLine())!=null){
+                if(temp.isBlank())continue;
+                String[] parts=temp.split("\\|");
+                if(parts.length>=5){
+                    HanhKhach hk=new HanhKhach(
                         Integer.parseInt(parts[0].trim()),
                         parts[1].trim(),
                         parts[2].trim(),
@@ -186,7 +190,7 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
                 }
             }
             return true;
-        } catch (Exception e) {
+        }catch(Exception e){
             return false;
         }
     }
@@ -210,7 +214,6 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
             return false;
         }
     }
-
     public HanhKhach[] timTheoTen(String hoTen) {
         if (this.danhSach == null || this.soLuong <= 0 || hoTen == null || hoTen.isBlank()) {
             return new HanhKhach[0];

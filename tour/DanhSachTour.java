@@ -52,8 +52,7 @@ public class DanhSachTour implements DanhSach<Tour> {
             this.soLuong = 0;
         }
         for(int i = 0 ; i < this.soLuong ; i++){
-            if(this.danhSach[i].getMaTour() == tour.getMaTour()
-                &&this.danhSach[i].getClass() == tour.getClass() ){
+            if(this.danhSach[i].getMaTour() == tour.getMaTour() ){
             return false;
             }
         }
@@ -97,7 +96,6 @@ public class DanhSachTour implements DanhSach<Tour> {
             System.out.println("Danh sach tour rong!");
             return;
         }
-        System.out.println("Danh sach tour:");
         for(int i=0;i<this.soLuong;i++){
             this.danhSach[i].xuat();
         }

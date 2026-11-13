@@ -11,8 +11,8 @@ import baocao.*;
 import dulieu.*;
 
 public class MenuNguoiDung {
-    static Scanner in = KhoDuLieu.getScanner();
-    static HanhKhach nguoidung;
+    private static Scanner in = KhoDuLieu.getScanner();
+    private static HanhKhach nguoidung;
 
     public static HanhKhach case1(){
         HanhKhach temp1 = new HanhKhach();
@@ -83,6 +83,9 @@ public class MenuNguoiDung {
         }
         switch (chose) {
             case 1:
+                System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                        "Ma Tour", "Ten Tour", "Diem Khoi Hanh", "Diem Den", "So Ngay", "Don Gia Co Ban",
+                        "Loai Tour", "Vung/QuocGia", "Phu Phi", "Can Visa", "Phi Visa");
                 kho.KhoDuLieu.getDanhSachTour().xuat();
                 System.out.println("\n>> Nhấn Enter để tiếp tục...");
                 in.nextLine();
@@ -95,6 +98,9 @@ public class MenuNguoiDung {
                 Tour temp = kho.KhoDuLieu.getDanhSachTour().timTheoMa(ma);
                 System.out.println();
                 if(temp != null){
+                    System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                            "Ma Tour", "Ten Tour", "Diem Khoi Hanh", "Diem Den", "So Ngay", "Don Gia Co Ban",
+                            "Loai Tour", "Vung/QuocGia", "Phu Phi", "Can Visa", "Phi Visa");
                     temp.xuat();
                 }else{
                     System.out.println("Không tìm thấy tour!");
@@ -107,9 +113,11 @@ public class MenuNguoiDung {
                 ten = in.nextLine();
                 Tour[] danhsach = kho.KhoDuLieu.getDanhSachTour().timTheoTen(ten);
                 if(danhsach != null && danhsach.length > 0 && danhsach[0] != null){
+                    System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                            "Ma Tour", "Ten Tour", "Diem Khoi Hanh", "Diem Den", "So Ngay", "Don Gia Co Ban",
+                            "Loai Tour", "Vung/QuocGia", "Phu Phi", "Can Visa", "Phi Visa");
                     for(Tour temptour : danhsach){
                         temptour.xuat();
-                        System.out.println();
                     }
                 }else{
                     System.out.println("Không tồn tại!");
@@ -124,6 +132,116 @@ public class MenuNguoiDung {
         }while(chose < 0 || chose > 3);
     }
 
+    public static void case3(){
+        System.out.print("Vui long nhap ma tour: ");
+        int matour = in.nextInt();
+        Tour t = kho.KhoDuLieu.getDanhSachTour().timTheoMa(matour);
+        if (t == null) {
+            System.out.println(">> Khong tim thay tour co ma: " + matour);
+            return;
+        }
+        System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                "Ma Tour", "Ten Tour", "Diem Khoi Hanh", "Diem Den", "So Ngay", "Don Gia Co Ban",
+                "Loai Tour", "Vung/QuocGia", "Phu Phi", "Can Visa", "Phi Visa");
+        t.xuat();
+        System.out.println();
+        KeHoachTour[] listkehoachtour = kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMaTour(matour);
+        if (listkehoachtour.length == 0) {
+            System.out.println(">> Tour nay hien chua co ke hoach tour nao!");
+            return;
+        }
+        for(KeHoachTour temp : listkehoachtour){
+            System.out.printf("%-18s | %-26s | %-18s | %-12s | %-12s | %-18s%n", "Ma Ke Hoach Tour", "Ten Tour", "Ten Nhan Vien", "Ngay Di", "Ngay Ve", "So Luong Ve Toi Da");
+            temp.xuat();
+            if(temp.getChiTietLichTrinh() != null && temp.getSoLuongChiTiet() > 0){
+                System.out.printf("%-12s | %-22s | %-28s | %-12s | %-12s | %-12s%n", "Ngay", "Phuong Tien", "Khach San", "Tien An", "Tien O", "Tien Di Lai");
+                for(ChiTietKeHoachTour temp2 : temp.getChiTietLichTrinh()){
+                    if(temp2 != null){
+                        temp2.xuat();
+                    }
+                }
+            }else{
+                System.out.println(">> Chua co chi tiet lich trinh cho ke hoach nay.");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void case4(){
+        //các dữ liệu chọn 
+        int matour;
+        int chosekh;
+        // kiểm tra xem coi người dùng đăng nhập hay chưa
+        if(nguoidung == null){
+        System.out.println("Chua dang nhap!");
+        nguoidung = case1();
+        if (nguoidung == null) {
+                return;
+        }
+    }
+
+        System.out.println("Danh sách tour");
+        System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                "Ma Tour", "Ten Tour", "Diem Khoi Hanh", "Diem Den", "So Ngay", "Don Gia Co Ban",
+                "Loai Tour", "Vung/QuocGia", "Phu Phi", "Can Visa", "Phi Visa");
+        kho.KhoDuLieu.getDanhSachTour().xuat();
+        do{
+        System.out.print("Chon tour(nhap ma tour vao): ");
+        matour = in.nextInt();
+        in.nextLine();
+        if(kho.KhoDuLieu.getDanhSachTour().timTheoMa(matour) == null){
+            System.out.println("Ma tour khong ton tai vui long chon lai!");
+        }
+        }while(kho.KhoDuLieu.getDanhSachTour().timTheoMa(matour) == null);
+        KeHoachTour[] dskh = kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMaTour(matour);
+        if(dskh.length == 0){
+            System.out.println("Tour Chưa có kế hoạch vui lòng chọn tour khac!");
+            case4();
+            return;
+        }
+        for(KeHoachTour temp : dskh){
+            System.out.printf("%-18s | %-26s | %-18s | %-12s | %-12s | %-18s%n", "Ma Ke Hoach Tour", "Ten Tour", "Ten Nhan Vien", "Ngay Di", "Ngay Ve", "So Luong Ve Toi Da");
+            temp.xuat();
+            if(temp.getChiTietLichTrinh() != null && temp.getSoLuongChiTiet() > 0){
+                System.out.printf("%-12s | %-22s | %-28s | %-12s | %-12s | %-12s%n", "Ngay", "Phuong Tien", "Khach San", "Tien An", "Tien O", "Tien Di Lai");
+                for(ChiTietKeHoachTour temp2 : temp.getChiTietLichTrinh()){
+                    if(temp2 != null){
+                        temp2.xuat();
+                    }
+                }
+            }
+        }
+            System.out.print("Chon ke hoach tour: ");
+            do{
+                chosekh = in.nextInt();
+                if(kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh) == null || kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh).getMaTour() != matour  ){
+                    System.out.println("khong ton tai ke hoach tour nay!");
+                }
+            }while(kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh) == null || kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh).getMaTour() != matour  );
+            
+            if(KhoDuLieu.getDanhSachVe().daCoVeHopLe(chosekh,nguoidung.getMaHanhKhach())){
+                System.out.print("Ban da dat vé rồi!");
+                return;
+            }
+            // lấy số lượng vé tối đa - số lượng vé đã đặt
+            int soluongvecon = kho.KhoDuLieu.getDanhSachKeHoachTour().timTheoMa(chosekh).getSoLuongVeToiDa() - kho.KhoDuLieu.getDanhSachVe().demVeChiemChoTheoKeHoach(chosekh);
+            if(soluongvecon <= 0){
+                System.out.println("Kế hoạch tour này đã hết chỗ vui lọng chọn tour khoac kế haoch tour khác!");
+                case4();
+                return;
+            }
+            int chosesoluongve;
+            do{
+            System.out.println("chọn số luong vé: ");
+
+            chosesoluongve = in.nextInt();
+            if(chosesoluongve > soluongvecon || chosesoluongve <= 0){
+                System.out.println("Không đủ chỗ! Chỉ còn" + soluongvecon + "chỗ.");
+            }
+            }while(chosesoluongve > soluongvecon || chosesoluongve <= 0);
+
+            
+        }
 
 
     public static void menunguoidung(){
@@ -155,6 +273,9 @@ public class MenuNguoiDung {
                 break;
             case 2:
                 case2();
+                break;
+            case 3:
+                case3();
                 break;
 
             default:
