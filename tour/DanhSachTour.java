@@ -44,15 +44,21 @@ public class DanhSachTour implements DanhSach<Tour> {
     // Methods @Override
     @Override
     public boolean them(Tour tour) {
-        if (tour == null || timTheoMa(tour.getMaTour()) != null)
+        if(tour == null ) {
             return false;
-
-        if (this.danhSach == null) this.danhSach = new Tour[10];
-        if (this.soLuong >= this.danhSach.length)
-            this.danhSach = Arrays.copyOf(this.danhSach,
-                    this.danhSach.length == 0 ? 10 : this.danhSach.length * 2);
-
-        this.danhSach[this.soLuong++] = tour;
+        }
+        if(danhSach == null){
+            this.danhSach = new Tour[0];
+            this.soLuong = 0;
+        }
+        for(int i = 0 ; i < this.soLuong ; i++){
+            if(this.danhSach[i].getMaTour() == tour.getMaTour() ){
+            return false;
+            }
+        }
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = tour;
+        this.soLuong++;
         return true;
     }
 

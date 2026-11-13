@@ -67,7 +67,6 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
             this.danhSach = new KeHoachTour[0];
             this.soLuong = 0;
         }
-
         this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
         this.danhSach[this.soLuong] = new KeHoachTour();
         this.danhSach[this.soLuong].nhap();

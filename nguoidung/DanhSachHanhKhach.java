@@ -2,6 +2,8 @@ package nguoidung;
 
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
+import tochuctour.KhachSan;
+
 import java.util.Scanner;
 import java.util.Arrays;
 import java.io.BufferedReader;
@@ -55,9 +57,16 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
 
     @Override 
     public boolean them() {
-        HanhKhach hk = new HanhKhach();
-        hk.nhap();
-        return this.them(hk);
+        if(this.danhSach == null){
+            this.danhSach = new HanhKhach[0];
+            this.soLuong = 0;
+        }
+
+        this.danhSach = Arrays.copyOf(this.danhSach, this.soLuong + 1);
+        this.danhSach[this.soLuong] = new HanhKhach();
+        this.danhSach[this.soLuong].nhap();
+        this.soLuong++;
+        return true;
     }
 
     @Override 
@@ -205,7 +214,6 @@ public class DanhSachHanhKhach implements DanhSach<HanhKhach> {
             return false;
         }
     }
-
     public HanhKhach[] timTheoTen(String hoTen) {
         if (this.danhSach == null || this.soLuong <= 0 || hoTen == null || hoTen.isBlank()) {
             return new HanhKhach[0];
