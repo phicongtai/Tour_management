@@ -26,7 +26,7 @@ public class Ve {
     }
 
     public Ve(int maVe, int maDonDatTour, int maNguoiDat, int maKeHoachTour,
-              int maHanhKhach, String ngayDat, long donGia, int trangThai) {
+            int maHanhKhach, String ngayDat, long donGia, int trangThai) {
         this.maVe = maVe;
         this.maDonDatTour = maDonDatTour;
         this.maNguoiDat = maNguoiDat;

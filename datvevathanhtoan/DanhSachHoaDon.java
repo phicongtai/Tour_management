@@ -292,4 +292,16 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
     }
     return Arrays.copyOf(ketQua, dem);
 }
+
+    public int getmamoi(){
+        int temp = 0;
+        if(this.danhSach != null){
+            for(int i = 0 ; i < this.soLuong ; i++){
+                if(this.danhSach[i] != null && temp < this.danhSach[i].getMaHoaDon()){
+                    temp = this.danhSach[i].getMaHoaDon();
+                }
+            }
+        }
+        return temp + 1;
+    }
 }
