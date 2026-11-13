@@ -304,4 +304,21 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         }
         return temp + 1;
     }
+
+    public HoaDon taoHoaDonChoDon(int maDonDatTour, int maNhanVien, String ngayLap,
+            int[] dsMaVe, DanhSachVe dsVe) {
+        if (maDonDatTour <= 0 || maNhanVien <= 0 || dsMaVe == null || dsMaVe.length == 0
+                || dsVe == null) {
+            return null;
+        }
+
+        HoaDon hoaDon = new HoaDon(getmamoi(), maDonDatTour, maNhanVien, ngayLap);
+        for (int i = 0; i < dsMaVe.length; i++) {
+            hoaDon.themVeVaoChiTiet(dsMaVe[i], dsVe);
+        }
+        if (!them(hoaDon)) {
+            return null;
+        }
+        return hoaDon;
+    }
 }

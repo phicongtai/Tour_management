@@ -359,4 +359,48 @@ public class DanhSachVe implements DanhSach<Ve> {
         }
         return temp + 1;
     }
+
+    // 0 = hợp lệ, 1 = không tồn tại, 2 = trùng trong đơn, 3 = đã có vé ở kế hoạch này
+    public int kiemTraHanhKhachHopLe(int maKeHoach, int maHK, int[] dsDaChon, int soDaChon, DanhSachHanhKhach dsHK) {
+        if (maKeHoach <= 0 || maHK <= 0 || dsHK == null) {
+            return 1;
+        }
+        if (dsHK.timTheoMa(maHK) == null) {
+            return 1;
+        }
+        if (dsDaChon != null) {
+            int soPhanTu = Math.min(soDaChon, dsDaChon.length);
+            for (int i = 0; i < soPhanTu; i++) {
+                if (dsDaChon[i] == maHK) {
+                    return 2;
+                }
+            }
+        }
+        if (daCoVeHopLe(maKeHoach, maHK)) {
+            return 3;
+        }
+        return 0;
+    }
+
+    public int[] taoNhieuVe(int maDonDatTour, int maNguoiDat, int maKeHoach,
+            int[] dsMaHK, String ngayDat, long donGia) {
+        if (maDonDatTour <= 0 || maNguoiDat <= 0 || maKeHoach <= 0
+                || dsMaHK == null || dsMaHK.length == 0 || donGia < 0) {
+            return new int[0];
+        }
+
+        int[] dsMaVeMoi = new int[0];
+        for (int i = 0; i < dsMaHK.length; i++) {
+            if (dsMaHK[i] <= 0) {
+                continue;
+            }
+            Ve ve = new Ve(getmamoi(), maDonDatTour, maNguoiDat, maKeHoach,
+                    dsMaHK[i], ngayDat, donGia, Ve.DA_DAT);
+            if (them(ve)) {
+                dsMaVeMoi = Arrays.copyOf(dsMaVeMoi, dsMaVeMoi.length + 1);
+                dsMaVeMoi[dsMaVeMoi.length - 1] = ve.getMaVe();
+            }
+        }
+        return dsMaVeMoi;
+    }
 }
