@@ -122,6 +122,7 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
             this.danhSach[i] = this.danhSach[i+1];
         }
         this.soLuong--;
+        
         return true;
     }
 

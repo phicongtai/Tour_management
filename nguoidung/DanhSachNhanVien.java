@@ -143,13 +143,14 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         if (this.danhSach == null || this.soLuong <= 0 || maNhanVien <= 0) {
             return false;
         }
-        int index = 0;
+        int index = -1;
         for (int i = 0; i < this.soLuong; i++) {
             if (this.danhSach[i] != null && this.danhSach[i].getMaNhanVien() == maNhanVien) {
                 index = i;
                 break;
             }
         }
+        if(index==-1)return false;
         for (int i = index; i < this.soLuong - 1; i++) {
             this.danhSach[i] = this.danhSach[i + 1];
         }
