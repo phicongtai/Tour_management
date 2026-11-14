@@ -1,5 +1,9 @@
 package tour;
 
+import java.util.Scanner;
+
+import kho.KhoDuLieu;
+
 public abstract class Tour {
     private int maTour;
     private String tenTour;

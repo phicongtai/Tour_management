@@ -109,6 +109,7 @@ public class DanhSachTour implements DanhSach<Tour> {
             System.out.println("Nhap tour thu: "+ (i+1));
             System.out.println("Nhap loai tour (1: Trong nuoc, 2: Nuoc ngoai):");
             int loaiTour=in.nextInt();
+            in.nextLine();
             if(loaiTour==1){
                 this.danhSach[i]=new TourTrongNuoc();
             }
@@ -121,7 +122,7 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     @Override
     public boolean xoaTheoMa(int maTour) {
-        if (this.danhSach == null) return false;
+        if (this.danhSach == null||maTour<=0) return false;
 
         for (int i = 0; i < this.soLuong; i++) {
             if (this.danhSach[i] != null
@@ -146,7 +147,7 @@ public class DanhSachTour implements DanhSach<Tour> {
         if(tour == null){
             return false;
         }
-        System.out.println("Thong tin tour goc la: " + tour);
+        System.out.println("Thong tin tour goc la: ");
         tour.xuat();
         System.out.println("Chinh sua ten tour: ");
         String tenTour=in.nextLine();
@@ -320,12 +321,10 @@ public class DanhSachTour implements DanhSach<Tour> {
         if (this.danhSach == null || tenTour == null || tenTour.trim().isEmpty())
             return new Tour[0];
 
-        String tuKhoa = tenTour.trim().toLowerCase();
         Tour[] ketQua = new Tour[0];
         int index = 0;
         for (int i = 0; i < this.soLuong; i++) {
-            if (this.danhSach[i] != null && this.danhSach[i].getTenTour() != null
-                    && this.danhSach[i].getTenTour().toLowerCase().contains(tuKhoa))
+            if ( this.danhSach[i].getTenTour().toLowerCase().equals(tenTour.toLowerCase()) )
             {
                 ketQua = Arrays.copyOf(ketQua, index + 1);
                 ketQua[index] = this.danhSach[i];
