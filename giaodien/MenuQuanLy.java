@@ -15,6 +15,7 @@ public class MenuQuanLy {
             System.out.println("3. Quản lý hành khách");
             System.out.println("4. Quản lý phương tiện");
             System.out.println("5. Quản lý khách sạn");
+            System.out.println("6. Quản lý kế hoạch tour");
             System.out.println("0. Quay lại");
             System.out.println("==============================================");
             System.out.print("Chọn: ");
@@ -36,6 +37,9 @@ public class MenuQuanLy {
                     break;
                 case 5:
                     Quanlykhachsan.mainQuanlykhachsan();
+                    break;
+                case 6:
+                    Quanlykehoachtour.mainQuanlykehoachtour();
                     break;
                 case 0:
                     System.out.println("Quay lại menu chính...");
