@@ -44,13 +44,25 @@ public class TourTrongNuoc extends Tour {
     }
     @Override
     public void xuat() {
-        super.xuat();
-        System.out.println(this.vungMien +"|"+ this.phuPhi);
+        System.out.println(getMaTour() +"|"+getTenTour()+"|"+getDiemKhoiHanh()+"|"+getDiemDen()+"|"+getSoNgay()+"|"+getDonGiaCoBan()+
+        "|"+this.vungMien+"|"+this.phuPhi);
     }
     @Override 
     public void nhap(){
-        super.nhap();
         Scanner in = KhoDuLieu.getScanner();
+        setMaTour(KhoDuLieu.getDanhSachTour().getMaMoi());
+        System.out.println("Ma tour (tu dong): " + getMaTour());
+        System.out.println("Nhap ten tour: ");
+        setTenTour(in.nextLine());
+        System.out.println("Nhap diem khoi hanh:");
+        setDiemKhoiHanh(in.nextLine());
+        System.out.println("Nhap diem den: ");
+        setDiemDen(in.nextLine());
+        System.out.println("Nhap so ngay: ");
+        setSoNgay(in.nextInt());
+        System.out.println("Nhap don gia co ban: ");
+        setDonGiaCoBan(in.nextLong());
+        in.nextLine();
         System.out.println("Nhap vung mien:");
         this.vungMien=in.nextLine();
         System.out.println("Nhap phu phi:");
