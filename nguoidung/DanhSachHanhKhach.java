@@ -2,8 +2,6 @@ package nguoidung;
 
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
-import tochuctour.KhachSan;
-
 import java.util.Scanner;
 import java.util.Arrays;
 import java.io.BufferedReader;
