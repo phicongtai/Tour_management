@@ -75,24 +75,6 @@ public abstract class Tour {
     public long tinhGiaVe(){
     return donGiaCoBan;
     }
-    public void nhap(){
-        Scanner in = new Scanner(System.in);
-        this.maTour = kho.KhoDuLieu.getDanhSachTour().getMaMoi();
-        System.out.println("Ma tour (tu dong): " + this.maTour);
-        System.out.println("Nhap ten tour:");
-        this.tenTour=in.nextLine();
-        System.out.println("Nhap diem khoi hanh:");
-        this.diemKhoiHanh=in.nextLine();
-        System.out.println("Nhap diem den:");
-        this.diemDen=in.nextLine();
-        System.out.println("Nhap so ngay:");
-        this.soNgay=in.nextInt();
-        System.out.println("Nhap don gia co ban:");
-        this.donGiaCoBan=in.nextLong();
-        in.nextLine();
-    }
-    public void xuat() {
-        System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s",
-                maTour, tenTour, diemKhoiHanh, diemDen, soNgay, donGiaCoBan);
-    }
+    public abstract void nhap();
+    public abstract void xuat();
 }
