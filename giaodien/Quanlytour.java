@@ -21,7 +21,7 @@ public class Quanlytour {
         do {
             System.out.println("\n================ QUẢN LÝ TOUR ================");
             System.out.println("1. Xem danh sách\n2.Thêm\n3. Tìm theo mã\n4. Tìm theo tên");
-            System.out.println("5. Sửa\n6. Xóa\n7. Nhập nhiều\n8. Xem giá vé");
+            System.out.println("5. Sửa\n6. Xóa\n7. Nhập nhiều");
             System.out.println("0. Quay lại");
             System.out.println("==============================================");
             System.out.print("Chọn: ");
@@ -67,30 +67,106 @@ public class Quanlytour {
                     do{
                     System.out.print("Vui long nhap ma cam tim: ");
                     ma = in.nextInt();
-                    if(kho.KhoDuLieu.getDanhSachTour().timTheoMa(ma) == null){
+                    in.nextLine();
+                    temp1 = kho.KhoDuLieu.getDanhSachTour().timTheoMa(ma);
+                    if(temp1 == null){
                         System.out.println("Ma khong ton tai vui long nhap lai!");
-                    }else{
-                        temp1 = kho.KhoDuLieu.getDanhSachTour().timTheoMa(ma);
                     }
-                }while(kho.KhoDuLieu.getDanhSachTour().timTheoMa(ma) == null);
-                    System.out.println("\n-------- TOUR --------");
+                }while(temp1 == null);
+                    System.out.println("\n-------- KET QUA TIM KIEM --------");
+                    inTieuDeBangTour();
                     temp1.xuat();
-                    
+                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    in.nextLine();
                     break;
                 case 4:
-                    // TODO: Tìm tour theo tên
+                    System.out.println("\n-------- TIM THEO TEN --------");
+                    String ten;
+                    Tour[] dsKetQua;
+                    do {
+                        System.out.print("Vui long nhap ten tour can tim: ");
+                        ten = in.nextLine();
+                        dsKetQua = KhoDuLieu.getDanhSachTour().timTheoTen(ten);
+                        if (dsKetQua.length == 0) {
+                            System.out.println("Ten tour khong ton tai vui long nhap lai!");
+                        }
+                    } while (dsKetQua.length == 0);
+                    System.out.println("\n-------- KET QUA TIM KIEM --------");
+                    inTieuDeBangTour();
+                    for (Tour t : dsKetQua) {
+                        t.xuat();
+                    }
+                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    in.nextLine();
                     break;
                 case 5:
-                    // TODO: Sửa tour
+                    System.out.println("\n-------- TIM THEO MA --------");
+                    int ma1;
+                    Tour temp2;
+                    do{
+                    System.out.print("Vui long nhap ma tour can chinh sua: ");
+                    ma1 = in.nextInt();
+                    in.nextLine();
+                    temp2 = kho.KhoDuLieu.getDanhSachTour().timTheoMa(ma1);
+                    if(temp2 == null){
+                        System.out.println("Ma khong ton tai vui long nhap lai!");
+                    }
+                }while(temp2 == null);
+                    System.out.println("\n-------- THONG TIN BAN DAU --------");
+                    inTieuDeBangTour();
+                    temp2.xuat();
+                    System.out.println("\n-------- CHINH SUA THONG TIN --------");
+                    kho.KhoDuLieu.getDanhSachTour().suaTheoMa(ma1);
+                    System.out.println("\n-------- THONG TIN SAU KHI SUA --------");
+                    inTieuDeBangTour();
+                    temp2.xuat();
+                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    in.nextLine();
                     break;
                 case 6:
-                    // TODO: Xóa tour
+                    System.out.println("\n-------- XOA THEO MA --------");
+                    int ma2;
+                    Tour temp3;
+                    do{
+                    System.out.print("Vui long nhap ma cam xoa: ");
+                    ma2 = in.nextInt();
+                    in.nextLine();
+                    temp3 = kho.KhoDuLieu.getDanhSachTour().timTheoMa(ma2);
+                    if(temp3 == null){
+                        System.out.println("Ma khong ton tai vui long nhap lai!");
+                    }
+                }while(temp3 == null);
+                    kho.KhoDuLieu.getDanhSachTour().xoaTheoMa(ma2);
+                    System.out.println("XOA THANH CONG!");
+                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    in.nextLine();
                     break;
                 case 7:
-                    // TODO: Nhập nhiều tour
-                    break;
-                case 8:
-                    // TODO: Xem giá vé tour
+                    System.out.println("\n-------- NHAP NHIEU TOUR --------");
+                    System.out.print("Nhap so luong tour can them: ");
+                    int soLuongThem = in.nextInt();
+                    in.nextLine();
+                    if (soLuongThem <= 0) {
+                        System.out.println("So luong phai lon hon 0!");
+                        break;
+                    }
+                    int viTriBatDau = KhoDuLieu.getDanhSachTour().getSoLuong();
+                    for (int i = 0; i < soLuongThem; i++) {
+                        System.out.println("\n--- Nhap tour thu " + (i + 1) + "/" + soLuongThem + " ---");
+                        if (!KhoDuLieu.getDanhSachTour().them()) {
+                            i--;
+                        }
+                    }
+                    System.out.println("\nDA THEM THANH CONG " + soLuongThem + " TOUR:");
+                    inTieuDeBangTour();
+                    Tour[] dsTour = KhoDuLieu.getDanhSachTour().getDanhSach();
+                    for (int i = viTriBatDau; i < KhoDuLieu.getDanhSachTour().getSoLuong(); i++) {
+                        if (dsTour[i] != null) {
+                            dsTour[i].xuat();
+                        }
+                    }
+                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    in.nextLine();
                     break;
                 case 0:
                     System.out.println("Quay lại menu quản lý...");
