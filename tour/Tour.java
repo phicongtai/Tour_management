@@ -1,5 +1,9 @@
 package tour;
 
+import java.util.Scanner;
+
+import kho.KhoDuLieu;
+
 public abstract class Tour {
     private int maTour;
     private String tenTour;
@@ -71,6 +75,23 @@ public abstract class Tour {
     public long tinhGiaVe(){
     return donGiaCoBan;
     }
-    public abstract void nhap();
-    public abstract void xuat();
+    public void nhap(){
+        Scanner in = KhoDuLieu.getScanner();
+        setMaTour(KhoDuLieu.getDanhSachTour().getMaMoi());
+        System.out.println("Ma tour (tu dong): " + getMaTour());
+        System.out.println("Nhap ten tour:");
+        setTenTour(in.nextLine());
+        System.out.println("Nhap diem khoi hanh:");
+        setDiemKhoiHanh(in.nextLine());
+        System.out.println("Nhap diem den:");
+        setDiemDen(in.nextLine());
+        System.out.println("Nhap so ngay:");
+        setSoNgay(in.nextInt());
+        System.out.println("Nhap don gia co ban:");
+        setDonGiaCoBan(in.nextLong());
+        in.nextLine();
+    }
+    public void xuat(){
+        System.out.print(this.maTour +"|"+ this.tenTour +"|"+ this.diemKhoiHanh +"|"+ this.diemDen +"|"+ this.soNgay +"|"+ this.donGiaCoBan+"|");
+    }
 }

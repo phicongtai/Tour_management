@@ -112,6 +112,7 @@ public class DanhSachTour implements DanhSach<Tour> {
             System.out.println("Nhap tour thu: "+ (i+1));
             System.out.println("Nhap loai tour (1: Trong nuoc, 2: Nuoc ngoai):");
             int loaiTour=in.nextInt();
+            in.nextLine();
             if(loaiTour==1){
                 this.danhSach[i]=new TourTrongNuoc();
             }
@@ -149,7 +150,7 @@ public class DanhSachTour implements DanhSach<Tour> {
         if(tour == null){
             return false;
         }
-        System.out.println("Thong tin tour goc la: " + tour);
+        System.out.println("Thong tin tour goc la: ");
         tour.xuat();
         System.out.println("Chinh sua ten tour: ");
         String tenTour=in.nextLine();
