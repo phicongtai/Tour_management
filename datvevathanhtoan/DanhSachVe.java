@@ -337,27 +337,27 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
 
     public int getmamoi(){
-        int temp = 0;
+        int tempsize = 0;
         if(this.danhSach != null){
             for(int i = 0 ; i < this.soLuong; i++){
-                if(this.danhSach[i] != null && temp < this.danhSach[i].getMaVe()){
-                    temp = this.danhSach[i].getMaVe();
+                if(this.danhSach[i] != null && tempsize < this.danhSach[i].getMaVe()){
+                    tempsize = this.danhSach[i].getMaVe();
                 }
             }
         }
-        return temp + 1;
+        return tempsize + 1;
     }
 
     public int getmadondattourmoi(){
-        int temp = 0;
+        int tempsize = 0;
         if(this.danhSach != null){
             for(int i = 0 ; i < this.soLuong ; i++){
-                if(this.danhSach[i] != null && this.danhSach[i].getMaDonDatTour() > temp){
-                    temp = this.danhSach[i].getMaDonDatTour();
+                if(this.danhSach[i] != null && this.danhSach[i].getMaDonDatTour() > tempsize){
+                    tempsize = this.danhSach[i].getMaDonDatTour();
                 }
             }
         }
-        return temp + 1;
+        return tempsize + 1;
     }
 
     // 0 = hợp lệ, 1 = không tồn tại, 2 = trùng trong đơn, 3 = đã có vé ở kế hoạch này
