@@ -176,7 +176,7 @@ public class Quanlyve {
                             }
 
                             String trangThaiNhom = KhoDuLieu.getDanhSachVe().layTrangThaiNhom(maDon);
-                            System.out.printf("%-10d | %-20s | %-25s | %-12s | %-8d | %-15s | %-25s%n",
+                            System.out.printf("%-10d | %-24s | %-26s | %-12s | %-8d | %-15s | %-25s%n",
                                     maDon,
                                     tenNguoiDat,
                                     tenTour,

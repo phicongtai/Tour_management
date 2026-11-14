@@ -63,8 +63,9 @@ public class TourNuocNgoai extends Tour {
     }
     @Override
     public void xuat() {
-        System.out.println(getMaTour() +"|"+getTenTour()+"|"+getDiemKhoiHanh()+"|"+getDiemDen()+"|"+getSoNgay()+"|"+getDonGiaCoBan()
-    +"|"+this.quocGia+"|"+this.canVisa+"|"+this.phiVisa);
+        System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                getMaTour(), getTenTour(), getDiemKhoiHanh(), getDiemDen(), getSoNgay(), getDonGiaCoBan(),
+                "Nuoc ngoai", this.quocGia, "-", this.canVisa, this.phiVisa);
     }
     @Override
     public void nhap() {

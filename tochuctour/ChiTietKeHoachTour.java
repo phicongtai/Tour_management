@@ -81,7 +81,7 @@ public class ChiTietKeHoachTour {
     public void xuat() {
         String pt = kho.KhoDuLieu.getDanhSachPhuongTien().timTheoMa(this.maPhuongTien).getTenPhuongTien();
         String ks = kho.KhoDuLieu.getDanhSachKhachSan().timTheoMa(maKhachSan).getTenKhachSan();
-        System.out.printf("%-12s | %-22s | %-28s | %-12s | %-12s | %-12s%n", this.ngay, pt, ks, this.tienAn, this.tienO, this.tienDiLai);
+        System.out.printf("%-12s | %-25s | %-30s | %-12s | %-12s | %-12s%n", this.ngay, pt, ks, this.tienAn, this.tienO, this.tienDiLai);
     }
 
     public void nhap() {

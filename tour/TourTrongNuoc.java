@@ -44,8 +44,9 @@ public class TourTrongNuoc extends Tour {
     }
     @Override
     public void xuat() {
-        System.out.println(getMaTour() +"|"+getTenTour()+"|"+getDiemKhoiHanh()+"|"+getDiemDen()+"|"+getSoNgay()+"|"+getDonGiaCoBan()+
-        "|"+this.vungMien+"|"+this.phuPhi);
+        System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
+                getMaTour(), getTenTour(), getDiemKhoiHanh(), getDiemDen(), getSoNgay(), getDonGiaCoBan(),
+                "Trong nuoc", this.vungMien, this.phuPhi, "-", "-");
     }
     @Override 
     public void nhap(){

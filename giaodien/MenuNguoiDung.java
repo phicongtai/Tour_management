@@ -22,7 +22,7 @@ public class MenuNguoiDung {
             if (v != null) {
                 HanhKhach hk = KhoDuLieu.getDanhSachHanhKhach().timTheoMa(v.getMaHanhKhach());
                 String tenHK = (hk != null) ? hk.getHoTen() : "Khong ro";
-                System.out.printf("%-6d | %-8d | %-8d | %-22s | %-12s | %-12d | %-15s%n",
+                System.out.printf("%-6d | %-8d | %-8d | %-24s | %-12s | %-12d | %-15s%n",
                         v.getMaVe(),
                         v.getMaKeHoachTour(),
                         v.getMaHanhKhach(),

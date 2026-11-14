@@ -52,7 +52,7 @@ public class KhachSan {
     }
 
     public void xuat() {
-        System.out.printf("%-15s | %-28s | %-18s | %-18s%n",
+        System.out.printf("%-15s | %-30s | %-18s | %-18s%n",
                 this.maKhachSan, this.tenKhachSan, this.giaOMoiNguoiMoiDem, this.giaAnMoiNguoiMoiNgay);
     }
 
