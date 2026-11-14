@@ -40,7 +40,7 @@ public class TourTrongNuoc extends Tour {
     // Methods @Override
     @Override
     public long tinhGiaVe() {
-        return getDonGiaCoBan() + phuPhi;
+        return getDonGiaCoBan() + getPhuPhi();
     }
     @Override
     public void xuat() {
