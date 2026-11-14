@@ -84,12 +84,14 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public void xuat() {
-        if(danhSach == null){
+        if(danhSach == null || this.soLuong == 0){
+            System.out.println("Danh sach ve trong!");
             return;
         }
-        System.out.println("Danh sach ve: ");
         for(int i = 0 ; i < this.soLuong; i++){
-            this.danhSach[i].xuat();
+            if(this.danhSach[i] != null){
+                this.danhSach[i].xuat();
+            }
         }
     }
 
@@ -144,27 +146,29 @@ public class DanhSachVe implements DanhSach<Ve> {
         if(temp == null ){
             return false;
         }
-        System.out.println("Thông tin vé là");
+        System.out.println("Thong tin ve la");
         temp.xuat();
         
-        System.out.print("Sửa ngày đặt: ");
+        System.out.print("Sua ngay dat: ");
         String ngaydat = in.nextLine();
         if(!ngaydat.isBlank()){
         temp.setNgayDat(ngaydat);
         }
 
-        System.out.print("Sữa đơn giá: ");
+        System.out.print("Sua don gia: ");
         long dongia = in.nextLong();
+        in.nextLine();
         if(dongia > 0){
         temp.setDonGia(dongia);
         }
 
         System.out.print("Sua trang thai: ");
         int trangThai = in.nextInt();
+        in.nextLine();
         if(trangThai > 0){
         temp.setTrangThai(trangThai);
         }
-        return false;
+        return true;
     }
     @Override
     public Ve timTheoMa(int maVe) {
@@ -360,7 +364,7 @@ public class DanhSachVe implements DanhSach<Ve> {
         return tempsize + 1;
     }
 
-    // 0 = hợp lệ, 1 = không tồn tại, 2 = trùng trong đơn, 3 = đã có vé ở kế hoạch này
+    // 0 = hop le, 1 = khong ton tai, 2 = trung trong don, 3 = da co ve o ke hoach nay
     public int kiemTraHanhKhachHopLe(int maKeHoach, int maHK, int[] dsDaChon, int soDaChon, DanhSachHanhKhach dsHK) {
         if (maKeHoach <= 0 || maHK <= 0 || dsHK == null) {
             return 1;
@@ -450,9 +454,9 @@ public class DanhSachVe implements DanhSach<Ve> {
             return "Khong co ve";
         }
         if (daHuy == tong) {
-            return "Đã hủy toàn bộ";
+            return "Da huy toan bo";
         }
-        return daThanhToan + "/" + tong + " vé đã thanh toán";
+        return daThanhToan + "/" + tong + " ve da thanh toan";
     }
 
     public int huyNhomVe(int maDonDatTour) {

@@ -83,24 +83,26 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public void xuat() {
-        if(this.danhSach == null){
+        if(this.danhSach == null || this.soLuong == 0){
+            System.out.println("Danh sach hoa don trong!");
             return;
         }
-        System.out.println("Danh sách hoa don: ");
         for (int i = 0 ; i < this.soLuong ; i++){
-            this.danhSach[i].xuat();
+            if(this.danhSach[i] != null){
+                this.danhSach[i].xuat();
+            }
         }
     }
 
     @Override
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập số lượng vé: ");
+        System.out.print("Nhap so luong ve: ");
         this.soLuong = in.nextInt();
         in.nextLine();
         this.danhSach = new HoaDon[this.soLuong];
         for(int i = 0 ; i < this.soLuong ; i++){
-            System.out.println("Nhập vé thứ " + (i + 1));
+            System.out.println("Nhap ve thu " + (i + 1));
             this.danhSach[i] = new HoaDon();
             this.danhSach[i].nhap();
         }
@@ -142,16 +144,16 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         if(temp == null ){
             return false;
         }
-        System.out.println("Thông tin hóa đơn là");
+        System.out.println("Thong tin hoa don la");
         temp.xuat();
         
-        System.out.print("Sửa ngày lập: ");
+        System.out.print("Sua ngay lap: ");
         String ngaylap = in.nextLine();
         if(!ngaylap.isBlank()){
         temp.setNgayLap(ngaylap);
         }
 
-        System.out.print("Sữa số tiền đã thanh toán: ");
+        System.out.print("Sua so tien da thanh toan: ");
         long soTienDaThanhToan = in.nextInt();
         if(soTienDaThanhToan > 0){
         temp.setSoTienDaThanhToan(soTienDaThanhToan);
@@ -278,7 +280,7 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         return new HoaDon[0];
     }
 
-    HoaDon[] ketQua = new HoaDon[0];
+    HoaDon[] ketQua = new HoaDon[this.soLuong];
     int dem = 0;
     for (int i = 0; i < this.soLuong; i++) {
         HoaDon hoaDon = this.danhSach[i];

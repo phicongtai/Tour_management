@@ -86,7 +86,6 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
             System.out.println("Danh sach nhan vien trong!");
             return;
         }
-        System.out.println("Danh sach nhan vien:");
         for (int i = 0; i < this.soLuong; i++) {
             if (this.danhSach[i] != null) {
                 this.danhSach[i].xuat();

@@ -4,3 +4,7 @@ TRONG_NUOC|3|Nghi duong Phu Quoc|TP.HCM|Phu Quoc|3|4200000|Mien Nam|500000
 NUOC_NGOAI|4|Tour Bangkok Pattaya|TP.HCM|Thai Lan|5|6500000|Thai Lan|false|0
 NUOC_NGOAI|5|Kham pha Tokyo mua thu|Ha Noi|Nhat Ban|6|25000000|Nhat Ban|true|1500000
 NUOC_NGOAI|6|Seoul Nami Everland|TP.HCM|Han Quoc|5|14500000|Han Quoc|true|1200000
+TRONG_NUOC|7|Di san Hue Da Nang|Da Nang|Hue|3|3200000|Mien Trung|250000
+TRONG_NUOC|8|Bien xanh Nha Trang|TP.HCM|Nha Trang|3|3500000|Mien Trung|300000
+NUOC_NGOAI|9|Kham pha Singapore|TP.HCM|Singapore|4|12500000|Singapore|false|0
+NUOC_NGOAI|10|Dai Loan dai lo|Ha Noi|Dai Loan|5|13800000|Dai Loan|true|800000

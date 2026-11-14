@@ -103,34 +103,37 @@ public class Ve {
         this.trangThai = trangThai;
     }
 
+
     public void nhap(){
         Scanner in = KhoDuLieu.getScanner();
         this.maVe = KhoDuLieu.getDanhSachVe().getmamoi();
-        System.out.println("Mã vé (tự động): " + this.maVe);
-        System.out.print("Nhập mã đơn đặt tour: ");
+        System.out.println("Ma ve (tu dong): " + this.maVe);
+        System.out.print("Nhap ma don dat tour: ");
         this.maDonDatTour = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập mã người đặt: ");
+        System.out.print("Nhap ma nguoi dat: ");
         this.maNguoiDat = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập mã kế hoạch tour: ");
+        System.out.print("Nhap ma ke hoach tour: ");
         this.maKeHoachTour = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập mã hành khách: ");
+        System.out.print("Nhap ma hanh khach: ");
         this.maHanhKhach = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập ngày đặt: ");
+        System.out.print("Nhap ngay dat: ");
         this.ngayDat = in.nextLine();
-        System.out.print("Nhập đơn giá: ");
+        System.out.print("Nhap don gia: ");
         this.donGia = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập trạng thái: ");
+        System.out.print("Nhap trang thai: ");
         this.trangThai = in.nextInt();
         in.nextLine();
     }
 
-        public void xuat(){
-        System.out.println(this.maVe + "|" + this.maDonDatTour + "|" + this.maNguoiDat + "|" + this.maKeHoachTour + "|" + this.maHanhKhach + "|" + this.ngayDat + "|" + this.donGia + "|" + "|" + this.trangThai + "|");
+    public void xuat() {
+        System.out.printf("%-6s | %-8s | %-12s | %-12s | %-13s | %-12s | %-12s | %-15s%n",
+                this.maVe, this.maDonDatTour, this.maNguoiDat, this.maKeHoachTour,
+                this.maHanhKhach, this.ngayDat, this.donGia, layTenTrangThai());
     }
 
     public boolean chiemCho() {

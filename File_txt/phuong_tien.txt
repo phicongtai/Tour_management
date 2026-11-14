@@ -2,3 +2,9 @@
 2|Xe Limousine 16 cho|16|250000
 3|Xe Ford Transit 16 cho|16|180000
 4|Xe Thaco 29 cho|29|200000
+5|Xe giuong nam 40 cho|40|220000
+6|Xe DCar VIP 9 cho|9|320000
+7|May bay Vietnam Airlines|180|1200000
+8|May bay Vietjet Air|180|850000
+9|Tau cao toc Phu Quoc|150|350000
+10|Du thuyen Ha Long 5 sao|80|950000

@@ -6,41 +6,36 @@ import nguoidung.HanhKhach;
 import java.util.Scanner;
 
 public class Quanlyhanhkhach {
-    private static void inTieuDeBangHanhKhach() {
-        System.out.println("Ma HK | Ho Ten | Ngay Sinh | Gioi Tinh (0:Nu, 1:Nam) | So Dien Thoai");
-        System.out.println("---------------------------------------------------------------------");
-    }
-
     public static void mainQuanlyhanhkhach() {
         Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
-            System.out.println("\n================ QUẢN LÝ HÀNH KHÁCH ================");
-            System.out.println("1. Xem danh sách\n2. Thêm\n3. Tìm theo mã\n4. Tìm theo tên");
-            System.out.println("5. Sửa\n6. Xóa\n7. Nhập nhiều");
-            System.out.println("0. Quay lại");
+            System.out.println("\n================ QUAN LY HANH KHACH ================");
+            System.out.println("1. Xem danh sach\n2. Them\n3. Tim theo ma\n4. Tim theo ten");
+            System.out.println("5. Sua\n6. Xoa\n7. Nhap nhieu");
+            System.out.println("0. Quay lai");
             System.out.println("====================================================");
-            System.out.print("Chọn: ");
+            System.out.print("Chon: ");
             chose = in.nextInt();
             in.nextLine();
 
             switch (chose) {
                 case 1:
-                    System.out.println("\n-------- DANH SÁCH TẤT CẢ HÀNH KHÁCH --------");
-                    inTieuDeBangHanhKhach();
+                    System.out.println("\n-------- DANH SACH TAT CA HANH KHACH --------");
+                    TieuDeBang.inTieuDeHanhKhach();
                     KhoDuLieu.getDanhSachHanhKhach().xuat();
-                    System.out.println("=====================================================================");
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    TieuDeBang.inChanBangHanhKhach();
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 2:
                     System.out.println("\n-------- THEM HANH KHACH --------");
                     int viTriMoi = KhoDuLieu.getDanhSachHanhKhach().getSoLuong();
                     KhoDuLieu.getDanhSachHanhKhach().them();
-                    System.out.println("ĐÃ THÊM HÀNH KHÁCH:");
-                    inTieuDeBangHanhKhach();
+                    System.out.println("DA THEM HANH KHACH:");
+                    TieuDeBang.inTieuDeHanhKhach();
                     KhoDuLieu.getDanhSachHanhKhach().getDanhSach()[viTriMoi].xuat();
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 3:
@@ -57,9 +52,9 @@ public class Quanlyhanhkhach {
                         }
                     } while (temp1 == null);
                     System.out.println("\n-------- KET QUA TIM KIEM --------");
-                    inTieuDeBangHanhKhach();
+                    TieuDeBang.inTieuDeHanhKhach();
                     temp1.xuat();
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 4:
@@ -75,11 +70,11 @@ public class Quanlyhanhkhach {
                         }
                     } while (dsKetQua.length == 0);
                     System.out.println("\n-------- KET QUA TIM KIEM --------");
-                    inTieuDeBangHanhKhach();
+                    TieuDeBang.inTieuDeHanhKhach();
                     for (HanhKhach hk : dsKetQua) {
                         hk.xuat();
                     }
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 5:
@@ -96,14 +91,14 @@ public class Quanlyhanhkhach {
                         }
                     } while (temp2 == null);
                     System.out.println("\n-------- THONG TIN BAN DAU --------");
-                    inTieuDeBangHanhKhach();
+                    TieuDeBang.inTieuDeHanhKhach();
                     temp2.xuat();
                     System.out.println("\n-------- CHINH SUA THONG TIN --------");
                     KhoDuLieu.getDanhSachHanhKhach().suaTheoMa(ma1);
                     System.out.println("\n-------- THONG TIN SAU KHI SUA --------");
-                    inTieuDeBangHanhKhach();
+                    TieuDeBang.inTieuDeHanhKhach();
                     temp2.xuat();
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 6:
@@ -121,7 +116,7 @@ public class Quanlyhanhkhach {
                     } while (temp3 == null);
                     KhoDuLieu.getDanhSachHanhKhach().xoaTheoMa(ma2);
                     System.out.println("XOA THANH CONG!");
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 7:
@@ -139,21 +134,21 @@ public class Quanlyhanhkhach {
                         KhoDuLieu.getDanhSachHanhKhach().them();
                     }
                     System.out.println("\nDA THEM THANH CONG " + soLuongThem + " HANH KHACH:");
-                    inTieuDeBangHanhKhach();
+                    TieuDeBang.inTieuDeHanhKhach();
                     HanhKhach[] dsHk = KhoDuLieu.getDanhSachHanhKhach().getDanhSach();
                     for (int i = viTriBatDau; i < KhoDuLieu.getDanhSachHanhKhach().getSoLuong(); i++) {
                         if (dsHk[i] != null) {
                             dsHk[i].xuat();
                         }
                     }
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 0:
-                    System.out.println("Quay lại menu quản lý...");
+                    System.out.println("Quay lai menu quan ly...");
                     break;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn lại.");
+                    System.out.println("Lua chon khong hop le! Vui long chon lai.");
                     break;
             }
         } while (chose != 0);

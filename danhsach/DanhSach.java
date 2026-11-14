@@ -1,25 +1,25 @@
 package danhsach;
 
 public interface DanhSach<T> {
-    // Thêm phần tử (có tham số và không có tham số)
+    // Them phan tu (co tham so va khong co tham so)
     boolean them(T phanTu);
     boolean them();
 
-    // Xuất và nhập
+    // Xuat va nhap
     void xuat();
     void nhap();
 
-    // Xóa phần tử theo mã
+    // Xoa phan tu theo ma
     boolean xoaTheoMa(int ma);
 
-    // Sửa / Cập nhật phần tử
+    // Sua / Cap nhat phan tu
     boolean suaTheoMa(int ma);
 
-    // Tìm kiếm và lấy danh sách
+    // Tim kiem va lay danh sach
     T timTheoMa(int ma);
     T[] layTatCa();
 
-    // Đọc và ghi file (chỉ khai báo, không có thân hàm)
+    // Doc va ghi file (chi khai bao, khong co than ham)
     boolean docFile(String duongDan);
     boolean ghiFile(String duongDan);
 }

@@ -6,11 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
-import tour.*;
 import danhsach.DanhSach;
 import kho.KhoDuLieu;
-import tochuctour.KeHoachTour;
-
 public class DanhSachTour implements DanhSach<Tour> {
     private Tour[] danhSach;
     private int soLuong;
@@ -318,7 +315,7 @@ public class DanhSachTour implements DanhSach<Tour> {
         }
     }
 
-    // Methods còn lại
+    // Methods con lai
     public Tour[] timTheoTen(String tenTour) {
         if (this.danhSach == null || tenTour == null || tenTour.trim().isEmpty())
             return new Tour[0];

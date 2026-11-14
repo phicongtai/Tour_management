@@ -52,19 +52,20 @@ public class KhachSan {
     }
 
     public void xuat() {
-        System.out.println(this.maKhachSan + "|" + this.tenKhachSan + "|" + this.giaOMoiNguoiMoiDem + "|" + this.giaAnMoiNguoiMoiNgay);
+        System.out.printf("%-15s | %-28s | %-18s | %-18s%n",
+                this.maKhachSan, this.tenKhachSan, this.giaOMoiNguoiMoiDem, this.giaAnMoiNguoiMoiNgay);
     }
 
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
         this.maKhachSan = KhoDuLieu.getDanhSachKhachSan().getMaMoi();
-        System.out.println("Mã khách sạn (tự động): " + this.maKhachSan);
-        System.out.print("Nhập tên khách sạn: ");
+        System.out.println("Ma khach san (tu dong): " + this.maKhachSan);
+        System.out.print("Nhap ten khach san: ");
         this.tenKhachSan = in.nextLine();
-        System.out.print("Nhập giá ở mỗi người mỗi đêm: ");
+        System.out.print("Nhap gia o moi nguoi moi dem: ");
         this.giaOMoiNguoiMoiDem = in.nextLong();
         in.nextLine();
-        System.out.print("Nhập giá ăn mỗi người mỗi ngày: ");
+        System.out.print("Nhap gia an moi nguoi moi ngay: ");
         this.giaAnMoiNguoiMoiNgay = in.nextLong();
         in.nextLine();
     }

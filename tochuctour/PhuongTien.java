@@ -52,19 +52,20 @@ public class PhuongTien {
     }
 
     public void xuat() {
-        System.out.println(this.maPhuongTien + "|" + this.tenPhuongTien + "|" + this.soChoToiDa + "|" + this.giaMoiNguoiMoiNgay);
+        System.out.printf("%-15s | %-25s | %-15s | %-20s%n",
+                this.maPhuongTien, this.tenPhuongTien, this.soChoToiDa, this.giaMoiNguoiMoiNgay);
     }
 
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
         this.maPhuongTien = KhoDuLieu.getDanhSachPhuongTien().getMaMoi();
-        System.out.println("Mã phương tiện (tự động): " + this.maPhuongTien);
-        System.out.print("Nhập tên phương tiện: ");
+        System.out.println("Ma phuong tien (tu dong): " + this.maPhuongTien);
+        System.out.print("Nhap ten phuong tien: ");
         this.tenPhuongTien = in.nextLine();
-        System.out.print("Nhập số chỗ tối đa: ");
+        System.out.print("Nhap so cho toi da: ");
         this.soChoToiDa = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập giá mỗi người mỗi ngày: ");
+        System.out.print("Nhap gia moi nguoi moi ngay: ");
         this.giaMoiNguoiMoiNgay = in.nextLong();
         in.nextLine();
     }

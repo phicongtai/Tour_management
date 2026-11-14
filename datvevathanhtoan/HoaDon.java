@@ -1,5 +1,6 @@
 package datvevathanhtoan;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 import kho.KhoDuLieu;
@@ -185,18 +186,26 @@ public long tinhSoTienConLai() {
     public void nhap(){
         Scanner in = KhoDuLieu.getScanner();
         this.maHoaDon = KhoDuLieu.getDanhSachHoaDon().getmamoi();
-        System.out.println("Mã hóa đơn (tự động): " + this.maHoaDon);
-        System.out.print("Nhập mã đơn đặt tour: ");
+        System.out.println("Ma hoa don (tu dong): " + this.maHoaDon);
+        System.out.print("Nhap ma don dat tour: ");
         this.maDonDatTour = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập mã nhân viên: ");
+        System.out.print("Nhap ma nhan vien: ");
         this.maNhanVien = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập ngày lập: ");
+        System.out.print("Nhap ngay lap: ");
         this.ngayLap = in.nextLine();
     }
 
-    public void xuat(){
-        System.out.println(this.maHoaDon + "|" + this.maDonDatTour + "|" + this.maNhanVien + "|" + this.ngayLap + "|");
+    public void xuat() {
+        System.out.printf("%-6d | %-8d | %-6d | %-12s | %-14s | %-14s | %-14s | %-12s%n",
+                this.maHoaDon,
+                this.maDonDatTour,
+                this.maNhanVien,
+                this.ngayLap,
+                String.format(Locale.US, "%,d", tinhTongTien()),
+                String.format(Locale.US, "%,d", this.soTienDaThanhToan),
+                String.format(Locale.US, "%,d", tinhSoTienConLai()),
+                daThanhToanDu() ? "Da du" : "Chua du");
     }
 }

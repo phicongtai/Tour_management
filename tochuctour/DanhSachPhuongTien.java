@@ -81,24 +81,26 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
 
     @Override
     public void xuat() {
-        if(this.danhSach == null ){
+        if(this.danhSach == null || this.soLuong == 0){
+            System.out.println("Danh sach phuong tien trong!");
             return;
         }
-        System.out.println("Danh sách phương tiện");
         for(int i = 0 ; i < this.soLuong ; i++){
-            this.danhSach[i].xuat();
+            if(this.danhSach[i] != null){
+                this.danhSach[i].xuat();
+            }
         }
     }
 
     @Override
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập vào số lượng: ");
+        System.out.print("Nhap vao so luong: ");
         this.soLuong = in.nextInt();
         in.nextLine();
         this.danhSach = new PhuongTien[this.soLuong];
         for(int i = 0 ; i < this.soLuong ; i++){
-            System.out.println("Nhập phương tiện thứ " + (i + 1));
+            System.out.println("Nhap phuong tien thu " + (i + 1));
             this.danhSach[i] = new PhuongTien();
             this.danhSach[i].nhap();
     }
@@ -137,23 +139,25 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
             return false;
         }
 
-        System.out.println("Thông tin phương tiện gốc là:");
+        System.out.println("Thong tin phuong tien goc la:");
         temp.xuat();
 
-        System.out.print("Chỉnh sữa tên phương tiện: ");
+        System.out.print("Chinh sua ten phuong tien: ");
         String tenphuongtien = in.nextLine();
         if(!tenphuongtien.isBlank()){
         temp.setTenPhuongTien(tenphuongtien);
         }
 
-        System.out.print("chỉnh sửa số chỗ: ");
+        System.out.print("chinh sua so cho: ");
         int socho = in.nextInt();
+        in.nextLine();
         if(socho > 0){
         temp.setSoChoToiDa(socho);
         }
 
-        System.out.print("chỉnh sửa giá mỗi người mỗi ngày: ");
+        System.out.print("chinh sua gia moi nguoi moi ngay: ");
         long gia = in.nextLong();
+        in.nextLine();
         if(gia > 0){
         temp.setGiaMoiNguoiMoiNgay(gia);
         }
@@ -232,7 +236,7 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
         }
     }
 
-    // Methods còn lại
+    // Methods con lai
     public PhuongTien[] timTheoTen(String tenPhuongTien) {
         if(this.danhSach == null || tenPhuongTien.isBlank()){
             return new PhuongTien[0];

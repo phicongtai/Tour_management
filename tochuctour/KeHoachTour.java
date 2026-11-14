@@ -103,7 +103,7 @@ public class KeHoachTour {
     }
 
     public int soChoConLai(int soVeDaDat) {
-        //sovedadat lấy ra từ danh sach ve và tin kiếm bãng mã kế hoạch tour
+        //sovedadat lay ra tu danh sach ve va tin kiem bang ma ke hoach tour
         if (soVeDaDat < 0 || soVeDaDat > soLuongVeToiDa) {
             return -1;
         }
@@ -112,7 +112,7 @@ public class KeHoachTour {
     }
 
     public boolean conDuCho(int soVeDaDat, int soVeCanDat) {
-        // mực dích là kiem tra xem số vé cần đát nó có lớn hơn số vé còn lại không sovedadat lấy ra từ danh sach ve và tin kiếm bãng mã kế hoạch tour
+        // muc dich la kiem tra xem so ve can dat no co lon hon so ve con lai khong sovedadat lay ra tu danh sach ve va tin kiem bang ma ke hoach tour
         if (soVeCanDat <= 0 || soVeDaDat < 0 || soVeDaDat > soLuongVeToiDa) {
             return false;
         }
@@ -148,55 +148,19 @@ public class KeHoachTour {
         if(ngayCu == null || ngayMoi == null ){
             return false;
         }
-                // Kiểm tra xem ngày mới đã bị trùng với chi tiết nào khác chưa
+                // Kiem tra xem ngay moi da bi trung voi chi tiet nao khac chua
         for (int i = 0 ; i < this.soLuongChiTiet ; i++){
             if(this.chiTietLichTrinh[i].getNgay().equals(ngayMoi)){
                 return false;
             }
         }
-        // Tìm ngày cũ để cập nhật sang ngày mới
+        // Tim ngay cu de cap nhat sang ngay moi
         for (int i = 0 ; i < this.soLuongChiTiet ; i++){
             if(this.chiTietLichTrinh[i].getNgay().equals(ngayCu)){
                 this.chiTietLichTrinh[i].setNgay(ngayMoi);
             }
         }
         return true;
-    }
-
-    public boolean xoaChiTiet(String ngay){
-        if(ngay == null || this.chiTietLichTrinh == null){
-            return false;
-        }
-        int point = -1;
-        for(int i = 0 ; i < this.soLuongChiTiet ; i++){
-            if(this.chiTietLichTrinh[i].getNgay().equals(ngay)){
-                point = i;
-                break;
-            }
-        }
-        if(point == -1){
-            return false;
-        }
-        for(int i = point ; i < this.soLuongChiTiet - 1; i++){
-            this.chiTietLichTrinh[i] = this.chiTietLichTrinh[i+1];
-        }
-
-        this.chiTietLichTrinh=Arrays.copyOf(this.chiTietLichTrinh, this.soLuongChiTiet - 1);
-        this.soLuongChiTiet--;
-        return true;
-    }
-
-    public ChiTietKeHoachTour timChiTietTheoNgay(String ngay){
-        if(ngay == null || this.chiTietLichTrinh == null){
-            return null;
-        }
-
-        for(int i = 0 ; i < this.soLuongChiTiet ; i++){
-            if(this.chiTietLichTrinh[i].getNgay().equals(ngay)){
-                return this.chiTietLichTrinh[i];
-            }
-        }
-        return null;
     }
 
     public long tinhTongChiPhi(int soKhach){
@@ -222,23 +186,23 @@ public class KeHoachTour {
     public void nhap(){
         Scanner in = KhoDuLieu.getScanner();
         this.maKeHoachTour = KhoDuLieu.getDanhSachKeHoachTour().getMaMoi();
-        System.out.println("Mã kế hoạch tour (tự động): " + this.maKeHoachTour);
-        System.out.print("Nhập mã tour: ");
+        System.out.println("Ma ke hoach tour (tu dong): " + this.maKeHoachTour);
+        System.out.print("Nhap ma tour: ");
         this.maTour = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập mã nhân viên: ");
+        System.out.print("Nhap ma nhan vien: ");
         this.maNhanVien = in.nextInt();
         in.nextLine();
-        System.out.print("Nhập Ngày đi (trình bày như sau 2026-11-23): ");
+        System.out.print("Nhap Ngay di (trinh bay nhu sau 2026-11-23): ");
         this.ngayDi = in.nextLine();
-        System.out.print("Nhập Ngày về (trình bày như sau 2026-11-23): ");
+        System.out.print("Nhap Ngay ve (trinh bay nhu sau 2026-11-23): ");
         this.ngayVe = in.nextLine();
-        System.out.print("Nhập số lượng vé tối đa: ");
+        System.out.print("Nhap so luong ve toi da: ");
         this.soLuongVeToiDa = in.nextInt();
         in.nextLine();
     }
 
-    public long tinhDonGiaVe(Tour tour){// tình don gia theo tour trên 1 người
+    public long tinhDonGiaVe(Tour tour){// tinh don gia theo tour tren 1 nguoi
         return tour.tinhGiaVe() + this.tinhTongChiPhi(1);
     }
 }

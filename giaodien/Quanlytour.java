@@ -2,62 +2,41 @@ package giaodien;
 
 import kho.KhoDuLieu;
 import tour.Tour;
-import tour.TourNuocNgoai;
-import tour.TourTrongNuoc;
 
 import java.util.Scanner;
 
 public class Quanlytour {
-    private static void inTieuDeBangTour() {
-        System.out.printf("%-7s | %-26s | %-14s | %-12s | %-7s | %-14s | %-12s | %-12s | %-10s | %-10s | %-10s%n",
-                "Ma Tour", "Ten Tour", "Diem Khoi Hanh", "Diem Den", "So Ngay", "Don Gia Co Ban",
-                "Loai Tour", "Vung/QuocGia", "Phu Phi", "Can Visa", "Phi Visa");
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
-    }
-
     public static void mainQuanlytour() {
         Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
-            System.out.println("\n================ QUẢN LÝ TOUR ================");
-            System.out.println("1. Xem danh sách\n2.Thêm\n3. Tìm theo mã\n4. Tìm theo tên");
-            System.out.println("5. Sửa\n6. Xóa\n7. Nhập nhiều");
-            System.out.println("0. Quay lại");
+            System.out.println("\n================ QUAN LY TOUR ================");
+            System.out.println("1. Xem danh sach\n2.Them\n3. Tim theo ma\n4. Tim theo ten");
+            System.out.println("5. Sua\n6. Xoa\n7. Nhap nhieu");
+            System.out.println("0. Quay lai");
             System.out.println("==============================================");
-            System.out.print("Chọn: ");
+            System.out.print("Chon: ");
             chose = in.nextInt();
             in.nextLine();
 
             switch (chose) {
                 case 1:
-                    System.out.println("\n-------- DANH SÁCH TẤT CẢ TOUR --------");
-                    inTieuDeBangTour();
+                    System.out.println("\n-------- DANH SACH TAT CA TOUR --------");
+                    TieuDeBang.inTieuDeTour();
                     KhoDuLieu.getDanhSachTour().xuat();
-                    System.out.println("===========================================================================================================================================================");
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    TieuDeBang.inChanBangTour();
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 2:
                     System.out.println("\n-------- THEM TOUR --------");
-                    System.out.println("Chọn loại tour: 1. Tour trong nước | 2. Tour nước ngoài");
-                    System.out.print("Chọn: ");
-                    int loai = in.nextInt();
-                    in.nextLine();
-                    Tour temp;
-                    if (loai == 1) {
-                        temp = new TourTrongNuoc();
-                    } else if (loai == 2) {
-                        temp = new TourNuocNgoai();
-                    } else {
-                        System.out.println("Loại tour không hợp lệ!");
-                        break;
+                    if (KhoDuLieu.getDanhSachTour().them()) {
+                        int viTriMoi = KhoDuLieu.getDanhSachTour().getSoLuong() - 1;
+                        System.out.println("DA THEM TOUR:");
+                        TieuDeBang.inTieuDeTour();
+                        KhoDuLieu.getDanhSachTour().getDanhSach()[viTriMoi].xuat();
                     }
-                    temp.nhap();
-                    KhoDuLieu.getDanhSachTour().them(temp);
-                    System.out.println("ĐÃ THÊM TOUR:");
-                    inTieuDeBangTour();
-                    temp.xuat();
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 3:
@@ -74,9 +53,9 @@ public class Quanlytour {
                     }
                 }while(temp1 == null);
                     System.out.println("\n-------- KET QUA TIM KIEM --------");
-                    inTieuDeBangTour();
+                    TieuDeBang.inTieuDeTour();
                     temp1.xuat();
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 4:
@@ -92,11 +71,11 @@ public class Quanlytour {
                         }
                     } while (dsKetQua.length == 0);
                     System.out.println("\n-------- KET QUA TIM KIEM --------");
-                    inTieuDeBangTour();
+                    TieuDeBang.inTieuDeTour();
                     for (Tour t : dsKetQua) {
                         t.xuat();
                     }
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 5:
@@ -113,14 +92,14 @@ public class Quanlytour {
                     }
                 }while(temp2 == null);
                     System.out.println("\n-------- THONG TIN BAN DAU --------");
-                    inTieuDeBangTour();
+                    TieuDeBang.inTieuDeTour();
                     temp2.xuat();
                     System.out.println("\n-------- CHINH SUA THONG TIN --------");
                     kho.KhoDuLieu.getDanhSachTour().suaTheoMa(ma1);
                     System.out.println("\n-------- THONG TIN SAU KHI SUA --------");
-                    inTieuDeBangTour();
+                    TieuDeBang.inTieuDeTour();
                     temp2.xuat();
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 6:
@@ -138,7 +117,7 @@ public class Quanlytour {
                 }while(temp3 == null);
                     kho.KhoDuLieu.getDanhSachTour().xoaTheoMa(ma2);
                     System.out.println("XOA THANH CONG!");
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 7:
@@ -158,21 +137,21 @@ public class Quanlytour {
                         }
                     }
                     System.out.println("\nDA THEM THANH CONG " + soLuongThem + " TOUR:");
-                    inTieuDeBangTour();
+                    TieuDeBang.inTieuDeTour();
                     Tour[] dsTour = KhoDuLieu.getDanhSachTour().getDanhSach();
                     for (int i = viTriBatDau; i < KhoDuLieu.getDanhSachTour().getSoLuong(); i++) {
                         if (dsTour[i] != null) {
                             dsTour[i].xuat();
                         }
                     }
-                    System.out.println("\n>> Nhấn Enter để tiếp tục...");
+                    System.out.println("\n>> Nhan Enter de tiep tuc...");
                     in.nextLine();
                     break;
                 case 0:
-                    System.out.println("Quay lại menu quản lý...");
+                    System.out.println("Quay lai menu quan ly...");
                     break;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn lại.");
+                    System.out.println("Lua chon khong hop le! Vui long chon lai.");
                     break;
             }
         } while (chose != 0);

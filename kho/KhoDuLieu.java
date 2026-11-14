@@ -1,7 +1,6 @@
 package kho;
 
 import java.util.Scanner;
-import danhsach.DanhSach;
 import datvevathanhtoan.DanhSachHoaDon;
 import datvevathanhtoan.DanhSachVe;
 import nguoidung.DanhSachHanhKhach;
@@ -24,7 +23,7 @@ public final class KhoDuLieu {
     private static final DanhSachVe danhSachVe = new DanhSachVe();
     private static final DanhSachHoaDon danhSachHoaDon = new DanhSachHoaDon();
 
-    // Private constructor để ngăn tạo đối tượng bên ngoài
+    // Private constructor de ngan tao doi tuong ben ngoai
     private KhoDuLieu() {
     }
 
@@ -38,7 +37,7 @@ public final class KhoDuLieu {
         }
     }
 
-    // Getters tĩnh cho từng danh sách
+    // Getters tinh cho tung danh sach
     public static DanhSachTour getDanhSachTour() {
         return danhSachTour;
     }
@@ -69,19 +68,5 @@ public final class KhoDuLieu {
 
     public static DanhSachHoaDon getDanhSachHoaDon() {
         return danhSachHoaDon;
-    }
-
-    // Trả về toàn bộ 8 danh sách theo thứ tự chuẩn để phục vụ đọc/ghi file
-    public static DanhSach<?>[] layTatCaDanhSach() {
-        return new DanhSach<?>[] {
-            danhSachTour,
-            danhSachNhanVien,
-            danhSachHanhKhach,
-            danhSachPhuongTien,
-            danhSachKhachSan,
-            danhSachKeHoachTour,
-            danhSachVe,
-            danhSachHoaDon
-        };
     }
 }

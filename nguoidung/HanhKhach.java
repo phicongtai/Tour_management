@@ -67,20 +67,6 @@ public class HanhKhach {
         }
     }
 
-    public boolean capNhatThongTin(String hoTen, String ngaySinh, int gioiTinh, String soDienThoai) {
-        if (hoTen == null || hoTen.isBlank() || soDienThoai == null || soDienThoai.isBlank()) {
-            return false;
-        }
-        if (gioiTinh != 0 && gioiTinh != 1) {
-            return false;
-        }
-        this.hoTen = hoTen.trim();
-        this.ngaySinh = ngaySinh.trim();
-        this.gioiTinh = gioiTinh;
-        this.soDienThoai = soDienThoai.trim();
-        return true;
-    }
-
     public void nhap() {
         this.maHanhKhach = kho.KhoDuLieu.getDanhSachHanhKhach().getMaMoi();
         System.out.println("Ma hanh khach (tu dong): " + this.maHanhKhach);
@@ -99,6 +85,7 @@ public class HanhKhach {
     }
 
     public void xuat() {
-        System.out.println(maHanhKhach + "|" + hoTen + "|" + ngaySinh + "|" + gioiTinh + "|" + soDienThoai);
+        System.out.printf("%-6s | %-24s | %-12s | %-10s | %-14s%n",
+                maHanhKhach, hoTen, ngaySinh, (gioiTinh == 1 ? "Nam" : "Nu"), soDienThoai);
     }
 }

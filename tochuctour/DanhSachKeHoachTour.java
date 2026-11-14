@@ -76,24 +76,26 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
 
     @Override
     public void xuat() {
-        if(this.danhSach == null){
+        if(this.danhSach == null || this.soLuong == 0){
+            System.out.println("Danh sach ke hoach tour trong!");
             return;
         }
-        System.out.println("Danh sách kế hoạch tour");
         for(int i = 0 ; i < this.soLuong ; i++){
-            this.danhSach[i].xuat();
+            if(this.danhSach[i] != null){
+                this.danhSach[i].xuat();
+            }
         }
     }
 
     @Override
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập vào số lượng: ");
+        System.out.print("Nhap vao so luong: ");
         this.soLuong = in.nextInt();
         in.nextLine();
         this.danhSach = new KeHoachTour[this.soLuong];
         for(int i = 0 ; i < this.soLuong ; i++){
-            System.out.println("Nhập kế hoạch tour thứ " + (i + 1));
+            System.out.println("Nhap ke hoach tour thu " + (i + 1));
             this.danhSach[i] = new KeHoachTour();
             this.danhSach[i].nhap();
         }
@@ -136,27 +138,28 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
         if(temp == null ){
             return false;
         }
-        System.out.println("Thông tin gốc kế hoạch tour là");
+        System.out.println("Thong tin goc ke hoach tour la");
         temp.xuat();
         
-        System.out.print("Sữa ngày đi: ");
+        System.out.print("Sua ngay di: ");
         String ngaydi = in.nextLine();
         if(!ngaydi.isBlank()){
         temp.setNgayDi(ngaydi);
         }
 
-        System.out.print("Sửa này về: ");
+        System.out.print("Sua ngay ve: ");
         String ngayve = in.nextLine();
         if(!ngayve.isBlank()){
-        temp.setNgayVe(ngaydi);
+        temp.setNgayVe(ngayve);
         }
 
-        System.out.print("Sua so lượng vé tối đa: ");
+        System.out.print("Sua so luong ve toi da: ");
         int soluong = in.nextInt();
+        in.nextLine();
         if(soluong > 0){
         temp.setSoLuongVeToiDa(soluong);
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -275,7 +278,7 @@ public boolean docFile(String duongDan) {
         }
     }
 
-    // Methods còn lại
+    // Methods con lai
     public KeHoachTour[] timTheoMaTour(int maTour) {
         if(maTour <= 0 || this.danhSach == null){
             return new KeHoachTour[0];

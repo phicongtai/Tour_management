@@ -67,19 +67,6 @@ public class NhanVien {
         }
     }
 
-    public boolean capNhatThongTin(String hoTen, String ngaySinh, int gioiTinh, String soDienThoai) {
-        if (hoTen == null || hoTen.isBlank() || soDienThoai == null || soDienThoai.isBlank()) {
-            return false;
-        }
-        if (gioiTinh != 0 && gioiTinh != 1) {
-            return false;
-        }
-        this.hoTen = hoTen.trim();
-        this.ngaySinh = ngaySinh.trim();
-        this.gioiTinh = gioiTinh;
-        this.soDienThoai = soDienThoai.trim();
-        return true;
-    }
     public void nhap() {
         this.maNhanVien = kho.KhoDuLieu.getDanhSachNhanVien().getMaMoi();
         System.out.println("Ma nhan vien (tu dong): " + this.maNhanVien);
@@ -97,6 +84,7 @@ public class NhanVien {
         this.soDienThoai = sc.nextLine().trim();
     }
     public void xuat() {
-        System.out.println(maNhanVien + "|" + hoTen + "|" + ngaySinh + "|" + gioiTinh + "|" + soDienThoai);
+        System.out.printf("%-6s | %-24s | %-12s | %-10s | %-14s%n",
+                maNhanVien, hoTen, ngaySinh, (gioiTinh == 1 ? "Nam" : "Nu"), soDienThoai);
     }
 }

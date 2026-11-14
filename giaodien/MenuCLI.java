@@ -4,9 +4,6 @@ import dulieu.DocGhiFile;
 import giaodien.*;
 import kho.KhoDuLieu;
 public class MenuCLI {
-    public MenuCLI() {
-    }
-
     public static void main(String[] args) {
         DocGhiFile docGhi = new DocGhiFile();
         docGhi.docTatCa();
@@ -14,15 +11,15 @@ public class MenuCLI {
         Scanner in = kho.KhoDuLieu.getScanner();
         int chose;
         do{
-            System.out.println("HỆ THỐNG QUẢN LÝ TOUR DU LỊCH");
-            System.out.println("1. Người dùng (khách hàng) ");
-            System.out.println("2. Quản lý (nhân viên)");
-            System.out.println("0. Thoát  ");
-            System.out.print("Chọn: ");
+            System.out.println("HE THONG QUAN LY TOUR DU LICH");
+            System.out.println("1. Nguoi dung (khach hang) ");
+            System.out.println("2. Quan ly (nhan vien)");
+            System.out.println("0. Thoat  ");
+            System.out.print("Chon: ");
             chose = in.nextInt();
             in.nextLine();
             if(chose < 0 || chose > 2 ){
-                System.out.print("\n Vui long chọn lại!\n");
+                System.out.print("\n Vui long chon lai!\n");
                 continue;
             }
 
@@ -38,7 +35,8 @@ public class MenuCLI {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 docGhi.ghiTatCa();
-                System.out.println("Đã lưu dữ liệu. Đang thoát chương trình...");
+                System.out.println("Da luu du lieu. Dang thoat chuong trinh...");
+                KhoDuLieu.dongScanner();
                 System.exit(0);
             }
         }while(chose != 0);

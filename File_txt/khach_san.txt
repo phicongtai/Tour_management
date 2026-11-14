@@ -2,3 +2,9 @@
 2|Resort Vinpearl 5 sao|800000|450000
 3|Khach san Anh Dao 3 sao|200000|120000
 4|Khach san Novotel 4 sao|500000|250000
+5|Khach san InterContinental|1200000|600000
+6|Khach san Melia 5 sao|950000|500000
+7|Khach san Imperial Hue|650000|320000
+8|Khach san Sunrise Nha Trang|550000|280000
+9|Khach san Marina Bay Sands|1800000|750000
+10|Khach san Taipei Grand|900000|420000

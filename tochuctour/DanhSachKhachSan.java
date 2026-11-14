@@ -80,24 +80,26 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
 
     @Override
     public void xuat() {
-        if(this.danhSach == null){
+        if(this.danhSach == null || this.soLuong == 0){
+            System.out.println("Danh sach khach san trong!");
             return;
         }
-        System.out.println("Danh sách khách sạn");
         for(int i = 0 ; i < this.soLuong ; i++){
-            this.danhSach[i].xuat();
+            if(this.danhSach[i] != null){
+                this.danhSach[i].xuat();
+            }
         }
     }
 
     @Override
     public void nhap() {
         Scanner in = KhoDuLieu.getScanner();
-        System.out.print("Nhập vào số lượng: ");
+        System.out.print("Nhap vao so luong: ");
         this.soLuong = in.nextInt();
         in.nextLine();
         this.danhSach = new KhachSan[this.soLuong];
         for(int i = 0 ; i < this.soLuong ; i++){
-            System.out.println("Nhập khách sạn thứ " + (i + 1));
+            System.out.println("Nhap khach san thu " + (i + 1));
             this.danhSach[i] = new KhachSan();
             this.danhSach[i].nhap();
         }
@@ -142,25 +144,27 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
             return false;
         }
 
-        System.out.println("Thông tin khách sạn gốc là:");
+        System.out.println("Thong tin khach san goc la:");
         temp.xuat();
 
-        System.out.println("Chỉnh sửa thông tin");
+        System.out.println("Chinh sua thong tin");
 
-        System.out.print("Chỉnh sửa tên khách sạn: ");
+        System.out.print("Chinh sua ten khach san: ");
         String tenkhachsan = in.nextLine();
         if(!tenkhachsan.isBlank()){
             temp.setTenKhachSan(tenkhachsan);
         }
 
-        System.out.print("Chỉnh sửa giá ở mỗi đêm: ");
+        System.out.print("Chinh sua gia o moi dem: ");
         long giaODem = in.nextLong();
+        in.nextLine();
         if(giaODem > 0){
             temp.setGiaOMoiNguoiMoiDem(giaODem); 
         }
 
-        System.out.print("Chỉnh sửa giá ăn mỗi ngày: ");
+        System.out.print("Chinh sua gia an moi ngay: ");
         long giaanmoingay = in.nextLong();
+        in.nextLine();
         if(giaanmoingay > 0){
             temp.setGiaAnMoiNguoiMoiNgay(giaanmoingay); 
         }
@@ -238,7 +242,7 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
         }
     }
 
-    // Methods còn lại
+    // Methods con lai
     public KhachSan[] timTheoTen(String tenKhachSan) {
         if(this.danhSach == null||tenKhachSan.isBlank()){
             return new KhachSan[0];
