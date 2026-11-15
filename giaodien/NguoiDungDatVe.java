@@ -3,6 +3,9 @@ package giaodien;
 import datvevathanhtoan.DanhSachHoaDon;
 import datvevathanhtoan.DanhSachVe;
 import datvevathanhtoan.HoaDon;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 import kho.KhoDuLieu;
 import nguoidung.DanhSachHanhKhach;
@@ -234,5 +237,56 @@ public class NguoiDungDatVe {
         System.out.println("So tien da thanh toan: " + hdMoi.getSoTienDaThanhToan());
         System.out.println("So tien con lai: " + hdMoi.tinhSoTienConLai());
         System.out.println("====================================");
+
+        String duongDanFileVe = "Ve_xuat/ve_don_" + maDonDatTourMoi + ".txt";
+        if (xuatVeRaFile(duongDanFileVe, maDonDatTourMoi, hdMoi, dsMaVeMoi)) {
+            System.out.println(">> Da xuat ve ra file: " + duongDanFileVe);
+        } else {
+            System.out.println(">> Xuat ve ra file that bai!");
+        }
+    }
+
+    private static boolean xuatVeRaFile(
+            String duongDan,
+            int maDonDatTour,
+            HoaDon hoaDon,
+            int[] dsMaVe) {
+        if (duongDan == null || hoaDon == null || dsMaVe == null) {
+            return false;
+        }
+        try {
+            File parent = new File(duongDan).getParentFile();
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
+        } catch (Exception e) {
+            return false;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(duongDan))) {
+            writer.write("════════ DAT VE THANH CONG ════════");
+            writer.newLine();
+            writer.write("Ma don dat tour: " + maDonDatTour);
+            writer.newLine();
+            writer.write("Ma hoa don: " + hoaDon.getMaHoaDon());
+            writer.newLine();
+            String dsMaVeStr = "";
+            for (int i = 0; i < dsMaVe.length; i++) {
+                dsMaVeStr += dsMaVe[i] + (i < dsMaVe.length - 1 ? ", " : "");
+            }
+            writer.write("Danh sach ma ve: " + dsMaVeStr);
+            writer.newLine();
+            writer.write("Tong tien: " + hoaDon.tinhTongTien());
+            writer.newLine();
+            writer.write("So tien da thanh toan: " + hoaDon.getSoTienDaThanhToan());
+            writer.newLine();
+            writer.write("So tien con lai: " + hoaDon.tinhSoTienConLai());
+            writer.newLine();
+            writer.write("====================================");
+            writer.newLine();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

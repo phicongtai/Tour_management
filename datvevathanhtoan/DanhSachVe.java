@@ -280,7 +280,7 @@ public class DanhSachVe implements DanhSach<Ve> {
         }
         int maDonDatTour = danhSach[i].getMaDonDatTour();
         boolean daCo = false;
-        for (int j = 0; j < dem; j++) {
+        for (int j = 0; j < dem; j++) {// lọc mã trùng 
             if (tam[j] == maDonDatTour) {
                 daCo = true;
                 break;
@@ -297,7 +297,7 @@ public class DanhSachVe implements DanhSach<Ve> {
     }
     return ketQua;
 }
-   public Ve[] timTheoTrangThai(int trangThai) {
+public Ve[] timTheoTrangThai(int trangThai) {
     if(this.danhSach == null || this.soLuong <= 0){
         return new Ve[0];
     }
@@ -366,32 +366,31 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     // 0 = hop le, 1 = khong ton tai, 2 = trung trong don, 3 = da co ve o ke hoach nay
     public int kiemTraHanhKhachHopLe(int maKeHoach, int maHK, int[] dsDaChon, int soDaChon, DanhSachHanhKhach dsHK) {
-        if (maKeHoach <= 0 || maHK <= 0 || dsHK == null) {
+        if (maKeHoach <= 0 || maHK <= 0 || dsHK == null) {// kiêm tra xem oi input có đúng hay không
             return 1;
         }
-        if (dsHK.timTheoMa(maHK) == null) {
+        if (dsHK.timTheoMa(maHK) == null) {// kiểm tra mã hành khách cò tồn tại hay không
             return 1;
         }
-        if (dsDaChon != null) {
-            int soPhanTu = Math.min(soDaChon, dsDaChon.length);
-            for (int i = 0; i < soPhanTu; i++) {
+        if (dsDaChon != null) { // kiểm tra dnh sách mã hình khác có hợp lệ hay không 
+            int soPhanTu = Math.min(soDaChon, dsDaChon.length);// lấy số lượng cho dúng 
+            for (int i = 0; i < soPhanTu; i++) { // kiểm tra ma hk này có trùng trong đơn hay không 
                 if (dsDaChon[i] == maHK) {
                     return 2;
                 }
             }
         }
-        if (daCoVeHopLe(maKeHoach, maHK)) {
+        if (daCoVeHopLe(maKeHoach, maHK)) {  // kiem tra xem coi đạ có vé hay chưa 
             return 3;
         }
         return 0;
     }
 
-    public int[] taoNhieuVe(int maDonDatTour, int maNguoiDat, int maKeHoach,
-            int[] dsMaHK, String ngayDat, long donGia) {
+    public int[] taoNhieuVe(int maDonDatTour, int maNguoiDat, int maKeHoach,int[] dsMaHK, String ngayDat, long donGia) {
         if (maDonDatTour <= 0 || maNguoiDat <= 0 || maKeHoach <= 0
                 || dsMaHK == null || dsMaHK.length == 0 || donGia < 0) {
             return new int[0];
-        }
+        } 
 
         int[] dsMaVeMoi = new int[0];
         for (int i = 0; i < dsMaHK.length; i++) {

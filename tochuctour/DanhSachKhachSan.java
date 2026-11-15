@@ -252,7 +252,7 @@ public class DanhSachKhachSan implements DanhSach<KhachSan> {
         KhachSan[] temp = new KhachSan[0];
 
         for(int i = 0 ; i < this.soLuong ; i++){
-            if(this.danhSach[i].getTenKhachSan().equals(tenKhachSan)){
+            if(this.danhSach[i].getTenKhachSan().equalsIgnoreCase(tenKhachSan)){
             temp = Arrays.copyOf(temp, tempsize + 1);
             temp[tempsize] = this.danhSach[i];
             tempsize++;

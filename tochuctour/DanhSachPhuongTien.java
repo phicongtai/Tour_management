@@ -246,7 +246,7 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
         int tempsize = 0;
 
         for(int i = 0 ; i < this.soLuong ; i++){
-            if(this.danhSach[i].getTenPhuongTien().equals(tenPhuongTien)){
+            if(this.danhSach[i].getTenPhuongTien().equalsIgnoreCase(tenPhuongTien)){
                 temp = Arrays.copyOf(temp,tempsize + 1);
                 temp[tempsize] = this.danhSach[i];
                 tempsize++;

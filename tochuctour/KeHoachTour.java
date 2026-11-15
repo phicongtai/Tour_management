@@ -107,16 +107,16 @@ public class KeHoachTour {
         if (soVeDaDat < 0 || soVeDaDat > soLuongVeToiDa) {
             return -1;
         }
-        int conLai = Math.abs(soLuongVeToiDa - soVeDaDat);
+        int conLai = Math.abs(this.soLuongVeToiDa - soVeDaDat);
         return conLai;
     }
 
     public boolean conDuCho(int soVeDaDat, int soVeCanDat) {
         // muc dich la kiem tra xem so ve can dat no co lon hon so ve con lai khong sovedadat lay ra tu danh sach ve va tin kiem bang ma ke hoach tour
-        if (soVeCanDat <= 0 || soVeDaDat < 0 || soVeDaDat > soLuongVeToiDa) {
+        if (soVeCanDat <= 0 || soVeDaDat < 0 || soVeDaDat > this.soLuongVeToiDa) {
             return false;
         }
-        return soVeCanDat <= soLuongVeToiDa - soVeDaDat;
+        return soVeCanDat <= this.soLuongVeToiDa - soVeDaDat;
     }
 
     public boolean themChiTiet(ChiTietKeHoachTour chiTiet) {

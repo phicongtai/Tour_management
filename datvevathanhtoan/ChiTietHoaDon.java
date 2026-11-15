@@ -75,8 +75,7 @@ public class ChiTietHoaDon {
     }
 
     public boolean themVe(int maVe) {
-        if (maVe <= 0 || coChuaVe(maVe) || soLuongVe < 0
-                || (danhSachMaVe != null && soLuongVe > danhSachMaVe.length)) {
+        if (maVe <= 0 || coChuaVe(maVe) || soLuongVe < 0|| (danhSachMaVe != null && soLuongVe > danhSachMaVe.length)) {
             return false;
         }
 

@@ -184,15 +184,15 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
 // maKeHoachTour|maTour|maNhanVien|ngayDi|ngayVe|soLuongVeToiDa|chuoiChiTiet(optional)
 @Override
 public boolean docFile(String duongDan) {
-    this.danhSach = new KeHoachTour[0];
-    this.soLuong = 0;
-    try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) {
-        String temp;
-        while ((temp = reader.readLine()) != null) {
-            if (temp.trim().isEmpty()) continue;
-            String[] parts = temp.split("\\|");
-            if (parts.length >= 6) {
-                KeHoachTour kh = new KeHoachTour(
+    this.danhSach = new KeHoachTour[0]; // khởi tạo đồi tượng ke haoch5 tour
+    this.soLuong = 0;// khới tạo số lượng  = 0 
+    try (BufferedReader reader = new BufferedReader(new FileReader(duongDan))) { //bắt đầu mở file
+        String temp; // khới táo 1 chuỗi tam
+        while ((temp = reader.readLine()) != null) { // bắt đầu đọc file theo từng dòng 
+            if (temp.trim().isEmpty()) continue; // dùng . trim để lọi bỏ các khoản trắng thừa dùng . isEmpty để kiểm trta nó có rổng hay không nếu có thì skip nhảy sang dòng khác đọc
+            String[] parts = temp.split("\\|"); // tách chuổi bằng split theo các dấu rergex "|"
+            if (parts.length >= 6) {// kiểm tra xem coi sau khi tách thì nó có bằng số phần tữ cũa kế hoạch tour hay không
+                KeHoachTour kh = new KeHoachTour( // bắt đầu dán từng cái vào dúng vị trí của nó
                     Integer.parseInt(parts[0].trim()),
                     Integer.parseInt(parts[1].trim()),
                     Integer.parseInt(parts[2].trim()),
@@ -201,7 +201,7 @@ public boolean docFile(String duongDan) {
                     Integer.parseInt(parts[5].trim())
                 );
 
-                // Doc chi tiet lich trinh neu co (cot thu 7)
+                // Khúc bày là đọc chi tiết lịch trình của từng kế hoạc tour 
                 if (parts.length >= 7 && !parts[6].trim().isEmpty() && !parts[6].trim().equalsIgnoreCase("none")) {
                     String[] dsChiTietStr = parts[6].trim().split(";");
                     for (String ctStr : dsChiTietStr) {
@@ -278,16 +278,16 @@ public boolean docFile(String duongDan) {
         }
     }
 
-    // Methods con lai
+    // Methods con lai 
     public KeHoachTour[] timTheoMaTour(int maTour) {
-        if(maTour <= 0 || this.danhSach == null){
-            return new KeHoachTour[0];
+        if(maTour <= 0 || this.danhSach == null){ // kiểm tra xem coi danh sach có null hày kích thước có <= 0 hay không
+            return new KeHoachTour[0]; // nếu có thì trả ra null từ mãng trống
         }
 
-        KeHoachTour[] temp = new KeHoachTour[0];
-        int tempsize = 0 ;
+        KeHoachTour[] temp = new KeHoachTour[0]; // khởi tạo mãng để lưu kế hoạch tour vì 1 tour có nhiều kế hoach tour
+        int tempsize = 0 ;// khởi tạo kích thước == 0 
         
-        for(int i = 0 ; i < this.soLuong ; i++){
+        for(int i = 0 ; i < this.soLuong ; i++){ // bắt đầu duyệt
             if(maTour == this.danhSach[i].getMaTour()){
                 temp = Arrays.copyOf(temp,tempsize + 1);
                 temp[tempsize] = this.danhSach[i];
