@@ -15,8 +15,7 @@ import tour.Tour;
 
 /**
  * Module bao cao va thong ke cho he thong quan ly tour du lich.
- * Moi loai thong ke la mot phuong thuc doc lap (public static void)
- * trinh bay theo phong cach bang khung Unicode.
+ * Moi loai thong ke la mot phuong thuc doc lap (public static void).
  */
 public class BaoCaoThongKe {
 
@@ -52,26 +51,19 @@ public class BaoCaoThongKe {
 
         KetQuaTaiChinh kq = tinhTaiChinhTheoKhoang(ngayBatDau, ngayKetThuc);
 
-        int[] cot = {8, 17, 17, 17, 17, 18};
-        String tieuDe = "THONG KE TONG TIEN HOA DON TU " + tuNgay + " DEN " + denNgay;
-        inTieuDeBang(tieuDe, cot);
-        System.out.printf("║ %-6s │ %-15s │ %-15s │ %-15s │ %-15s │ %-16s ║%n",
-                "So HD", "Tg Tien HD", "Thuc Thu", "Cong No", "Tg Chi", "Loi Nhuan");
-        inDuongPhanCach(cot, '╠', '╬', '╣');
-        System.out.printf("║ %6d │ %15d │ %15d │ %15d │ %15d │ %16d ║%n",
-                kq.soHoaDon,
-                kq.tongTienHd,
-                kq.thucThu,
-                kq.congNo,
-                kq.tongChi,
-                kq.loiNhuanThucThu());
-        inDuongPhanCach(cot, '╚', '╩', '╝');
+        System.out.println("\n--- THONG KE TONG TIEN HOA DON TU " + tuNgay + " DEN " + denNgay + " ---");
+        System.out.println("So hoa don  : " + kq.soHoaDon);
+        System.out.println("Tong tien HD: " + kq.tongTienHd);
+        System.out.println("Thuc thu    : " + kq.thucThu);
+        System.out.println("Cong no     : " + kq.congNo);
+        System.out.println("Tong chi    : " + kq.tongChi);
+        System.out.println("Loi nhuan   : " + kq.loiNhuanThucThu());
     }
 
     /**
-     * 2b. Thong ke theo Quy trong nam dung bo cuc bang mau:
+     * 2b. Thong ke theo Quy trong nam:
      * Cot: Nam YYYY | Q1 | Q2 | Q3 | Q4 | TC
-     * Dong: Tg Tien HD, Thuc Thu, Tg Chi, Loi nhuan.
+     * Dong: Tg Thu (HD), Thuc Thu, Tg Chi, Loi Nhuan.
      */
     public static void thongKeTheoQuy(int nam) {
         damBaoDuLieu();
@@ -102,22 +94,20 @@ public class BaoCaoThongKe {
             tcLoiNhuan += loiNhuanQuy[q];
         }
 
-        int[] cot = {16, 17, 17, 17, 17, 18};
-        inTieuDeBang("THONG KE THU - CHI - LOI NHUAN THEO QUY (NAM " + nam + ")", cot);
-        System.out.printf("║ %-14s │ %15s │ %15s │ %15s │ %15s │ %16s ║%n",
+        System.out.println("\n--- THONG KE THU - CHI - LOI NHUAN THEO QUY (NAM " + nam + ") ---");
+        System.out.printf("%-14s | %-15s | %-15s | %-15s | %-15s | %-16s%n",
                 "Nam " + nam, "Q1", "Q2", "Q3", "Q4", "TC");
-        inDuongPhanCach(cot, '╠', '╬', '╣');
+        System.out.println("---------------------------------------------------------------------------------------------------------");
 
         inDongBangQuy("Tg Thu (HD)", hdQuy, tcHd);
         inDongBangQuy("Thuc Thu", thucThuQuy, tcThucThu);
         inDongBangQuy("Tg Chi", chiQuy, tcChi);
-        inDuongPhanCach(cot, '╠', '╬', '╣');
+        System.out.println("---------------------------------------------------------------------------------------------------------");
         inDongBangQuy("Loi Nhuan", loiNhuanQuy, tcLoiNhuan);
-        inDuongPhanCach(cot, '╚', '╩', '╝');
     }
 
     private static void inDongBangQuy(String nhan, long[] quy, long tongCong) {
-        System.out.printf("║ %-14s │ %15d │ %15d │ %15d │ %15d │ %16d ║%n",
+        System.out.printf("%-14s | %-15d | %-15d | %-15d | %-15d | %-16d%n",
                 nhan,
                 quy[0],
                 quy[1],
@@ -133,18 +123,16 @@ public class BaoCaoThongKe {
         damBaoDuLieu();
 
         int[] dsNam = layDanhSachNamHoaDon();
-        int[] cot = {8, 8, 17, 17, 17, 17, 18};
-        inTieuDeBang("THONG KE TONG TIEN HOA DON THEO NAM", cot);
+        System.out.println("\n--- THONG KE TONG TIEN HOA DON THEO NAM ---");
 
         if (dsNam.length == 0) {
-            System.out.printf("║ %-106s ║%n", "Chua co du lieu hoa don hop le de thong ke.");
-            inDuongPhanCach(cot, '╚', '╩', '╝');
+            System.out.println("Chua co du lieu hoa don hop le de thong ke.");
             return;
         }
 
-        System.out.printf("║ %-6s │ %-6s │ %-15s │ %-15s │ %-15s │ %-15s │ %-16s ║%n",
+        System.out.printf("%-6s | %-6s | %-15s | %-15s | %-15s | %-15s | %-16s%n",
                 "Nam", "So HD", "Tg Tien HD", "Thuc Thu", "Cong No", "Tg Chi", "Loi Nhuan");
-        inDuongPhanCach(cot, '╠', '╬', '╣');
+        System.out.println("--------------------------------------------------------------------------------------------------------------");
 
         int tongHd = 0;
         long tongTien = 0;
@@ -161,7 +149,7 @@ public class BaoCaoThongKe {
             tongNo += kq.congNo;
             tongChi += kq.tongChi;
 
-            System.out.printf("║ %6d │ %6d │ %15d │ %15d │ %15d │ %15d │ %16d ║%n",
+            System.out.printf("%-6d | %-6d | %-15d | %-15d | %-15d | %-15d | %-16d%n",
                     nam,
                     kq.soHoaDon,
                     kq.tongTienHd,
@@ -171,8 +159,8 @@ public class BaoCaoThongKe {
                     kq.loiNhuanThucThu());
         }
 
-        inDuongPhanCach(cot, '╠', '╬', '╣');
-        System.out.printf("║ %-6s │ %6d │ %15d │ %15d │ %15d │ %15d │ %16d ║%n",
+        System.out.println("--------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%-6s | %-6d | %-15d | %-15d | %-15d | %-15d | %-16d%n",
                 "TC",
                 tongHd,
                 tongTien,
@@ -180,7 +168,6 @@ public class BaoCaoThongKe {
                 tongNo,
                 tongChi,
                 tongThu - tongChi);
-        inDuongPhanCach(cot, '╚', '╩', '╝');
     }
 
     /**
@@ -252,7 +239,8 @@ public class BaoCaoThongKe {
 
         DanhSachTour dsTour = KhoDuLieu.getDanhSachTour();
         if (dsTour.getSoLuong() == 0) {
-            inBangThongBaoTrong("THONG KE TONG TIEN HOA DON THEO TOUR (SP) VA QUY - NAM " + nam);
+            System.out.println("\n--- THONG KE TONG TIEN HOA DON THEO TOUR (SP) VA QUY - NAM " + nam + " ---");
+            System.out.println("Chua co du lieu hoa don hop le de thong ke.");
             return;
         }
 
@@ -311,11 +299,10 @@ public class BaoCaoThongKe {
     // ==================== CAC HAM HO TRO TINH TOAN & DINH DANG ====================
 
     private static void inBangMaTranQuy(String tieuDe, String nhanCotDau, String[] dsNhanHang, long[][] maTran) {
-        int[] cot = {28, 17, 17, 17, 17, 19};
-        inTieuDeBang(tieuDe, cot);
-        System.out.printf("║ %-26s │ %15s │ %15s │ %15s │ %15s │ %17s ║%n",
+        System.out.println("\n--- " + tieuDe + " ---");
+        System.out.printf("%-26s | %-15s | %-15s | %-15s | %-15s | %-17s%n",
                 catChuoi(nhanCotDau, 26), "Q1", "Q2", "Q3", "Q4", "TC");
-        inDuongPhanCach(cot, '╠', '╬', '╣');
+        System.out.println("-------------------------------------------------------------------------------------------------------------------");
 
         long[] tongQuy = new long[4];
         long tongToanBo = 0;
@@ -327,7 +314,7 @@ public class BaoCaoThongKe {
                 tongQuy[q] += maTran[i][q];
             }
             tongToanBo += tongHang;
-            System.out.printf("║ %-26s │ %15d │ %15d │ %15d │ %15d │ %17d ║%n",
+            System.out.printf("%-26s | %-15d | %-15d | %-15d | %-15d | %-17d%n",
                     catChuoi(dsNhanHang[i], 26),
                     maTran[i][0],
                     maTran[i][1],
@@ -336,22 +323,14 @@ public class BaoCaoThongKe {
                     tongHang);
         }
 
-        inDuongPhanCach(cot, '╠', '╬', '╣');
-        System.out.printf("║ %-26s │ %15d │ %15d │ %15d │ %15d │ %17d ║%n",
+        System.out.println("-------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%-26s | %-15d | %-15d | %-15d | %-15d | %-17d%n",
                 "TC",
                 tongQuy[0],
                 tongQuy[1],
                 tongQuy[2],
                 tongQuy[3],
                 tongToanBo);
-        inDuongPhanCach(cot, '╚', '╩', '╝');
-    }
-
-    private static void inBangThongBaoTrong(String tieuDe) {
-        int[] cot = {66};
-        inTieuDeBang(tieuDe, cot);
-        System.out.printf("║ %-64s ║%n", "Chua co du lieu hoa don hop le de thong ke.");
-        inDuongPhanCach(cot, '╚', '╩', '╝');
     }
 
     private static void damBaoDuLieu() {
@@ -515,49 +494,5 @@ public class BaoCaoThongKe {
             return trimmed.substring(0, maxLen);
         }
         return trimmed.substring(0, maxLen - 3) + "...";
-    }
-
-    private static void inTieuDeBang(String tieuDe, int[] doRongCot) {
-        int tongNoiDung = doRongCot.length - 1;
-        for (int w : doRongCot) {
-            tongNoiDung += w;
-        }
-        System.out.println();
-        System.out.println("╔" + lapKyTu('═', tongNoiDung) + "╗");
-        System.out.println("║" + canGiua(tieuDe, tongNoiDung) + "║");
-        inDuongPhanCach(doRongCot, '╠', '╦', '╣');
-    }
-
-    private static void inDuongPhanCach(int[] doRongCot, char trai, char giua, char phai) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(trai);
-        for (int i = 0; i < doRongCot.length; i++) {
-            sb.append(lapKyTu('═', doRongCot[i]));
-            sb.append(i < doRongCot.length - 1 ? giua : phai);
-        }
-        System.out.println(sb.toString());
-    }
-
-    private static String canGiua(String text, int width) {
-        if (text == null) {
-            text = "";
-        }
-        if (text.length() >= width) {
-            return text.substring(0, width);
-        }
-        int padTrai = (width - text.length()) / 2;
-        int padPhai = width - text.length() - padTrai;
-        return lapKyTu(' ', padTrai) + text + lapKyTu(' ', padPhai);
-    }
-
-    private static String lapKyTu(char ch, int count) {
-        if (count <= 0) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder(count);
-        for (int i = 0; i < count; i++) {
-            sb.append(ch);
-        }
-        return sb.toString();
     }
 }

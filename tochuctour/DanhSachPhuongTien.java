@@ -112,11 +112,17 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
             return false;
         }
         int point = 0;
+        boolean check = false;
         for(int i = 0 ; i < this.soLuong ; i++){
             if(this.danhSach[i].getMaPhuongTien() == maPhuongTien){
+                check = true;
                 point = i;
                 break;
             }
+        }
+
+        if(!check){
+            return false;
         }
 
         for(int i = point ; i < this.soLuong-1 ; i++){
