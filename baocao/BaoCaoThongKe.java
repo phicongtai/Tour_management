@@ -35,15 +35,14 @@ public class BaoCaoThongKe {
     }
 
     /**
-     * 1. Tinh tong tien hoa don, thuc thu, cong no, tong chi va loi nhuan tu ngay a den ngay b.
-     * Ho tro ca dinh dang yyyy-MM-dd lan dd/MM/yyyy.
+     * 1. Tinh tong tien hoa don, thuc thu, cong no, tong chi va loi nhuan tu ngay a den ngay b (yyyy-MM-dd).
      */
     public static void thongKeTheoKhoang(String tuNgay, String denNgay) {
         damBaoDuLieu();
 
-        String ngayBatDau = chuanHoaNgay(tuNgay);
-        String ngayKetThuc = chuanHoaNgay(denNgay);
-        if (ngayBatDau != null && ngayKetThuc != null && ngayBatDau.compareTo(ngayKetThuc) > 0) {
+        String ngayBatDau = tuNgay == null ? "" : tuNgay.trim();
+        String ngayKetThuc = denNgay == null ? "" : denNgay.trim();
+        if (!ngayBatDau.isEmpty() && !ngayKetThuc.isEmpty() && ngayBatDau.compareTo(ngayKetThuc) > 0) {
             String tmp = ngayBatDau;
             ngayBatDau = ngayKetThuc;
             ngayKetThuc = tmp;
@@ -206,8 +205,8 @@ public class BaoCaoThongKe {
             if (hd == null) {
                 continue;
             }
-            String ngay = chuanHoaNgay(hd.getNgayLap());
-            if (ngay == null || Integer.parseInt(ngay.substring(0, 4)) != nam) {
+            String ngay = hd.getNgayLap();
+            if (ngay == null || ngay.length() < 7 || Integer.parseInt(ngay.substring(0, 4)) != nam) {
                 continue;
             }
             int q = (Integer.parseInt(ngay.substring(5, 7)) - 1) / 3;
@@ -266,8 +265,8 @@ public class BaoCaoThongKe {
             if (hd == null) {
                 continue;
             }
-            String ngay = chuanHoaNgay(hd.getNgayLap());
-            if (ngay == null || Integer.parseInt(ngay.substring(0, 4)) != nam) {
+            String ngay = hd.getNgayLap();
+            if (ngay == null || ngay.length() < 7 || Integer.parseInt(ngay.substring(0, 4)) != nam) {
                 continue;
             }
             int q = (Integer.parseInt(ngay.substring(5, 7)) - 1) / 3;
@@ -345,7 +344,7 @@ public class BaoCaoThongKe {
 
     private static KetQuaTaiChinh tinhTaiChinhTheoKhoang(String ngayBatDau, String ngayKetThuc) {
         KetQuaTaiChinh kq = new KetQuaTaiChinh();
-        if (ngayBatDau == null || ngayKetThuc == null) {
+        if (ngayBatDau == null || ngayKetThuc == null || ngayBatDau.isEmpty() || ngayKetThuc.isEmpty()) {
             return kq;
         }
 
@@ -355,8 +354,8 @@ public class BaoCaoThongKe {
             if (hd == null) {
                 continue;
             }
-            String ngayLap = chuanHoaNgay(hd.getNgayLap());
-            if (ngayLap == null || ngayLap.compareTo(ngayBatDau) < 0 || ngayLap.compareTo(ngayKetThuc) > 0) {
+            String ngayLap = hd.getNgayLap();
+            if (ngayLap == null || ngayLap.isEmpty() || ngayLap.compareTo(ngayBatDau) < 0 || ngayLap.compareTo(ngayKetThuc) > 0) {
                 continue;
             }
             kq.soHoaDon++;
@@ -422,8 +421,8 @@ public class BaoCaoThongKe {
             if (hd == null) {
                 continue;
             }
-            String ngay = chuanHoaNgay(hd.getNgayLap());
-            if (ngay == null) {
+            String ngay = hd.getNgayLap();
+            if (ngay == null || ngay.length() < 4) {
                 continue;
             }
             int nam = Integer.parseInt(ngay.substring(0, 4));
@@ -445,41 +444,6 @@ public class BaoCaoThongKe {
         int[] ketQua = new int[dem];
         System.arraycopy(tam, 0, ketQua, 0, dem);
         return ketQua;
-    }
-
-    private static String chuanHoaNgay(String chuoiNgay) {
-        if (chuoiNgay == null) {
-            return null;
-        }
-        String s = chuoiNgay.trim();
-        if (s.isEmpty() || "N/A".equalsIgnoreCase(s)) {
-            return null;
-        }
-        try {
-            if (s.contains("-")) {
-                String[] parts = s.split("-");
-                if (parts.length == 3) {
-                    int y = Integer.parseInt(parts[0].trim());
-                    int m = Integer.parseInt(parts[1].trim());
-                    int d = Integer.parseInt(parts[2].trim());
-                    if (y >= 1000 && m >= 1 && m <= 12 && d >= 1 && d <= 31) {
-                        return String.format("%04d-%02d-%02d", y, m, d);
-                    }
-                }
-            } else if (s.contains("/")) {
-                String[] parts = s.split("/");
-                if (parts.length == 3) {
-                    int d = Integer.parseInt(parts[0].trim());
-                    int m = Integer.parseInt(parts[1].trim());
-                    int y = Integer.parseInt(parts[2].trim());
-                    if (y >= 1000 && m >= 1 && m <= 12 && d >= 1 && d <= 31) {
-                        return String.format("%04d-%02d-%02d", y, m, d);
-                    }
-                }
-            }
-        } catch (Exception ignored) {
-        }
-        return null;
     }
 
     private static String catChuoi(String s, int maxLen) {
