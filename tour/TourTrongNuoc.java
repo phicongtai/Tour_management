@@ -61,6 +61,7 @@ public class TourTrongNuoc extends Tour {
         setDiemDen(in.nextLine());
         System.out.println("Nhap so ngay: ");
         setSoNgay(in.nextInt());
+        in.nextLine();
         System.out.println("Nhap don gia co ban: ");
         setDonGiaCoBan(in.nextLong());
         in.nextLine();
