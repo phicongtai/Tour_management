@@ -6,7 +6,6 @@ import nguoidung.HanhKhach;
 import tochuctour.KeHoachTour;
 import tour.Tour;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Quanlyve {
@@ -176,13 +175,13 @@ public class Quanlyve {
                             }
 
                             String trangThaiNhom = KhoDuLieu.getDanhSachVe().layTrangThaiNhom(maDon);
-                            System.out.printf("%-10d | %-24s | %-26s | %-12s | %-8d | %-15s | %-25s%n",
+                            System.out.printf("%-10d | %-24s | %-26s | %-12s | %-8d | %-15d | %-25s%n",
                                     maDon,
                                     tenNguoiDat,
                                     tenTour,
                                     veDau.getNgayDat(),
                                     nhomVe.length,
-                                    String.format(Locale.US, "%,d", tongTien),
+                                    tongTien,
                                     trangThaiNhom);
                         }
                         System.out.println("Tong so nhom dat: " + dsMaDon.length);

@@ -6,19 +6,12 @@ import datvevathanhtoan.HoaDon;
 import datvevathanhtoan.Ve;
 import dulieu.DocGhiFile;
 import kho.KhoDuLieu;
-import nguoidung.DanhSachHanhKhach;
 import nguoidung.DanhSachNhanVien;
-import nguoidung.HanhKhach;
 import nguoidung.NhanVien;
 import tochuctour.DanhSachKeHoachTour;
 import tochuctour.KeHoachTour;
 import tour.DanhSachTour;
 import tour.Tour;
-import tour.TourTrongNuoc;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * Module bao cao va thong ke cho he thong quan ly tour du lich.
@@ -26,8 +19,6 @@ import java.util.Locale;
  * trinh bay theo phong cach bang khung Unicode.
  */
 public class BaoCaoThongKe {
-    private static final DateTimeFormatter DINH_DANG_ISO = DateTimeFormatter.ISO_LOCAL_DATE;
-    private static final DateTimeFormatter DINH_DANG_VN = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private static final class KetQuaTaiChinh {
         int soHoaDon;
@@ -45,98 +36,16 @@ public class BaoCaoThongKe {
     }
 
     /**
-     * 0. Thong ke tong quan quy mo he thong, ve va hoa don.
-     */
-    public static void thongKeTongQuanHeThong() {
-        damBaoDuLieu();
-
-        DanhSachTour dsTour = KhoDuLieu.getDanhSachTour();
-        DanhSachKeHoachTour dsKeHoach = KhoDuLieu.getDanhSachKeHoachTour();
-        DanhSachHanhKhach dsHanhKhach = KhoDuLieu.getDanhSachHanhKhach();
-        DanhSachNhanVien dsNhanVien = KhoDuLieu.getDanhSachNhanVien();
-        DanhSachVe dsVe = KhoDuLieu.getDanhSachVe();
-        DanhSachHoaDon dsHoaDon = KhoDuLieu.getDanhSachHoaDon();
-
-        int tourTrongNuoc = 0;
-        int tourNuocNgoai = 0;
-        for (int i = 0; i < dsTour.getSoLuong(); i++) {
-            Tour t = dsTour.getDanhSach()[i];
-            if (t instanceof TourTrongNuoc) {
-                tourTrongNuoc++;
-            } else if (t != null) {
-                tourNuocNgoai++;
-            }
-        }
-
-        int veThanhToan = 0;
-        int veDaDat = 0;
-        int veDaHuy = 0;
-        for (int i = 0; i < dsVe.getSoLuong(); i++) {
-            Ve v = dsVe.getDanhSach()[i];
-            if (v == null) {
-                continue;
-            }
-            if (v.getTrangThai() == Ve.DA_THANH_TOAN) {
-                veThanhToan++;
-            } else if (v.getTrangThai() == Ve.DA_DAT) {
-                veDaDat++;
-            } else if (v.getTrangThai() == Ve.DA_HUY) {
-                veDaHuy++;
-            }
-        }
-
-        int hdThuDu = 0;
-        int hdChuaDu = 0;
-        for (int i = 0; i < dsHoaDon.getSoLuong(); i++) {
-            HoaDon hd = dsHoaDon.getDanhSach()[i];
-            if (hd == null) {
-                continue;
-            }
-            if (hd.daThanhToanDu()) {
-                hdThuDu++;
-            } else {
-                hdChuaDu++;
-            }
-        }
-
-        int[] cot = {28, 12, 50};
-        inTieuDeBang("THONG KE TONG QUAN HE THONG", cot);
-        System.out.printf("║ %-26s │ %-10s │ %-48s ║%n", "Danh Muc", "So Luong", "Chi Tiet Phan Loai");
-        inDuongPhanCach(cot, '╠', '╬', '╣');
-
-        inDongTongQuan("Tour du lich", dsTour.getSoLuong(),
-                String.format("Trong nuoc: %d | Nuoc ngoai: %d", tourTrongNuoc, tourNuocNgoai));
-        inDongTongQuan("Ke hoach tour", dsKeHoach.getSoLuong(), "Lich trinh khoi hanh hien co");
-        inDongTongQuan("Hanh khach", dsHanhKhach.getSoLuong(), "Ho so khach hang trong he thong");
-        inDongTongQuan("Nhan vien", dsNhanVien.getSoLuong(), "Nhan su phu trach tour & hoa don");
-        inDongTongQuan("Phuong tien", KhoDuLieu.getDanhSachPhuongTien().getSoLuong(), "Danh muc phuong tien di chuyen");
-        inDongTongQuan("Khach san", KhoDuLieu.getDanhSachKhachSan().getSoLuong(), "Danh muc co so luu tru");
-        inDongTongQuan("Ve da phat hanh", dsVe.getSoLuong(),
-                String.format("Da TT: %d | Da dat: %d | Da huy: %d", veThanhToan, veDaDat, veDaHuy));
-        inDongTongQuan("Hoa don", dsHoaDon.getSoLuong(),
-                String.format("Da thu du: %d | Chua thu du: %d", hdThuDu, hdChuaDu));
-
-        inDuongPhanCach(cot, '╚', '╩', '╝');
-    }
-
-    private static void inDongTongQuan(String danhMuc, int soLuong, String ghiChu) {
-        System.out.printf("║ %-26s │ %10s │ %-48s ║%n",
-                catChuoi(danhMuc, 26),
-                dinhDangSo(soLuong),
-                catChuoi(ghiChu, 48));
-    }
-
-    /**
      * 1. Tinh tong tien hoa don, thuc thu, cong no, tong chi va loi nhuan tu ngay a den ngay b.
      * Ho tro ca dinh dang yyyy-MM-dd lan dd/MM/yyyy.
      */
     public static void thongKeTheoKhoang(String tuNgay, String denNgay) {
         damBaoDuLieu();
 
-        LocalDate ngayBatDau = parseNgay(tuNgay);
-        LocalDate ngayKetThuc = parseNgay(denNgay);
-        if (ngayBatDau != null && ngayKetThuc != null && ngayBatDau.isAfter(ngayKetThuc)) {
-            LocalDate tmp = ngayBatDau;
+        String ngayBatDau = chuanHoaNgay(tuNgay);
+        String ngayKetThuc = chuanHoaNgay(denNgay);
+        if (ngayBatDau != null && ngayKetThuc != null && ngayBatDau.compareTo(ngayKetThuc) > 0) {
+            String tmp = ngayBatDau;
             ngayBatDau = ngayKetThuc;
             ngayKetThuc = tmp;
         }
@@ -149,64 +58,13 @@ public class BaoCaoThongKe {
         System.out.printf("║ %-6s │ %-15s │ %-15s │ %-15s │ %-15s │ %-16s ║%n",
                 "So HD", "Tg Tien HD", "Thuc Thu", "Cong No", "Tg Chi", "Loi Nhuan");
         inDuongPhanCach(cot, '╠', '╬', '╣');
-        System.out.printf("║ %6s │ %15s │ %15s │ %15s │ %15s │ %16s ║%n",
-                dinhDangSo(kq.soHoaDon),
-                dinhDangSo(kq.tongTienHd),
-                dinhDangSo(kq.thucThu),
-                dinhDangSo(kq.congNo),
-                dinhDangSo(kq.tongChi),
-                dinhDangSo(kq.loiNhuanThucThu()));
-        inDuongPhanCach(cot, '╚', '╩', '╝');
-    }
-
-    /**
-     * 2a. Thong ke tong tien hoa don, chi phi va loi nhuan theo 12 thang trong nam.
-     */
-    public static void thongKeTheoThang(int nam) {
-        damBaoDuLieu();
-
-        int[] cot = {10, 8, 17, 17, 17, 17, 18};
-        inTieuDeBang("THONG KE TONG TIEN HOA DON THEO THANG - NAM " + nam, cot);
-        System.out.printf("║ %-8s │ %-6s │ %-15s │ %-15s │ %-15s │ %-15s │ %-16s ║%n",
-                "Thang", "So HD", "Tg Tien HD", "Thuc Thu", "Cong No", "Tg Chi", "Loi Nhuan");
-        inDuongPhanCach(cot, '╠', '╬', '╣');
-
-        int tongHd = 0;
-        long tongTienHd = 0;
-        long tongThucThu = 0;
-        long tongCongNo = 0;
-        long tongChi = 0;
-
-        for (int thang = 1; thang <= 12; thang++) {
-            LocalDate dauThang = LocalDate.of(nam, thang, 1);
-            LocalDate cuoiThang = dauThang.plusMonths(1).minusDays(1);
-            KetQuaTaiChinh kq = tinhTaiChinhTheoKhoang(dauThang, cuoiThang);
-
-            tongHd += kq.soHoaDon;
-            tongTienHd += kq.tongTienHd;
-            tongThucThu += kq.thucThu;
-            tongCongNo += kq.congNo;
-            tongChi += kq.tongChi;
-
-            System.out.printf("║ %-8s │ %6s │ %15s │ %15s │ %15s │ %15s │ %16s ║%n",
-                    "Thang " + thang,
-                    dinhDangSo(kq.soHoaDon),
-                    dinhDangSo(kq.tongTienHd),
-                    dinhDangSo(kq.thucThu),
-                    dinhDangSo(kq.congNo),
-                    dinhDangSo(kq.tongChi),
-                    dinhDangSo(kq.loiNhuanThucThu()));
-        }
-
-        inDuongPhanCach(cot, '╠', '╬', '╣');
-        System.out.printf("║ %-8s │ %6s │ %15s │ %15s │ %15s │ %15s │ %16s ║%n",
-                "TC",
-                dinhDangSo(tongHd),
-                dinhDangSo(tongTienHd),
-                dinhDangSo(tongThucThu),
-                dinhDangSo(tongCongNo),
-                dinhDangSo(tongChi),
-                dinhDangSo(tongThucThu - tongChi));
+        System.out.printf("║ %6d │ %15d │ %15d │ %15d │ %15d │ %16d ║%n",
+                kq.soHoaDon,
+                kq.tongTienHd,
+                kq.thucThu,
+                kq.congNo,
+                kq.tongChi,
+                kq.loiNhuanThucThu());
         inDuongPhanCach(cot, '╚', '╩', '╝');
     }
 
@@ -228,11 +86,10 @@ public class BaoCaoThongKe {
         long tcChi = 0;
         long tcLoiNhuan = 0;
 
+        String[] dauQuyStr = {"-01-01", "-04-01", "-07-01", "-10-01"};
+        String[] cuoiQuyStr = {"-03-31", "-06-30", "-09-30", "-12-31"};
         for (int q = 0; q < 4; q++) {
-            int thangDau = q * 3 + 1;
-            LocalDate dauQuy = LocalDate.of(nam, thangDau, 1);
-            LocalDate cuoiQuy = dauQuy.plusMonths(3).minusDays(1);
-            KetQuaTaiChinh kq = tinhTaiChinhTheoKhoang(dauQuy, cuoiQuy);
+            KetQuaTaiChinh kq = tinhTaiChinhTheoKhoang(nam + dauQuyStr[q], nam + cuoiQuyStr[q]);
 
             hdQuy[q] = kq.tongTienHd;
             thucThuQuy[q] = kq.thucThu;
@@ -260,13 +117,13 @@ public class BaoCaoThongKe {
     }
 
     private static void inDongBangQuy(String nhan, long[] quy, long tongCong) {
-        System.out.printf("║ %-14s │ %15s │ %15s │ %15s │ %15s │ %16s ║%n",
+        System.out.printf("║ %-14s │ %15d │ %15d │ %15d │ %15d │ %16d ║%n",
                 nhan,
-                dinhDangSo(quy[0]),
-                dinhDangSo(quy[1]),
-                dinhDangSo(quy[2]),
-                dinhDangSo(quy[3]),
-                dinhDangSo(tongCong));
+                quy[0],
+                quy[1],
+                quy[2],
+                quy[3],
+                tongCong);
     }
 
     /**
@@ -296,9 +153,7 @@ public class BaoCaoThongKe {
         long tongChi = 0;
 
         for (int nam : dsNam) {
-            LocalDate dauNam = LocalDate.of(nam, 1, 1);
-            LocalDate cuoiNam = LocalDate.of(nam, 12, 31);
-            KetQuaTaiChinh kq = tinhTaiChinhTheoKhoang(dauNam, cuoiNam);
+            KetQuaTaiChinh kq = tinhTaiChinhTheoKhoang(nam + "-01-01", nam + "-12-31");
 
             tongHd += kq.soHoaDon;
             tongTien += kq.tongTienHd;
@@ -306,25 +161,25 @@ public class BaoCaoThongKe {
             tongNo += kq.congNo;
             tongChi += kq.tongChi;
 
-            System.out.printf("║ %6d │ %6s │ %15s │ %15s │ %15s │ %15s │ %16s ║%n",
+            System.out.printf("║ %6d │ %6d │ %15d │ %15d │ %15d │ %15d │ %16d ║%n",
                     nam,
-                    dinhDangSo(kq.soHoaDon),
-                    dinhDangSo(kq.tongTienHd),
-                    dinhDangSo(kq.thucThu),
-                    dinhDangSo(kq.congNo),
-                    dinhDangSo(kq.tongChi),
-                    dinhDangSo(kq.loiNhuanThucThu()));
+                    kq.soHoaDon,
+                    kq.tongTienHd,
+                    kq.thucThu,
+                    kq.congNo,
+                    kq.tongChi,
+                    kq.loiNhuanThucThu());
         }
 
         inDuongPhanCach(cot, '╠', '╬', '╣');
-        System.out.printf("║ %-6s │ %6s │ %15s │ %15s │ %15s │ %15s │ %16s ║%n",
+        System.out.printf("║ %-6s │ %6d │ %15d │ %15d │ %15d │ %15d │ %16d ║%n",
                 "TC",
-                dinhDangSo(tongHd),
-                dinhDangSo(tongTien),
-                dinhDangSo(tongThu),
-                dinhDangSo(tongNo),
-                dinhDangSo(tongChi),
-                dinhDangSo(tongThu - tongChi));
+                tongHd,
+                tongTien,
+                tongThu,
+                tongNo,
+                tongChi,
+                tongThu - tongChi);
         inDuongPhanCach(cot, '╚', '╩', '╝');
     }
 
@@ -364,11 +219,11 @@ public class BaoCaoThongKe {
             if (hd == null) {
                 continue;
             }
-            LocalDate ngay = parseNgay(hd.getNgayLap());
-            if (ngay == null || ngay.getYear() != nam) {
+            String ngay = chuanHoaNgay(hd.getNgayLap());
+            if (ngay == null || Integer.parseInt(ngay.substring(0, 4)) != nam) {
                 continue;
             }
-            int q = (ngay.getMonthValue() - 1) / 3;
+            int q = (Integer.parseInt(ngay.substring(5, 7)) - 1) / 3;
             int viTri = timViTriMa(dsMaNv, idx, hd.getMaNhanVien());
             if (viTri == -1 && coHdChuaXacDinh) {
                 viTri = idx - 1;
@@ -384,49 +239,6 @@ public class BaoCaoThongKe {
                 "THONG KE TONG TIEN HOA DON THEO NHAN VIEN VA QUY - NAM " + nam,
                 "Nhan Vien (Nam " + nam + ")",
                 nhanThucTe,
-                maTran);
-    }
-
-    /**
-     * 4a. Thong ke tong tien hoa don theo Khach hang va Quy trong mot nam.
-     */
-    public static void thongKeKhachHangTheoQuy(int nam) {
-        damBaoDuLieu();
-
-        DanhSachHoaDon dsHoaDon = KhoDuLieu.getDanhSachHoaDon();
-        int[] dsMaKH = layDanhSachMaKhachDatHoaDon();
-        if (dsMaKH.length == 0) {
-            inBangThongBaoTrong("THONG KE TONG TIEN HOA DON THEO KHACH HANG VA QUY - NAM " + nam);
-            return;
-        }
-
-        String[] dsTenKH = new String[dsMaKH.length];
-        for (int i = 0; i < dsMaKH.length; i++) {
-            dsTenKH[i] = dinhDangTenKhachHang(dsMaKH[i]);
-        }
-
-        long[][] maTran = new long[dsMaKH.length][4];
-        for (int i = 0; i < dsHoaDon.getSoLuong(); i++) {
-            HoaDon hd = dsHoaDon.getDanhSach()[i];
-            if (hd == null) {
-                continue;
-            }
-            LocalDate ngay = parseNgay(hd.getNgayLap());
-            if (ngay == null || ngay.getYear() != nam) {
-                continue;
-            }
-            int maKH = timMaNguoiDatTheoHoaDon(hd);
-            int viTri = timViTriMa(dsMaKH, dsMaKH.length, maKH);
-            if (viTri >= 0) {
-                int q = (ngay.getMonthValue() - 1) / 3;
-                maTran[viTri][q] += hd.tinhTongTien();
-            }
-        }
-
-        inBangMaTranQuy(
-                "THONG KE TONG TIEN HOA DON THEO KHACH HANG VA QUY - NAM " + nam,
-                "Khach Hang (Nam " + nam + ")",
-                dsTenKH,
                 maTran);
     }
 
@@ -466,11 +278,11 @@ public class BaoCaoThongKe {
             if (hd == null) {
                 continue;
             }
-            LocalDate ngay = parseNgay(hd.getNgayLap());
-            if (ngay == null || ngay.getYear() != nam) {
+            String ngay = chuanHoaNgay(hd.getNgayLap());
+            if (ngay == null || Integer.parseInt(ngay.substring(0, 4)) != nam) {
                 continue;
             }
-            int q = (ngay.getMonthValue() - 1) / 3;
+            int q = (Integer.parseInt(ngay.substring(5, 7)) - 1) / 3;
             for (int maVe : hd.layDanhSachMaVe()) {
                 Ve ve = dsVe.timTheoMa(maVe);
                 if (ve == null) {
@@ -515,23 +327,23 @@ public class BaoCaoThongKe {
                 tongQuy[q] += maTran[i][q];
             }
             tongToanBo += tongHang;
-            System.out.printf("║ %-26s │ %15s │ %15s │ %15s │ %15s │ %17s ║%n",
+            System.out.printf("║ %-26s │ %15d │ %15d │ %15d │ %15d │ %17d ║%n",
                     catChuoi(dsNhanHang[i], 26),
-                    dinhDangSo(maTran[i][0]),
-                    dinhDangSo(maTran[i][1]),
-                    dinhDangSo(maTran[i][2]),
-                    dinhDangSo(maTran[i][3]),
-                    dinhDangSo(tongHang));
+                    maTran[i][0],
+                    maTran[i][1],
+                    maTran[i][2],
+                    maTran[i][3],
+                    tongHang);
         }
 
         inDuongPhanCach(cot, '╠', '╬', '╣');
-        System.out.printf("║ %-26s │ %15s │ %15s │ %15s │ %15s │ %17s ║%n",
+        System.out.printf("║ %-26s │ %15d │ %15d │ %15d │ %15d │ %17d ║%n",
                 "TC",
-                dinhDangSo(tongQuy[0]),
-                dinhDangSo(tongQuy[1]),
-                dinhDangSo(tongQuy[2]),
-                dinhDangSo(tongQuy[3]),
-                dinhDangSo(tongToanBo));
+                tongQuy[0],
+                tongQuy[1],
+                tongQuy[2],
+                tongQuy[3],
+                tongToanBo);
         inDuongPhanCach(cot, '╚', '╩', '╝');
     }
 
@@ -552,7 +364,7 @@ public class BaoCaoThongKe {
         }
     }
 
-    private static KetQuaTaiChinh tinhTaiChinhTheoKhoang(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+    private static KetQuaTaiChinh tinhTaiChinhTheoKhoang(String ngayBatDau, String ngayKetThuc) {
         KetQuaTaiChinh kq = new KetQuaTaiChinh();
         if (ngayBatDau == null || ngayKetThuc == null) {
             return kq;
@@ -564,8 +376,8 @@ public class BaoCaoThongKe {
             if (hd == null) {
                 continue;
             }
-            LocalDate ngayLap = parseNgay(hd.getNgayLap());
-            if (ngayLap == null || ngayLap.isBefore(ngayBatDau) || ngayLap.isAfter(ngayKetThuc)) {
+            String ngayLap = chuanHoaNgay(hd.getNgayLap());
+            if (ngayLap == null || ngayLap.compareTo(ngayBatDau) < 0 || ngayLap.compareTo(ngayKetThuc) > 0) {
                 continue;
             }
             kq.soHoaDon++;
@@ -631,11 +443,11 @@ public class BaoCaoThongKe {
             if (hd == null) {
                 continue;
             }
-            LocalDate ngay = parseNgay(hd.getNgayLap());
+            String ngay = chuanHoaNgay(hd.getNgayLap());
             if (ngay == null) {
                 continue;
             }
-            int nam = ngay.getYear();
+            int nam = Integer.parseInt(ngay.substring(0, 4));
             if (timViTriMa(tam, dem, nam) < 0) {
                 tam[dem++] = nam;
             }
@@ -656,70 +468,7 @@ public class BaoCaoThongKe {
         return ketQua;
     }
 
-    private static int[] layDanhSachMaKhachDatHoaDon() {
-        DanhSachHoaDon dsHoaDon = KhoDuLieu.getDanhSachHoaDon();
-        int[] tam = new int[dsHoaDon.getSoLuong()];
-        int dem = 0;
-
-        for (int i = 0; i < dsHoaDon.getSoLuong(); i++) {
-            HoaDon hd = dsHoaDon.getDanhSach()[i];
-            if (hd == null) {
-                continue;
-            }
-            int maKH = timMaNguoiDatTheoHoaDon(hd);
-            if (timViTriMa(tam, dem, maKH) < 0) {
-                tam[dem++] = maKH;
-            }
-        }
-
-        for (int i = 0; i < dem - 1; i++) {
-            for (int j = i + 1; j < dem; j++) {
-                if (tam[i] > tam[j]) {
-                    int tmp = tam[i];
-                    tam[i] = tam[j];
-                    tam[j] = tmp;
-                }
-            }
-        }
-
-        int[] ketQua = new int[dem];
-        System.arraycopy(tam, 0, ketQua, 0, dem);
-        return ketQua;
-    }
-
-    private static int timMaNguoiDatTheoHoaDon(HoaDon hd) {
-        if (hd == null) {
-            return 0;
-        }
-        DanhSachVe dsVe = KhoDuLieu.getDanhSachVe();
-        int[] dsMaVe = hd.layDanhSachMaVe();
-        for (int maVe : dsMaVe) {
-            Ve ve = dsVe.timTheoMa(maVe);
-            if (ve != null && ve.getMaNguoiDat() > 0) {
-                return ve.getMaNguoiDat();
-            }
-        }
-        Ve[] veTheoDon = dsVe.timTheoMaDonDatTour(hd.getMaDonDatTour());
-        for (Ve ve : veTheoDon) {
-            if (ve != null && ve.getMaNguoiDat() > 0) {
-                return ve.getMaNguoiDat();
-            }
-        }
-        return 0;
-    }
-
-    private static String dinhDangTenKhachHang(int maKH) {
-        if (maKH <= 0) {
-            return "0 - Khach le";
-        }
-        HanhKhach hk = KhoDuLieu.getDanhSachHanhKhach().timTheoMa(maKH);
-        if (hk == null || hk.getHoTen() == null || hk.getHoTen().trim().isEmpty()) {
-            return maKH + " - (Khong ro)";
-        }
-        return maKH + " - " + hk.getHoTen().trim();
-    }
-
-    private static LocalDate parseNgay(String chuoiNgay) {
+    private static String chuanHoaNgay(String chuoiNgay) {
         if (chuoiNgay == null) {
             return null;
         }
@@ -728,18 +477,30 @@ public class BaoCaoThongKe {
             return null;
         }
         try {
-            return LocalDate.parse(s, DINH_DANG_ISO);
-        } catch (Exception ignored) {
-        }
-        try {
-            return LocalDate.parse(s, DINH_DANG_VN);
+            if (s.contains("-")) {
+                String[] parts = s.split("-");
+                if (parts.length == 3) {
+                    int y = Integer.parseInt(parts[0].trim());
+                    int m = Integer.parseInt(parts[1].trim());
+                    int d = Integer.parseInt(parts[2].trim());
+                    if (y >= 1000 && m >= 1 && m <= 12 && d >= 1 && d <= 31) {
+                        return String.format("%04d-%02d-%02d", y, m, d);
+                    }
+                }
+            } else if (s.contains("/")) {
+                String[] parts = s.split("/");
+                if (parts.length == 3) {
+                    int d = Integer.parseInt(parts[0].trim());
+                    int m = Integer.parseInt(parts[1].trim());
+                    int y = Integer.parseInt(parts[2].trim());
+                    if (y >= 1000 && m >= 1 && m <= 12 && d >= 1 && d <= 31) {
+                        return String.format("%04d-%02d-%02d", y, m, d);
+                    }
+                }
+            }
         } catch (Exception ignored) {
         }
         return null;
-    }
-
-    private static String dinhDangSo(long giaTri) {
-        return String.format(Locale.US, "%,d", giaTri);
     }
 
     private static String catChuoi(String s, int maxLen) {

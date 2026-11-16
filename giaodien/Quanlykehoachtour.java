@@ -5,7 +5,6 @@ import tochuctour.ChiTietKeHoachTour;
 import tochuctour.KeHoachTour;
 import tour.Tour;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Quanlykehoachtour {
@@ -186,10 +185,10 @@ public class Quanlykehoachtour {
                     Tour tourLienQuan = KhoDuLieu.getDanhSachTour().timTheoMa(khChiPhi.getMaTour());
 
                     System.out.println("\n-------- KET QUA TINH CHI PHI (1 KHACH) --------");
-                    System.out.printf(Locale.US, "Chi phi lich trinh / 1 khach          : %,d VND%n", chiPhi1Khach);
+                    System.out.printf("Chi phi lich trinh / 1 khach          : %d VND%n", chiPhi1Khach);
                     if (tourLienQuan != null) {
                         long donGiaVe = khChiPhi.tinhDonGiaVe(tourLienQuan);
-                        System.out.printf(Locale.US, "Don gia ve / 1 khach (Tour + Chi phi) : %,d VND%n", donGiaVe);
+                        System.out.printf("Don gia ve / 1 khach (Tour + Chi phi) : %d VND%n", donGiaVe);
                     }
                     System.out.println("================================================");
                     System.out.println("\n>> Nhan Enter de tiep tuc...");

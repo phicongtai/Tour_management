@@ -3,7 +3,6 @@ package giaodien;
 import datvevathanhtoan.HoaDon;
 import kho.KhoDuLieu;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Quanlyhoadon {
@@ -102,12 +101,12 @@ public class Quanlyhoadon {
                     } else {
                         boolean ok;
                         do {
-                            System.out.print("Nhap so tien thanh toan (toi da " + String.format(Locale.US, "%,d", hdTT.tinhSoTienConLai()) + "): ");
+                            System.out.print("Nhap so tien thanh toan (toi da " + hdTT.tinhSoTienConLai() + "): ");
                             long soTien = in.nextLong();
                             in.nextLine();
                             ok = hdTT.ghiNhanThanhToan(soTien, KhoDuLieu.getDanhSachVe());
                             if (!ok) {
-                                System.out.println("So tien khong hop le (phai > 0 va <= " + String.format(Locale.US, "%,d", hdTT.tinhSoTienConLai()) + ")! Vui long nhap lai.");
+                                System.out.println("So tien khong hop le (phai > 0 va <= " + hdTT.tinhSoTienConLai() + ")! Vui long nhap lai.");
                             }
                         } while (!ok);
 

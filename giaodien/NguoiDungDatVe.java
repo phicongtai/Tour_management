@@ -246,11 +246,7 @@ public class NguoiDungDatVe {
         }
     }
 
-    private static boolean xuatVeRaFile(
-            String duongDan,
-            int maDonDatTour,
-            HoaDon hoaDon,
-            int[] dsMaVe) {
+    private static boolean xuatVeRaFile(String duongDan,int maDonDatTour,HoaDon hoaDon,int[] dsMaVe) {
         if (duongDan == null || hoaDon == null || dsMaVe == null) {
             return false;
         }

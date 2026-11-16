@@ -1,0 +1,8 @@
+════════ DAT VE THANH CONG ════════
+Ma don dat tour: 121
+Ma hoa don: 21
+Danh sach ma ve: 35
+Tong tien: 18210000
+So tien da thanh toan: 18210000
+So tien con lai: 0
+====================================

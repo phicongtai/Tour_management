@@ -1,6 +1,5 @@
 package datvevathanhtoan;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 import kho.KhoDuLieu;
@@ -198,14 +197,14 @@ public long tinhSoTienConLai() {
     }
 
     public void xuat() {
-        System.out.printf("%-6d | %-8d | %-6d | %-12s | %-14s | %-14s | %-14s | %-12s%n",
+        System.out.printf("%-6d | %-8d | %-6d | %-12s | %-14d | %-14d | %-14d | %-12s%n",
                 this.maHoaDon,
                 this.maDonDatTour,
                 this.maNhanVien,
                 this.ngayLap,
-                String.format(Locale.US, "%,d", tinhTongTien()),
-                String.format(Locale.US, "%,d", this.soTienDaThanhToan),
-                String.format(Locale.US, "%,d", tinhSoTienConLai()),
+                tinhTongTien(),
+                this.soTienDaThanhToan,
+                tinhSoTienConLai(),
                 daThanhToanDu() ? "Da du" : "Chua du");
     }
 }
