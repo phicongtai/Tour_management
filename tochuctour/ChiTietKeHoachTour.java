@@ -80,8 +80,10 @@ public class ChiTietKeHoachTour {
     }
 
     public void xuat() {
-        String pt = kho.KhoDuLieu.getDanhSachPhuongTien().timTheoMa(this.maPhuongTien).getTenPhuongTien();
-        String ks = kho.KhoDuLieu.getDanhSachKhachSan().timTheoMa(maKhachSan).getTenKhachSan();
+        PhuongTien phuongTienLienQuan = kho.KhoDuLieu.getDanhSachPhuongTien().timTheoMa(this.maPhuongTien);
+        KhachSan khachSanLienQuan = kho.KhoDuLieu.getDanhSachKhachSan().timTheoMa(this.maKhachSan);
+        String pt = (phuongTienLienQuan != null) ? phuongTienLienQuan.getTenPhuongTien() : ("PT #" + this.maPhuongTien);
+        String ks = (khachSanLienQuan != null) ? khachSanLienQuan.getTenKhachSan() : ("KS #" + this.maKhachSan);
         System.out.printf("%-12s | %-25s | %-30s | %-12s | %-12s | %-12s%n", this.ngay, pt, ks, this.tienAn, this.tienO, this.tienDiLai);
     }
 

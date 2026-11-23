@@ -179,27 +179,44 @@ public class KeHoachTour {
     }
 
     public void xuat(){
-        String tentour = kho.KhoDuLieu.getDanhSachTour().timTheoMa(maTour).getTenTour();
-        String tenNhanvien = kho.KhoDuLieu.getDanhSachNhanVien().timTheoMa(maNhanVien).getHoTen();
+        tour.Tour tourLienQuan = kho.KhoDuLieu.getDanhSachTour().timTheoMa(maTour);
+        nguoidung.NhanVien nhanVienLienQuan = kho.KhoDuLieu.getDanhSachNhanVien().timTheoMa(maNhanVien);
+        String tentour = (tourLienQuan != null) ? tourLienQuan.getTenTour() : ("Tour #" + maTour);
+        String tenNhanvien = (nhanVienLienQuan != null) ? nhanVienLienQuan.getHoTen() : ("NV #" + maNhanVien);
         System.out.printf("%-18s | %-26s | %-24s | %-12s | %-12s | %-18s%n", this.maKeHoachTour, tentour, tenNhanvien, this.ngayDi, this.ngayVe, this.soLuongVeToiDa);
     }
 
     public void nhap(){
         this.maKeHoachTour = KhoDuLieu.getDanhSachKeHoachTour().getMaMoi();
         System.out.println("Ma ke hoach tour (tu dong): " + this.maKeHoachTour);
-        System.out.print("Nhap ma tour: ");
-        this.maTour = in.nextInt();
-        in.nextLine();
-        System.out.print("Nhap ma nhan vien: ");
-        this.maNhanVien = in.nextInt();
-        in.nextLine();
+        do {
+            System.out.print("Nhap ma tour: ");
+            this.maTour = in.nextInt();
+            in.nextLine();
+            if (KhoDuLieu.getDanhSachTour().timTheoMa(this.maTour) == null) {
+                System.out.println("Ma tour khong ton tai, vui long nhap lai!");
+            }
+        } while (KhoDuLieu.getDanhSachTour().timTheoMa(this.maTour) == null);
+        do {
+            System.out.print("Nhap ma nhan vien: ");
+            this.maNhanVien = in.nextInt();
+            in.nextLine();
+            if (KhoDuLieu.getDanhSachNhanVien().timTheoMa(this.maNhanVien) == null) {
+                System.out.println("Ma nhan vien khong ton tai, vui long nhap lai!");
+            }
+        } while (KhoDuLieu.getDanhSachNhanVien().timTheoMa(this.maNhanVien) == null);
         System.out.print("Nhap Ngay di (trinh bay nhu sau 2026-11-23): ");
         this.ngayDi = in.nextLine();
         System.out.print("Nhap Ngay ve (trinh bay nhu sau 2026-11-23): ");
         this.ngayVe = in.nextLine();
-        System.out.print("Nhap so luong ve toi da: ");
-        this.soLuongVeToiDa = in.nextInt();
-        in.nextLine();
+        do {
+            System.out.print("Nhap so luong ve toi da: ");
+            this.soLuongVeToiDa = in.nextInt();
+            in.nextLine();
+            if (this.soLuongVeToiDa <= 0) {
+                System.out.println("So luong ve toi da phai lon hon 0, vui long nhap lai!");
+            }
+        } while (this.soLuongVeToiDa <= 0);
     }
 
     public long tinhDonGiaVe(Tour tour){// tinh don gia theo tour tren 1 nguoi

@@ -149,12 +149,13 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
         }
 
         System.out.print("Sua so tien da thanh toan: ");
-        long soTienDaThanhToan = in.nextInt();
+        long soTienDaThanhToan = in.nextLong();
+        in.nextLine();
         if(soTienDaThanhToan > 0){
         temp.setSoTienDaThanhToan(soTienDaThanhToan);
         }
 
-        return false;
+        return true;
     }
 
     @Override
