@@ -121,18 +121,23 @@ public class DanhSachTour implements DanhSach<Tour> {
     @Override
     public boolean xoaTheoMa(int maTour) {
         if (this.danhSach == null||maTour<=0) return false;
-
-        for (int i = 0; i < this.soLuong; i++) {
-            if (this.danhSach[i] != null
-                    && this.danhSach[i].getMaTour() == maTour) {
-                for (int j = i; j < this.soLuong - 1; j++)
-                    this.danhSach[j] = this.danhSach[j + 1];
-
-                this.danhSach[--this.soLuong] = null;
-                return true;
+        boolean check=false;
+        int checkpoint=0;
+        for(int i=0;i<this.soLuong;i++){
+            if(danhSach[i].getMaTour()==maTour){
+                check=true;
+                checkpoint=i;
+                break;
             }
         }
-        return false;
+        if(!check){
+            return false;
+        }
+        for(int i=checkpoint;i<this.soLuong-1;i++){
+            this.danhSach[i]=this.danhSach[i+1];
+        }
+        this.soLuong--;
+        return true;
     }      
 
     @Override
@@ -340,4 +345,22 @@ public class DanhSachTour implements DanhSach<Tour> {
         }
         return max + 1;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
