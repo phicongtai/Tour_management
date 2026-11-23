@@ -1,14 +1,12 @@
 package giaodien;
 import java.util.Scanner;
 import dulieu.DocGhiFile;
-import giaodien.*;
-import kho.KhoDuLieu;
 public class MenuCLI {
+    private static final Scanner in = new Scanner(System.in);
     public static void main(String[] args) {
         DocGhiFile docGhi = new DocGhiFile();
         docGhi.docTatCa();
 
-        Scanner in = kho.KhoDuLieu.getScanner();
         int chose;
         do{
             System.out.println("HE THONG QUAN LY TOUR DU LICH");
@@ -36,7 +34,6 @@ public class MenuCLI {
                 System.out.flush();
                 docGhi.ghiTatCa();
                 System.out.println("Da luu du lieu. Dang thoat chuong trinh...");
-                KhoDuLieu.dongScanner();
                 System.exit(0);
             }
         }while(chose != 0);

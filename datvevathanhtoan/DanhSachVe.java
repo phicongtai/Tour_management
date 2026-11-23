@@ -7,13 +7,10 @@ import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 import danhsach.DanhSach;
-import kho.KhoDuLieu;
 import nguoidung.DanhSachHanhKhach;
-import nguoidung.HanhKhach;
-import tochuctour.DanhSachKeHoachTour;
-import tochuctour.KeHoachTour;
 
 public class DanhSachVe implements DanhSach<Ve> {
+    private static final Scanner in = new Scanner(System.in);
     private Ve[] danhSach;
     private int soLuong;
 
@@ -97,7 +94,6 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public void nhap() {
-        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhap so luong ve: ");
         this.soLuong = in.nextInt();
         in.nextLine();
@@ -137,7 +133,6 @@ public class DanhSachVe implements DanhSach<Ve> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        Scanner in = KhoDuLieu.getScanner();
         if(this.danhSach == null){
             return false;
         }

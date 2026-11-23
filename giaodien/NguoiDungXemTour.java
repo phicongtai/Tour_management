@@ -5,8 +5,8 @@ import kho.KhoDuLieu;
 import tour.Tour;
 
 public class NguoiDungXemTour {
+    private static final Scanner in = new Scanner(System.in);
     public static void xuLy() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n════════ TIM VA XEM TOUR ════════");

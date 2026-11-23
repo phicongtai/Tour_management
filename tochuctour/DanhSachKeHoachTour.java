@@ -7,9 +7,9 @@ import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 import danhsach.DanhSach;
-import kho.KhoDuLieu;
 
 public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
+    private static final Scanner in = new Scanner(System.in);
     private KeHoachTour[] danhSach;
     private int soLuong;
 
@@ -89,7 +89,6 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
 
     @Override
     public void nhap() {
-        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhap vao so luong: ");
         this.soLuong = in.nextInt();
         in.nextLine();
@@ -129,7 +128,6 @@ public class DanhSachKeHoachTour implements DanhSach<KeHoachTour> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        Scanner in = KhoDuLieu.getScanner();
         if(this.danhSach == null){
             return false;
         }
@@ -321,4 +319,51 @@ public boolean docFile(String duongDan) {
         }
         return max + 1;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //them
 }

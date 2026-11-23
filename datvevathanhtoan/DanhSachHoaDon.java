@@ -8,12 +8,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import danhsach.DanhSach;
-import kho.KhoDuLieu;
-import nguoidung.DanhSachNhanVien;
-import nguoidung.NhanVien;
-import tochuctour.KeHoachTour;
 
 public class DanhSachHoaDon implements DanhSach<HoaDon> {
+    private static final Scanner in = new Scanner(System.in);
     private HoaDon[] danhSach;
     private int soLuong;
 
@@ -96,7 +93,6 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public void nhap() {
-        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhap so luong ve: ");
         this.soLuong = in.nextInt();
         in.nextLine();
@@ -135,7 +131,6 @@ public class DanhSachHoaDon implements DanhSach<HoaDon> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        Scanner in = KhoDuLieu.getScanner();
         if(this.danhSach == null){
             return false;
         }

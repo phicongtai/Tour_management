@@ -6,8 +6,8 @@ import tochuctour.PhuongTien;
 import java.util.Scanner;
 
 public class Quanlyphuongtien {
+    private static final Scanner in = new Scanner(System.in);
     public static void mainQuanlyphuongtien() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n================ QUAN LY PHUONG TIEN ================");

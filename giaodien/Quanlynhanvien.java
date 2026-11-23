@@ -6,8 +6,8 @@ import nguoidung.NhanVien;
 import java.util.Scanner;
 
 public class Quanlynhanvien {
+    private static final Scanner in = new Scanner(System.in);
     public static void mainQuanlynhanvien() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n================ QUAN LY NHAN VIEN ================");

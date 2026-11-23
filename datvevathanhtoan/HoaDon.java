@@ -5,6 +5,7 @@ import java.util.Scanner;
 import kho.KhoDuLieu;
 
 public class HoaDon {
+    private static final Scanner in = new Scanner(System.in);
     private int maHoaDon;
     private int maDonDatTour;
     private int maNhanVien;
@@ -183,7 +184,6 @@ public long tinhSoTienConLai() {
     }
 
     public void nhap(){
-        Scanner in = KhoDuLieu.getScanner();
         this.maHoaDon = KhoDuLieu.getDanhSachHoaDon().getmamoi();
         System.out.println("Ma hoa don (tu dong): " + this.maHoaDon);
         System.out.print("Nhap ma don dat tour: ");

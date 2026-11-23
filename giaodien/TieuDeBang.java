@@ -29,23 +29,23 @@ public class TieuDeBang {
     }
 
     public static void inTieuDeNhanVien() {
-        System.out.printf("%-6s | %-24s | %-12s | %-10s | %-14s%n",
-                "Ma NV", "Ho Ten", "Ngay Sinh", "Gioi Tinh", "So Dien Thoai");
-        System.out.println("------------------------------------------------------------------------------");
+        System.out.printf("%-6s | %-12s | %-20s | %-12s | %-10s | %-14s%n",
+                "Ma NV", "Ho", "Ten", "Ngay Sinh", "Gioi Tinh", "So Dien Thoai");
+        System.out.println("-----------------------------------------------------------------------------------------");
     }
 
     public static void inChanBangNhanVien() {
-        System.out.println("==============================================================================");
+        System.out.println("=========================================================================================");
     }
 
     public static void inTieuDeHanhKhach() {
-        System.out.printf("%-6s | %-24s | %-12s | %-10s | %-14s%n",
-                "Ma HK", "Ho Ten", "Ngay Sinh", "Gioi Tinh", "So Dien Thoai");
-        System.out.println("------------------------------------------------------------------------------");
+        System.out.printf("%-6s | %-12s | %-20s | %-12s | %-10s | %-14s%n",
+                "Ma HK", "Ho", "Ten", "Ngay Sinh", "Gioi Tinh", "So Dien Thoai");
+        System.out.println("-----------------------------------------------------------------------------------------");
     }
 
     public static void inChanBangHanhKhach() {
-        System.out.println("==============================================================================");
+        System.out.println("=========================================================================================");
     }
 
     public static void inTieuDePhuongTien() {

@@ -6,8 +6,8 @@ import kho.KhoDuLieu;
 import java.util.Scanner;
 
 public class Quanlydocghifile {
+    private static final Scanner in = new Scanner(System.in);
     public static void mainQuanlydocghifile() {
-        Scanner in = KhoDuLieu.getScanner();
         DocGhiFile docGhi = new DocGhiFile();
         int chose;
         do {

@@ -1,13 +1,12 @@
 package giaodien;
 
 import baocao.BaoCaoThongKe;
-import kho.KhoDuLieu;
 
 import java.util.Scanner;
 
 public class Quanlythongke {
+    private static final Scanner in = new Scanner(System.in);
     public static void mainQuanlythongke() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n════════ BAO CAO VA THONG KE ════════");

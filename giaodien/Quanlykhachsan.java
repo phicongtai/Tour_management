@@ -6,8 +6,8 @@ import tochuctour.KhachSan;
 import java.util.Scanner;
 
 public class Quanlykhachsan {
+    private static final Scanner in = new Scanner(System.in);
     public static void mainQuanlykhachsan() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n================ QUAN LY KHACH SAN ================");

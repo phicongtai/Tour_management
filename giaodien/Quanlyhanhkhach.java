@@ -6,8 +6,8 @@ import nguoidung.HanhKhach;
 import java.util.Scanner;
 
 public class Quanlyhanhkhach {
+    private static final Scanner in = new Scanner(System.in);
     public static void mainQuanlyhanhkhach() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n================ QUAN LY HANH KHACH ================");

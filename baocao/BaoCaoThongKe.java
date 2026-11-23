@@ -38,7 +38,7 @@ public class BaoCaoThongKe {
      * 1. Tinh tong tien hoa don, thuc thu, cong no, tong chi va loi nhuan tu ngay a den ngay b (yyyy-MM-dd).
      */
     public static void thongKeTheoKhoang(String tuNgay, String denNgay) {
-        damBaoDuLieu();
+        damBaoDuLieu(); // nó la kiểm tra toàn bộ xem coi có danh sách nào có kích thước = 0 hay không nếu có văng
 
         String ngayBatDau = tuNgay == null ? "" : tuNgay.trim();
         String ngayKetThuc = denNgay == null ? "" : denNgay.trim();

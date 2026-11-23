@@ -1,12 +1,10 @@
 package giaodien;
 
-import kho.KhoDuLieu;
-
 import java.util.Scanner;
 
 public class MenuQuanLy {
+    private static final Scanner in = new Scanner(System.in);
     public static void menuquanly() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n================ MENU QUAN LY ================");

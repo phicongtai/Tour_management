@@ -1,7 +1,6 @@
 package nguoidung;
 
 import danhsach.DanhSach;
-import kho.KhoDuLieu;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.io.BufferedReader;
@@ -12,7 +11,7 @@ import java.io.FileWriter;
 public class DanhSachNhanVien implements DanhSach<NhanVien> {
     private NhanVien[] danhSach;
     private int soLuong;
-    private Scanner sc = KhoDuLieu.getScanner();
+    private static final Scanner sc = new Scanner(System.in);
 
     public DanhSachNhanVien() {
         this.danhSach = new NhanVien[0];
@@ -114,10 +113,16 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         System.out.println("Thong tin nhan vien hien tai: ");
         nv.xuat();
         
-        System.out.print("Chinh Ho ten: ");
-        String hoTen = this.sc.nextLine();
-        if (!hoTen.isBlank()) { 
-            nv.setHoTen(hoTen); 
+        System.out.print("Chinh Ho: ");
+        String ho = this.sc.nextLine();
+        if (!ho.isBlank()) { 
+            nv.setHo(ho); 
+        }
+        
+        System.out.print("Chinh Ten: ");
+        String ten = this.sc.nextLine();
+        if (!ten.isBlank()) { 
+            nv.setTen(ten); 
         }
         
         System.out.print("Chinh Ngay sinh (vd:2007-11-20): ");
@@ -181,14 +186,24 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
             while ((temp = reader.readLine()) != null) {
                 if (temp.isBlank()) continue;
                 String[] parts = temp.split("\\|");
-                if (parts.length >= 5) {
+                if (parts.length >= 6) {
                     NhanVien nv = new NhanVien(
                         Integer.parseInt(parts[0].trim()),
                         parts[1].trim(),
                         parts[2].trim(),
-                        Integer.parseInt(parts[3].trim()),
-                        parts[4].trim()
+                        parts[3].trim(),
+                        Integer.parseInt(parts[4].trim()),
+                        parts[5].trim()
                     );
+                    this.them(nv);
+                } else if (parts.length >= 5) {
+                    // Ho tro doc file cu (chua tach ho va ten)
+                    NhanVien nv = new NhanVien();
+                    nv.setMaNhanVien(Integer.parseInt(parts[0].trim()));
+                    nv.setHoTen(parts[1].trim());
+                    nv.setNgaySinh(parts[2].trim());
+                    nv.setGioiTinh(Integer.parseInt(parts[3].trim()));
+                    nv.setSoDienThoai(parts[4].trim());
                     this.them(nv);
                 }
             }
@@ -205,7 +220,8 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
             for (int i = 0; i < this.soLuong; i++) {
                 if (this.danhSach[i] == null) continue;
                 String temp = this.danhSach[i].getMaNhanVien() + "|" +
-                              this.danhSach[i].getHoTen() + "|" +
+                              this.danhSach[i].getHo() + "|" +
+                              this.danhSach[i].getTen() + "|" +
                               this.danhSach[i].getNgaySinh() + "|" +
                               this.danhSach[i].getGioiTinh() + "|" +
                               this.danhSach[i].getSoDienThoai();
@@ -218,14 +234,17 @@ public class DanhSachNhanVien implements DanhSach<NhanVien> {
         }
     }
 
-    public NhanVien[] timTheoTen(String hoTen) {
-        if (this.danhSach == null || this.soLuong <= 0 || hoTen == null || hoTen.isBlank()) {
+    public NhanVien[] timTheoTen(String tenCanTim) {
+        if (this.danhSach == null || this.soLuong <= 0 || tenCanTim == null || tenCanTim.isBlank()) {
             return new NhanVien[0];
         }
+        String khoa = tenCanTim.trim();
         NhanVien[] ketQua = new NhanVien[0];
         int index = 0;
         for (int i = 0; i < this.soLuong; i++) {
-            if (this.danhSach[i] != null && this.danhSach[i].getHoTen() != null && this.danhSach[i].getHoTen().equalsIgnoreCase(hoTen)) {
+            if (this.danhSach[i] != null && this.danhSach[i].getTen() != null
+                    && (this.danhSach[i].getTen().equalsIgnoreCase(khoa)
+                        || this.danhSach[i].getHoTen().equalsIgnoreCase(khoa))) {
                 ketQua = Arrays.copyOf(ketQua, index + 1);
                 ketQua[index] = this.danhSach[i];
                 index++;

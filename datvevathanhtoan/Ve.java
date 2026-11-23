@@ -2,13 +2,9 @@ package datvevathanhtoan;
 
 import java.util.Scanner;
 import kho.KhoDuLieu;
-import tochuctour.DanhSachKeHoachTour;
-import tochuctour.KeHoachTour;
-import nguoidung.DanhSachHanhKhach;
-import tour.DanhSachTour;
-import tour.Tour;
 
 public class Ve {
+    private static final Scanner in = new Scanner(System.in);
     public static final int DA_DAT = 0;
     public static final int DA_THANH_TOAN = 1;
     public static final int DA_HUY = 2;
@@ -105,7 +101,6 @@ public class Ve {
 
 
     public void nhap(){
-        Scanner in = KhoDuLieu.getScanner();
         this.maVe = KhoDuLieu.getDanhSachVe().getmamoi();
         System.out.println("Ma ve (tu dong): " + this.maVe);
         System.out.print("Nhap ma don dat tour: ");

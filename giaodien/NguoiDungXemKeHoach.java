@@ -7,8 +7,8 @@ import tochuctour.KeHoachTour;
 import tour.Tour;
 
 public class NguoiDungXemKeHoach {
+    private static final Scanner in = new Scanner(System.in);
     public static void xuLy() {
-        Scanner in = KhoDuLieu.getScanner();
         System.out.println("\n════════ XEM KE HOACH VA LICH TRINH ════════");
         System.out.print("Vui long nhap ma tour: ");
         int matour = in.nextInt();

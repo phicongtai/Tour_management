@@ -4,6 +4,7 @@ import java.util.Scanner;
 import kho.KhoDuLieu;
 
 public class KhachSan {
+    private static final Scanner in = new Scanner(System.in);
     private int maKhachSan;
     private String tenKhachSan;
     private long giaOMoiNguoiMoiDem;
@@ -57,7 +58,6 @@ public class KhachSan {
     }
 
     public void nhap() {
-        Scanner in = KhoDuLieu.getScanner();
         this.maKhachSan = KhoDuLieu.getDanhSachKhachSan().getMaMoi();
         System.out.println("Ma khach san (tu dong): " + this.maKhachSan);
         System.out.print("Nhap ten khach san: ");

@@ -8,8 +8,8 @@ import kho.KhoDuLieu;
 import nguoidung.HanhKhach;
 
 public class NguoiDungHuyVe {
+    private static final Scanner in = new Scanner(System.in);
     public static void xuLy() {
-        Scanner in = KhoDuLieu.getScanner();
         System.out.println("\n════════ HUY NHOM VE ════════");
         HanhKhach nguoidung = MenuNguoiDung.yeuCauDangNhap();
         if (nguoidung == null) {

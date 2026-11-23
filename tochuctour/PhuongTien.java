@@ -4,6 +4,7 @@ import java.util.Scanner;
 import kho.KhoDuLieu;
 
 public class PhuongTien {
+    private static final Scanner in = new Scanner(System.in);
     private int maPhuongTien;
     private String tenPhuongTien;
     private int soChoToiDa;
@@ -57,7 +58,6 @@ public class PhuongTien {
     }
 
     public void nhap() {
-        Scanner in = KhoDuLieu.getScanner();
         this.maPhuongTien = KhoDuLieu.getDanhSachPhuongTien().getMaMoi();
         System.out.println("Ma phuong tien (tu dong): " + this.maPhuongTien);
         System.out.print("Nhap ten phuong tien: ");

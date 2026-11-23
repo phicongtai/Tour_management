@@ -7,8 +7,8 @@ import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 import danhsach.DanhSach;
-import kho.KhoDuLieu;
 public class DanhSachTour implements DanhSach<Tour> {
+    private static final Scanner in = new Scanner(System.in);
     private Tour[] danhSach;
     private int soLuong;
 
@@ -61,7 +61,6 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     @Override
     public boolean them() {
-        Scanner in = KhoDuLieu.getScanner();
         System.out.println("Nhap loai tour (1: Trong nuoc, 2: Nuoc ngoai):");
         int loaiTour=in.nextInt();
         in.nextLine();
@@ -100,7 +99,6 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     @Override
     public void nhap() {
-        Scanner in=KhoDuLieu.getScanner();
         System.out.println("Nhap so luong tour:");
         this.soLuong=in.nextInt();
         in.nextLine();
@@ -139,7 +137,6 @@ public class DanhSachTour implements DanhSach<Tour> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        Scanner in = KhoDuLieu.getScanner();
         if(this.danhSach == null){
             return false;
         }
@@ -324,7 +321,7 @@ public class DanhSachTour implements DanhSach<Tour> {
         Tour[] ketQua = new Tour[0];
         int index = 0;
         for (int i = 0; i < this.soLuong; i++) {
-            if ( this.danhSach[i].getTenTour().toLowerCase().equals(tenTour.toLowerCase()) )
+            if ( this.danhSach[i].getTenTour().equalsIgnoreCase(tenTour) )
             {
                 ketQua = Arrays.copyOf(ketQua, index + 1);
                 ketQua[index] = this.danhSach[i];

@@ -9,8 +9,8 @@ import kho.KhoDuLieu;
 import nguoidung.HanhKhach;
 
 public class NguoiDungTraCuuVe {
+    private static final Scanner in = new Scanner(System.in);
     public static void xuLy() {
-        Scanner in = KhoDuLieu.getScanner();
         HanhKhach nguoidung = MenuNguoiDung.yeuCauDangNhap();
         if (nguoidung == null) {
             return;

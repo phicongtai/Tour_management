@@ -2,6 +2,7 @@ package tour;
 import java.util.Scanner;
 import kho.KhoDuLieu;
 public class TourTrongNuoc extends Tour {
+    private static final Scanner in = new Scanner(System.in);
     private String vungMien;
     private long phuPhi;
 
@@ -50,7 +51,6 @@ public class TourTrongNuoc extends Tour {
     }
     @Override 
     public void nhap(){
-        Scanner in = KhoDuLieu.getScanner();
         setMaTour(KhoDuLieu.getDanhSachTour().getMaMoi());
         System.out.println("Ma tour (tu dong): " + getMaTour());
         System.out.println("Nhap ten tour: ");

@@ -6,8 +6,8 @@ import kho.KhoDuLieu;
 import java.util.Scanner;
 
 public class Quanlyhoadon {
+    private static final Scanner in = new Scanner(System.in);
     public static void mainQuanlyhoadon() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n════════ HOA DON VA THANH TOAN ════════");

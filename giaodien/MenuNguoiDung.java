@@ -6,6 +6,7 @@ import kho.KhoDuLieu;
 import nguoidung.HanhKhach;
 
 public class MenuNguoiDung {
+    private static final Scanner in = new Scanner(System.in);
     private static HanhKhach nguoidung;
 
     public static HanhKhach yeuCauDangNhap() {
@@ -36,7 +37,6 @@ public class MenuNguoiDung {
     }
 
     public static void menunguoidung() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("════════ KHACH HANG ════════");

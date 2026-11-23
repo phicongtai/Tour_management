@@ -15,8 +15,8 @@ import tochuctour.KeHoachTour;
 import tour.Tour;
 
 public class NguoiDungDatVe {
+    private static final Scanner in = new Scanner(System.in);
     public static void xuLy() {
-        Scanner in = KhoDuLieu.getScanner();
         int matour;
         int chosekh;
         Tour tourDaChon;

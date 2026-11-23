@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import danhsach.DanhSach;
-import kho.KhoDuLieu;
 
 public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
+    private static final Scanner in = new Scanner(System.in);
     private PhuongTien[] danhSach;
     private int soLuong;
 
@@ -94,7 +94,6 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
 
     @Override
     public void nhap() {
-        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhap vao so luong: ");
         this.soLuong = in.nextInt();
         in.nextLine();
@@ -135,7 +134,6 @@ public class DanhSachPhuongTien implements DanhSach<PhuongTien> {
 
     @Override
     public boolean suaTheoMa(int ma) {
-        Scanner in = KhoDuLieu.getScanner();
         if(this.danhSach == null){
             return false;
         }

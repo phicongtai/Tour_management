@@ -1,6 +1,5 @@
 package kho;
 
-import java.util.Scanner;
 import datvevathanhtoan.DanhSachHoaDon;
 import datvevathanhtoan.DanhSachVe;
 import nguoidung.DanhSachHanhKhach;
@@ -11,7 +10,6 @@ import tochuctour.DanhSachPhuongTien;
 import tour.DanhSachTour;
 
 public final class KhoDuLieu {
-    private static final Scanner scanner = new Scanner(System.in);
 
     // 8 danh sach tinh dung chung toan he thong
     private static final DanhSachTour danhSachTour = new DanhSachTour();
@@ -25,16 +23,6 @@ public final class KhoDuLieu {
 
     // Private constructor de ngan tao doi tuong ben ngoai
     private KhoDuLieu() {
-    }
-
-    public static Scanner getScanner() {
-        return scanner;
-    }
-
-    public static void dongScanner() {
-        if (scanner != null) {
-            scanner.close();
-        }
     }
 
     // Getters tinh cho tung danh sach

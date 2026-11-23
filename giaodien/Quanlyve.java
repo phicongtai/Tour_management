@@ -9,8 +9,8 @@ import tour.Tour;
 import java.util.Scanner;
 
 public class Quanlyve {
+    private static final Scanner in = new Scanner(System.in);
     public static void mainQuanlyve() {
-        Scanner in = KhoDuLieu.getScanner();
         int chose;
         do {
             System.out.println("\n================ QUAN LY VE ================");

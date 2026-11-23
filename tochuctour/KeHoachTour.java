@@ -6,6 +6,7 @@ import kho.KhoDuLieu;
 import tour.Tour;
 
 public class KeHoachTour {
+    private static final Scanner in = new Scanner(System.in);
     private int maKeHoachTour;
     private int maTour;
     private int maNhanVien;
@@ -184,7 +185,6 @@ public class KeHoachTour {
     }
 
     public void nhap(){
-        Scanner in = KhoDuLieu.getScanner();
         this.maKeHoachTour = KhoDuLieu.getDanhSachKeHoachTour().getMaMoi();
         System.out.println("Ma ke hoach tour (tu dong): " + this.maKeHoachTour);
         System.out.print("Nhap ma tour: ");

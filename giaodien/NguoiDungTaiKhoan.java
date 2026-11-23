@@ -5,8 +5,8 @@ import kho.KhoDuLieu;
 import nguoidung.HanhKhach;
 
 public class NguoiDungTaiKhoan {
+    private static final Scanner in = new Scanner(System.in);
     public static HanhKhach xuLy(HanhKhach nguoidung) {
-        Scanner in = KhoDuLieu.getScanner();
         HanhKhach temp1 = null;
         int chose;
         do {

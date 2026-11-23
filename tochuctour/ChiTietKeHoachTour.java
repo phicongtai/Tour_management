@@ -4,6 +4,7 @@ import java.util.Scanner;
 import kho.KhoDuLieu;
 
 public class ChiTietKeHoachTour {
+    private static final Scanner in = new Scanner(System.in);
     private String ngay;
     private int maPhuongTien;
     private int maKhachSan;
@@ -85,7 +86,6 @@ public class ChiTietKeHoachTour {
     }
 
     public void nhap() {
-        Scanner in = KhoDuLieu.getScanner();
         System.out.print("Nhap ngay (vd: 2026-11-20): ");
         this.ngay = in.nextLine();
         System.out.print("Nhap ma phuong tien: ");
